@@ -41,3 +41,13 @@ export async function DELETE(req:Request){
  const supabase=await createClient();const {data:cart}=await supabase.from("carts").select("id").eq("user_id",user.id).single();if(!cart)return NextResponse.json({error:"CART_NOT_FOUND"},{status:404});
  const {error}=await supabase.from("cart_items").delete().eq("id",body.itemId).eq("cart_id",cart.id);if(error)return NextResponse.json({error:error.message},{status:500});return NextResponse.json({ok:true});
 }
+export async function PATCH(req:Request){
+ const user=await getCurrentUser(); if(!user)return NextResponse.json({error:"UNAUTHORIZED"},{status:401});
+ const body=await req.json(); const quantity=Math.floor(Number(body.quantity));
+ if(!body.itemId||!Number.isFinite(quantity)||quantity<1||quantity>99)return NextResponse.json({error:"INVALID_QUANTITY"},{status:400});
+ const supabase=await createClient(); const {data:cart}=await supabase.from("carts").select("id").eq("user_id",user.id).single();
+ if(!cart)return NextResponse.json({error:"CART_NOT_FOUND"},{status:404});
+ const {data,error}=await supabase.from("cart_items").update({quantity}).eq("id",body.itemId).eq("cart_id",cart.id).select("id,quantity,unit_price_twd").single();
+ if(error||!data)return NextResponse.json({error:error?.message||"ITEM_NOT_FOUND"},{status:error?500:404});
+ return NextResponse.json({item:data});
+}
