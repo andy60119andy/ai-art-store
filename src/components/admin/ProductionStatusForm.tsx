@@ -1,0 +1,4 @@
+"use client";
+import { useState } from "react";
+const statuses=[["pending","待處理"],["ready","待生產"],["printing","印刷中"],["framing","裱框中"],["packed","已包裝"],["completed","完成"]];
+export default function ProductionStatusForm({id,current}:{id:string;current:string}){const [value,setValue]=useState(current);const [saving,setSaving]=useState(false);async function save(){setSaving(true);const r=await fetch("/api/admin/production",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({id,status:value})});setSaving(false);if(r.ok)location.reload();}return <div style={{display:"flex",gap:8}}><select value={value} onChange={e=>setValue(e.target.value)}>{statuses.map(([v,l])=><option key={v} value={v}>{l}</option>)}</select><button onClick={save} disabled={saving}>{saving?"儲存中":"更新"}</button></div>}
