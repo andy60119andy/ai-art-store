@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 export type EcpayFields = Record<string, string | number>;
 function required(name: string): string { const value = process.env[name]; if (!value) throw new Error(`Missing ${name}`); return value; }
-function ecpayEncode(value: string): string { return encodeURIComponent(value).replace(/%20/g, "+").replace(/!/g, "%21").replace(/\x27/g, "%27").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/~/g, "%7e"); }
+function ecpayEncode(value: string): string { return encodeURIComponent(value).replace(/%20/g, "+").replace(/\x27/g, "%27"); }
 export function generateCheckMacValue(fields: EcpayFields): string {
   const hashKey = required("ECPAY_HASH_KEY"); const hashIv = required("ECPAY_HASH_IV");
   const source = Object.entries(fields).filter(([key]) => key.toLowerCase() !== "checkmacvalue").sort(([a],[b]) => a.localeCompare(b,"en")).map(([key,value]) => `${key}=${value}`).join("&");
