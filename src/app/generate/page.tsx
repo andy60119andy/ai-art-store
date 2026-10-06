@@ -39,16 +39,9 @@ export default function GeneratePage() {
         <p className="eyebrow">AI GENERATION</p>
         <h1>選擇藝術風格</h1>
         <p>上傳完成後，把 Upload ID 貼到這裡，系統會呼叫真實 AI 生圖模型並儲存作品。</p>
-        <input
-          aria-label="upload-id"
-          placeholder="貼上 Upload ID"
-          value={uploadId}
-          onChange={(e) => setUploadId(e.target.value)}
-        />
+        <input aria-label="upload-id" placeholder="貼上 Upload ID" value={uploadId} onChange={(e) => setUploadId(e.target.value)} />
         <select value={styleKey} onChange={(e) => setStyleKey(e.target.value)}>
-          {ART_STYLES.map((style) => (
-            <option key={style.key} value={style.key}>{style.name}</option>
-          ))}
+          {ART_STYLES.map((style) => <option key={style.key} value={style.key}>{style.name}</option>)}
         </select>
         <button onClick={generate} disabled={!uploadId}>開始生成</button>
         <p role="status">{message}</p>
