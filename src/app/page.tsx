@@ -4,14 +4,6 @@ export default function HomePage() {
   return (
     <main className="page">
       <section className="hero" style={{ width: "min(1180px,100%)", padding: 0, overflow: "hidden" }}>
-        <div style={{ padding: "28px 34px", borderBottom: "1px solid #eee", display:"flex", justifyContent:"space-between", alignItems:"center", gap:20 }}>
-          <strong style={{fontSize:20}}>AI ART STORE</strong>
-          <nav style={{display:"flex",gap:18,flexWrap:"wrap"}}>
-            <Link href="/upload">開始創作</Link>
-            <Link href="/account">我的作品</Link>
-            <Link href="/cart">購物車</Link>
-          </nav>
-        </div>
         <div style={{display:"grid",gridTemplateColumns:"1.15fr .85fr",minHeight:560}}>
           <div style={{padding:"72px 48px",display:"flex",flexDirection:"column",justifyContent:"center"}}>
             <p className="eyebrow">AI CUSTOM ART STORE</p>
