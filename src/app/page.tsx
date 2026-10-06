@@ -1,0 +1,1 @@
+export default function HomePage(){return <main className="page"><section className="hero"><p className="eyebrow">AI CUSTOM ART STORE</p><h1>把你的照片，變成專屬藝術作品。</h1><p>V1 基礎架構已建立。下一階段將接入 Supabase、AI 生圖、畫框 Mockup、購物車、金流、訂單與物流。</p><div className="status">● TASK-001 基礎架構</div></section></main>}
