@@ -20,7 +20,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
   const { data: order } = await supabase
     .from("orders")
     .select(`id,order_number,status,shipping_address,subtotal_twd,shipping_fee_twd,discount_twd,total_twd,created_at,
-      order_items(id,quantity,unit_price_twd,title,product_id,artwork_id,size_id,frame_id,paper_id,mockup_id,
+      order_items(id,quantity,unit_price_twd,product_id,artwork_id,size_id,frame_id,paper_id,mockup_id,
         products(name),
         product_sizes(name,width_mm,height_mm),
         frames(name),
@@ -58,7 +58,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
         return <div key={item.id} style={{ padding:16, border:"1px solid #e4e4e0", borderRadius:14, display:"grid", gridTemplateColumns:"180px 1fr", gap:18, alignItems:"center" }}>
           {item.mockupUrl ? <img src={item.mockupUrl} alt="畫框成品預覽" style={{ width:"100%", borderRadius:10 }} /> : <div style={{ aspectRatio:"1", background:"#f2f2ef", borderRadius:10, display:"grid", placeItems:"center" }}>作品</div>}
           <div>
-            <strong>{product?.name ?? item.title ?? "客製藝術掛畫"}</strong>
+            <strong>{product?.name ?? "客製藝術掛畫"}</strong>
             <div style={{marginTop:8}}>尺寸：{size?.name ?? "—"}　畫框：{frame?.name ?? "—"}　紙張：{paper?.name ?? "—"}</div>
             <div style={{marginTop:8}}>數量：{item.quantity}　單價：NT$ {item.unit_price_twd.toLocaleString()}</div>
           </div>
