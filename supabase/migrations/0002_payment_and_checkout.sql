@@ -41,7 +41,7 @@ declare
   v_order_id uuid;
   v_order_number text;
 begin
-  if p_user_id is null then raise exception 'UNAUTHORIZED'; end if;
+  if p_user_id is null or p_user_id <> auth.uid() then raise exception 'UNAUTHORIZED'; end if;
   if coalesce(p_shipping_address->>'recipient_name','') = ''
      or coalesce(p_shipping_address->>'phone','') = ''
      or coalesce(p_shipping_address->>'city','') = ''
