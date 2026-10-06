@@ -43,7 +43,7 @@ export default async function ArtworkDetailPage({ params }: { params: Promise<{ 
             </div>
             <div style={{display:"flex",gap:12,flexWrap:"wrap",marginTop:16}}>
               <a href={latest.signedUrl} target="_blank" rel="noreferrer">開啟原圖</a>
-              <Link href={`/generate?artworkId=${artwork.id}`}>再創作</Link>
+              <Link href="/customize">製作成品 →</Link>
             </div>
             <p style={{fontSize:13,opacity:.7}}>預覽連結為限時私有 URL，不會把作品檔案公開到網站。</p>
           </div>
