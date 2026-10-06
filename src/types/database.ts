@@ -1,0 +1,10 @@
+export type Database = {
+  public: {
+    Tables: {
+      profiles: { Row: { id: string; display_name: string | null; role: "customer"|"admin"|"production"; created_at: string; updated_at: string }; Insert: Partial<Database["public"]["Tables"]["profiles"]["Row"]> & { id: string }; Update: Partial<Database["public"]["Tables"]["profiles"]["Row"]> };
+      products: { Row: { id:string; category_id:string|null; name:string; slug:string; description:string|null; base_price_twd:number; active:boolean; created_at:string; updated_at:string }; Insert: Omit<Database["public"]["Tables"]["products"]["Row"],"id"|"created_at"|"updated_at"> & Partial<Pick<Database["public"]["Tables"]["products"]["Row"],"id"|"created_at"|"updated_at">>; Update: Partial<Database["public"]["Tables"]["products"]["Row"]> };
+      generation_jobs: { Row: { id:string; user_id:string; upload_id:string|null; style_key:string; prompt:string|null; status:"queued"|"processing"|"succeeded"|"failed"; error_message:string|null; provider_job_id:string|null; created_at:string; started_at:string|null; completed_at:string|null }; Insert: Omit<Database["public"]["Tables"]["generation_jobs"]["Row"],"id"|"created_at"> & Partial<Pick<Database["public"]["Tables"]["generation_jobs"]["Row"],"id"|"created_at">>; Update: Partial<Database["public"]["Tables"]["generation_jobs"]["Row"]> };
+      orders: { Row: { id:string; user_id:string; order_number:string; status:"pending_payment"|"paid"|"processing"|"in_production"|"shipped"|"completed"|"cancelled"|"refunded"; shipping_address: unknown; subtotal_twd:number; shipping_fee_twd:number; discount_twd:number; total_twd:number; created_at:string; updated_at:string }; Insert: Omit<Database["public"]["Tables"]["orders"]["Row"],"id"|"created_at"|"updated_at"> & Partial<Pick<Database["public"]["Tables"]["orders"]["Row"],"id"|"created_at"|"updated_at">>; Update: Partial<Database["public"]["Tables"]["orders"]["Row"]> };
+    };
+  };
+};
