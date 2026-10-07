@@ -18,18 +18,21 @@ export default async function AccountPage() {
   if (!user) redirect("/login");
 
   const supabase = await createClient();
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("display_name, role")
-    .eq("id", user.id)
-    .single();
-  const { data: artworks } = await supabase
-    .from("artworks")
-    .select(
-      "id, title, status, created_at, artwork_versions(id, storage_path, width_px, height_px, version_no)",
-    )
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
+  const [{ data: jobs }, { data: artworks }] = await Promise.all([
+    supabase
+      .from("generation_jobs")
+      .select("id,style_key,status,created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(20),
+    supabase
+      .from("artworks")
+      .select(
+        "id, title, status, created_at, artwork_versions(id, storage_path, width_px, height_px, version_no)",
+      )
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false }),
+  ]);
 
   const cards = await Promise.all(
     (artworks ?? []).map(async (artwork) => {
@@ -51,11 +54,40 @@ export default async function AccountPage() {
         <p className="eyebrow">MY ACCOUNT</p>
         <h1>會員中心</h1>
         <p>Email：{user.email}</p>
-        <p>角色：{profile?.role ?? "customer"}</p>
+
         <p>
           <Link href="/orders">查看我的訂單 →</Link>
         </p>
       </section>
+      {!!jobs?.length && (
+        <section className="hero">
+          <p className="eyebrow">RECENT CREATIONS</p>
+          <h2>最近的創作任務</h2>
+          <p>離開創作頁後，可以從這裡重新查詢進度與結果。</p>
+          <ul className="clone-job-list">
+            {jobs.map((job) => (
+              <li key={job.id}>
+                <Link
+                  href={`/generate?job=${job.id}&style=${encodeURIComponent(job.style_key ?? "")}`}
+                >
+                  <strong>{job.style_key}</strong>
+                  <span>
+                    {(
+                      {
+                        queued: "等待創作",
+                        processing: "創作中",
+                        succeeded: "已完成",
+                        failed: "未完成",
+                      } as Record<string, string>
+                    )[job.status] ?? job.status}{" "}
+                    · 查看任務 →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       <section className="hero">
         <div
           style={{

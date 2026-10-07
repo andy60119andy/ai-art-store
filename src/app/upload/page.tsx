@@ -1,5 +1,5 @@
 import { hasSupabaseConfiguration } from "@/lib/service-availability";
-import PhotoStarter from "@/components/site/PhotoStarter";
+import PreviewCreator from "@/components/site/PreviewCreator";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
@@ -29,10 +29,9 @@ export default async function UploadPage() {
             </div>
           </div>
           <div>
-            <PhotoStarter
-              styleName="專屬藝術作品"
-              continueHref="/generate"
-              continueLabel="查看創作風格 →"
+            <PreviewCreator
+              styleKey="watercolor-portrait"
+              styleName="水彩藝術作品"
             />
             <div className="arto-product-notice">
               此處可先預覽照片。正式上傳與 AI 生成服務尚未啟用。

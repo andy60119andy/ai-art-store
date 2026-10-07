@@ -1,101 +1,57 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
+import { z } from "zod";
 import { getCurrentUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { getAiProvider } from "@/lib/ai/provider";
-
-export async function POST(_request: Request, context: { params: Promise<{ id: string }> }) {
+import { generationConfigured } from "@/lib/ai/generation-request";
+import { processGeneration } from "@/lib/ai/generation-worker";
+export const runtime = "nodejs";
+export const maxDuration = 300;
+export async function POST(
+  _request: Request,
+  context: { params: Promise<{ id: string }> },
+) {
+  if (!generationConfigured())
+    return NextResponse.json(
+      { error: "GENERATION_SERVICE_NOT_CONFIGURED" },
+      { status: 503 },
+    );
   const user = await getCurrentUser();
-  if (!user) return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
-
+  if (!user)
+    return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
   const { id } = await context.params;
-  const supabase = await createClient();
-
-  const { data: job, error: jobError } = await supabase
+  if (!z.string().uuid().safeParse(id).success)
+    return NextResponse.json({ error: "INVALID_INPUT" }, { status: 400 });
+  const db = await createClient();
+  const { data: job } = await db
     .from("generation_jobs")
-    .select("id, user_id, upload_id, style_key, prompt, status")
+    .select("id,status,result_version_id")
     .eq("id", id)
     .eq("user_id", user.id)
     .single();
-
-  if (jobError || !job) return NextResponse.json({ error: "GENERATION_NOT_FOUND" }, { status: 404 });
-  if (job.status === "succeeded") return NextResponse.json({ job });
-
-  const { data: upload } = await supabase
-    .from("uploads")
-    .select("storage_path")
-    .eq("id", job.upload_id)
-    .eq("user_id", user.id)
-    .single();
-
-  if (!upload) return NextResponse.json({ error: "UPLOAD_NOT_FOUND" }, { status: 404 });
-
-  await supabase
-    .from("generation_jobs")
-    .update({ status: "processing", started_at: new Date().toISOString(), error_message: null })
-    .eq("id", job.id)
-    .eq("user_id", user.id);
-
-  try {
-    const { data: signed, error: signedError } = await supabase.storage
-      .from("artwork-uploads")
-      .createSignedUrl(upload.storage_path, 300);
-
-    if (signedError || !signed?.signedUrl) throw new Error("SOURCE_IMAGE_SIGNED_URL_FAILED");
-
-    const result = await getAiProvider().generate({
-      imageUrl: signed.signedUrl,
-      styleKey: job.style_key,
-      prompt: job.prompt ?? undefined,
+  if (!job)
+    return NextResponse.json(
+      { error: "GENERATION_NOT_FOUND" },
+      { status: 404 },
+    );
+  if (job.status === "queued")
+    after(async () => {
+      try {
+        await processGeneration(id, user.id);
+      } catch {
+        console.error("generation_dispatch_failed", { jobId: id });
+      }
     });
-
-    if (result.status !== "succeeded" || !result.outputUrl?.startsWith("data:image/")) {
-      throw new Error(result.error || "AI_GENERATION_FAILED");
-    }
-
-    const base64 = result.outputUrl.split(",")[1];
-    const imageBytes = Buffer.from(base64, "base64");
-    const outputPath = `${user.id}/generations/${job.id}.png`;
-
-    const { error: uploadError } = await supabase.storage
-      .from("artwork-uploads")
-      .upload(outputPath, imageBytes, { contentType: "image/png", upsert: true });
-
-    if (uploadError) throw new Error(`OUTPUT_STORAGE_UPLOAD_FAILED:${uploadError.message}`);
-
-    const { data: artwork, error: artworkError } = await supabase
-      .from("artworks")
-      .insert({ user_id: user.id, title: "AI Generated Artwork", status: "ready" })
-      .select("id")
+  let artworkId = null;
+  if (job.result_version_id) {
+    const { data: v } = await db
+      .from("artwork_versions")
+      .select("artwork_id")
+      .eq("id", job.result_version_id)
       .single();
-
-    if (artworkError || !artwork) throw new Error("ARTWORK_CREATE_FAILED");
-
-    const { error: versionError } = await supabase.from("artwork_versions").insert({
-      artwork_id: artwork.id,
-      generation_job_id: job.id,
-      storage_path: outputPath,
-      version_no: 1,
-    });
-
-    if (versionError) throw new Error("ARTWORK_VERSION_CREATE_FAILED");
-
-    const { data: updatedJob } = await supabase
-      .from("generation_jobs")
-      .update({ status: "succeeded", completed_at: new Date().toISOString(), provider_job_id: result.providerJobId ?? null })
-      .eq("id", job.id)
-      .eq("user_id", user.id)
-      .select("id, status, style_key, created_at, started_at, completed_at")
-      .single();
-
-    return NextResponse.json({ job: updatedJob, artworkId: artwork.id, storagePath: outputPath });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "AI_GENERATION_FAILED";
-    await supabase.from("generation_jobs").update({
-      status: "failed",
-      error_message: message.slice(0, 2000),
-      completed_at: new Date().toISOString(),
-    }).eq("id", job.id).eq("user_id", user.id);
-
-    return NextResponse.json({ error: "AI_GENERATION_FAILED", message }, { status: 502 });
+    artworkId = v?.artwork_id ?? null;
   }
+  return NextResponse.json(
+    { job: { id: job.id, status: job.status }, artworkId },
+    { status: job.status === "succeeded" ? 200 : 202 },
+  );
 }

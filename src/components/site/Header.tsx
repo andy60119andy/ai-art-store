@@ -2,26 +2,89 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { REFERENCE_GALLERY } from "@/lib/ai/reference-gallery";
+import { GIFT_COLLECTIONS, OCCASION_COLLECTIONS } from "@/lib/ai/collections";
 import "@/app/storefront.css";
-
+import "@/app/reference-flow.css";
+const groups = [
+  {
+    name: "卡通與動畫",
+    keys: [
+      "simpsons-portrait",
+      "anime-portrait",
+      "ghibli-portrait",
+      "cartoon-portrait",
+      "pixar-portrait",
+    ],
+  },
+  {
+    name: "經典藝術",
+    keys: [
+      "watercolor-portrait",
+      "oil-painting-portrait",
+      "renaissance-portrait",
+      "pencil-sketch-portrait",
+      "digital-portrait",
+    ],
+  },
+  {
+    name: "寵物",
+    keys: [
+      "pet-portrait",
+      "dog-portrait",
+      "cat-portrait",
+      "horse-portrait",
+      "royal-pet-portrait",
+    ],
+  },
+  {
+    name: "人物與家庭",
+    keys: [
+      "couple-portrait",
+      "family-portrait",
+      "family-illustration",
+      "couple-line-art-portrait",
+      "storybook-family-portrait",
+    ],
+  },
+  {
+    name: "婚禮與愛情",
+    keys: [
+      "wedding-portrait",
+      "wedding-line-art-portrait",
+      "wedding-venue-portrait",
+      "wedding-bouquet-illustration",
+      "save-the-date-illustration",
+    ],
+  },
+  {
+    name: "禮物與居家",
+    keys: [
+      "portrait-gift",
+      "house-portrait",
+      "graduation-portrait",
+      "memorial-portrait",
+      "first-home-illustration",
+    ],
+  },
+];
 export default function Header() {
   const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   function closeMenu() {
     setOpen(false);
-    navRef.current?.querySelectorAll("details").forEach((item) => {
-      item.open = false;
-    });
+    navRef.current
+      ?.querySelectorAll("details")
+      .forEach((d) => (d.open = false));
   }
   return (
-    <header className="arto-header">
+    <header className="arto-header clone-header">
       <div className="arto-announcement">
-        120 cm 可印幅寬 · 長幅客製 · 從照片到空間藝術
+        ✓ 從喜歡的照片開始，先找到你的藝術風格
       </div>
       <div className="arto-header-inner">
         <Link href="/" className="arto-brand">
           ▧ AI ART <em>STORE</em>
-          <small>Art made for your space</small>
+          <small>Transform your photos into art</small>
         </Link>
         <button
           className="arto-menu-toggle"
@@ -35,64 +98,116 @@ export default function Header() {
         <nav
           id="arto-navigation"
           ref={navRef}
-          onClick={(event) => {
-            if ((event.target as HTMLElement).closest("a")) closeMenu();
-          }}
           className={open ? "is-open" : ""}
           aria-label="主要導覽"
+          onClick={(e) => {
+            if ((e.target as HTMLElement).closest("a")) closeMenu();
+          }}
         >
           <details className="arto-nav-dropdown">
             <summary>
               藝術風格 <span>⌄</span>
             </summary>
-            <div className="arto-mega">
-              <h3>找到你喜歡的藝術風格</h3>
-              <div>
-                {REFERENCE_GALLERY.slice(0, 12).map((s) => (
-                  <Link
-                    key={s.key}
-                    href={`/styles/${s.key}`}
-                    onClick={closeMenu}
-                  >
-                    {s.name} ↗
-                  </Link>
+            <div className="arto-mega clone-mega">
+              <div className="clone-mega-heading">
+                <div>
+                  <h3>挑選你的藝術方向</h3>
+                  <p>79 種風格參考，從照片開始創作。</p>
+                </div>
+                <Link href="/styles">查看全部 →</Link>
+              </div>
+              <div className="clone-mega-columns">
+                {groups.map((g) => (
+                  <section key={g.name}>
+                    <h4>{g.name}</h4>
+                    {g.keys.map((key) => {
+                      const s = REFERENCE_GALLERY.find((x) => x.key === key);
+                      return s ? (
+                        <Link key={key} href={`/styles/${key}`}>
+                          {s.name}
+                        </Link>
+                      ) : null;
+                    })}
+                    <Link className="clone-mega-more" href="/shop">
+                      探索更多 →
+                    </Link>
+                  </section>
                 ))}
               </div>
-              <Link href="/styles" onClick={closeMenu}>
-                探索全部 79 種風格參考 →
-              </Link>
+              <div className="clone-mega-bottom">
+                <span>上傳照片 · 風格預覽 · 專屬創作</span>
+                <Link href="/shop">開始選擇 →</Link>
+              </div>
             </div>
           </details>
           <details className="arto-nav-dropdown">
             <summary>
-              創作與配框 <span>⌄</span>
+              商店 <span>⌄</span>
             </summary>
-            <div className="arto-mega arto-mega-small">
-              <Link href="/upload">照片藝術創作 →</Link>
-              <Link href="/large-format">大尺寸與長幅客製 →</Link>
-              <Link href="/customize">選擇尺寸與畫框 →</Link>
-              <Link href="/account">我的作品收藏 →</Link>
+            <div className="arto-mega clone-mega">
+              <div className="clone-mega-heading">
+                <div>
+                  <h3>找到適合這份心意的作品</h3>
+                  <p>依對象、場合或主題挑選。</p>
+                </div>
+                <Link href="/shop">瀏覽商店 →</Link>
+              </div>
+              <div className="clone-mega-columns clone-shop-menu">
+                <section>
+                  <h4>作品與印刷</h4>
+                  <Link href="/shop">全部商品風格</Link>
+                  <Link href="/styles">全部風格</Link>
+                  <Link href="/large-format">120 cm 大尺寸客製</Link>
+                  <Link href="/customize">尺寸與畫框</Link>
+                </section>
+                <section>
+                  <h4>送禮對象</h4>
+                  {GIFT_COLLECTIONS.map((g) => (
+                    <Link key={g.slug} href={`/gifts/${g.slug}`}>
+                      {g.name}
+                    </Link>
+                  ))}
+                </section>
+                <section>
+                  <h4>重要場合</h4>
+                  {OCCASION_COLLECTIONS.slice(0, 5).map((g) => (
+                    <Link key={g.slug} href={`/occasions/${g.slug}`}>
+                      {g.name}
+                    </Link>
+                  ))}
+                  <Link href="/occasions">全部場合 →</Link>
+                </section>
+                <section>
+                  <h4>作品主題</h4>
+                  {[
+                    "pet-portrait",
+                    "couple-portrait",
+                    "family-portrait",
+                    "memorial-portrait",
+                  ].map((k) => (
+                    <Link key={k} href={`/styles/${k}`}>
+                      {REFERENCE_GALLERY.find((s) => s.key === k)?.name}
+                    </Link>
+                  ))}
+                </section>
+              </div>
             </div>
           </details>
-          <Link href="/gift-ideas" onClick={closeMenu}>
-            送禮靈感
-          </Link>
-          <Link href="/#how-it-works" onClick={closeMenu}>
-            創作流程
-          </Link>
-          <Link href="/large-format" onClick={closeMenu}>
-            大尺寸客製
-          </Link>
+          <Link href="/gift-ideas">送禮靈感</Link>
+          <Link href="/#how-it-works">製作流程</Link>
         </nav>
         <div className="arto-header-actions">
-          <Link href="/account" className="arto-my-art">
+          <Link href="/my-orders" className="arto-my-art">
             ▧ 我的作品
           </Link>
-          <Link href="/cart" aria-label="購物車" className="arto-cart">
-            ♧
+          <span className="clone-currency" aria-label="幣別：新台幣">
+            TWD
+          </span>
+          <Link href="/login" className="arto-cart" aria-label="登入我的帳戶">
+            ♙
           </Link>
-          <Link href="/upload" className="arto-header-cta">
-            ✧ 開始創作<small>打造你的專屬藝術</small>
+          <Link href="/shop" className="arto-header-cta">
+            ✧ 開始創作<small>先找到喜歡的風格</small>
           </Link>
         </div>
       </div>

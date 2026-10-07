@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/site/Header";
+import { CreationDraftProvider } from "@/components/site/CreationDraft";
+import "./reference-flow.css";
 import Footer from "@/components/site/Footer";
 import "./subpages.css";
 export const metadata: Metadata = {
@@ -16,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang="zh-Hant">
       <body>
-        <Header />
-        {children}
-        <Footer />
+        <CreationDraftProvider>
+          <Header />
+          {children}
+          <Footer />
+        </CreationDraftProvider>
       </body>
     </html>
   );

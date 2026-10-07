@@ -67,7 +67,7 @@ export default function ReferenceGallery({
                 ? router.push(`/styles/${style.key}`)
                 : setSelected(style)
             }
-            aria-label={`放大預覽 ${style.name}`}
+            aria-label={`${linkToDetails ? "查看風格" : "放大預覽"} ${style.name}`}
           >
             <div className="arto-style-image">
               <Image
@@ -104,7 +104,7 @@ export default function ReferenceGallery({
         </div>
       )}
       <p className="arto-disclaimer">
-        圖片為參考站風格展示。目前創作頁提供 12 種已設定的生成風格。
+        圖片為風格參考；正式 AI 生成服務尚待接通，實際結果依照片而異。
       </p>
       <dialog
         ref={dialog}
@@ -136,9 +136,7 @@ export default function ReferenceGallery({
             <div className="arto-dialog-content">
               <span className="arto-eyebrow">STYLE PREVIEW</span>
               <h2 id="arto-preview-title">{selected.name}</h2>
-              <p>
-                此圖為風格參考。前往創作頁後，可選擇目前已設定的 12 種創作風格。
-              </p>
+              <p>此圖為風格參考。選擇此方向後，可前往詳情頁提交你的照片。</p>
               <Link
                 className="arto-button"
                 href={`/styles/${selected.key}`}

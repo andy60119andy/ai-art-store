@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { REFERENCE_GALLERY } from "@/lib/ai/reference-gallery";
-import PhotoStarter from "./PhotoStarter";
+import PreviewCreator from "./PreviewCreator";
 import { Breadcrumb, InnerCTA, StyleCards } from "./InnerPage";
 export default function StyleDetail({
   style,
@@ -40,12 +40,13 @@ export default function StyleDetail({
           <span className="arto-green-tag">YOUR PHOTO, REIMAGINED</span>
           <h1>{style.name}</h1>
           <p>將喜歡的照片，化成 {style.name} 的藝術靈感。</p>
-          <div className="arto-product-price">尺寸與配框可自訂</div>
+          <div className="arto-product-price">先預覽，再選成品</div>
+          <p className="clone-product-sub">數位作品 · 藝術印刷 · 客製配框</p>
           <div className="arto-product-notice">
             ✓ 先探索風格，再決定作品的呈現方式
             <br />✓ 成品價格依尺寸、材質與畫框計算
           </div>
-          <PhotoStarter styleName={style.name} />
+          <PreviewCreator styleKey={style.key} styleName={style.name} />
           <div className="arto-mini-process">
             <h3>從照片到藝術，簡單三步</h3>
             <div>
@@ -99,7 +100,7 @@ export default function StyleDetail({
             {[
               [
                 "可以直接生成這個風格嗎？",
-                "目前圖庫提供 79 種參考方向，創作頁提供 12 種已設定的生成風格。你可以先探索圖片，再選擇適合的創作風格。",
+                "本站已有 79 種風格設定；服務接通後可在此提交照片創作。示意圖不代表你的生成結果，實際結果依來源照片而異。",
               ],
               [
                 "適合上傳什麼照片？",
