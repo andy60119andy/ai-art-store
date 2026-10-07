@@ -1,11 +1,18 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { REFERENCE_GALLERY } from "@/lib/ai/reference-gallery";
 import "@/app/storefront.css";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  function closeMenu() {
+    setOpen(false);
+    navRef.current?.querySelectorAll("details").forEach((item) => {
+      item.open = false;
+    });
+  }
   return (
     <header className="arto-header">
       <div className="arto-announcement">
@@ -27,6 +34,10 @@ export default function Header() {
         </button>
         <nav
           id="arto-navigation"
+          ref={navRef}
+          onClick={(event) => {
+            if ((event.target as HTMLElement).closest("a")) closeMenu();
+          }}
           className={open ? "is-open" : ""}
           aria-label="主要導覽"
         >
@@ -41,13 +52,13 @@ export default function Header() {
                   <Link
                     key={s.key}
                     href={`/styles/${s.key}`}
-                    onClick={() => setOpen(false)}
+                    onClick={closeMenu}
                   >
                     {s.name} ↗
                   </Link>
                 ))}
               </div>
-              <Link href="/styles" onClick={() => setOpen(false)}>
+              <Link href="/styles" onClick={closeMenu}>
                 探索全部 79 種風格參考 →
               </Link>
             </div>
@@ -62,13 +73,13 @@ export default function Header() {
               <Link href="/account">我的作品收藏 →</Link>
             </div>
           </details>
-          <Link href="/gift-ideas" onClick={() => setOpen(false)}>
+          <Link href="/gift-ideas" onClick={closeMenu}>
             送禮靈感
           </Link>
-          <Link href="/#how-it-works" onClick={() => setOpen(false)}>
+          <Link href="/#how-it-works" onClick={closeMenu}>
             創作流程
           </Link>
-          <Link href="/occasions" onClick={() => setOpen(false)}>
+          <Link href="/occasions" onClick={closeMenu}>
             場合挑選
           </Link>
         </nav>

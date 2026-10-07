@@ -962,3 +962,12 @@ body {
     padding-top: 30px;
   }
 }
+.arto-home.arto-subpage {
+  background: #faf9f6;
+}
+.arto-product {
+  max-width: 1140px;
+}
+.arto-subpage .arto-breadcrumb {
+  max-width: 1140px;
+}

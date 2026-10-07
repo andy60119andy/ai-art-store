@@ -14,9 +14,7 @@ export default function FramePreview() {
     [width, setWidth] = useState(60),
     [height, setHeight] = useState(90),
     [image, setImage] = useState("watercolor-portrait");
-  const ratio =
-    Math.max(10, Math.min(300, width || 10)) /
-    Math.max(10, Math.min(300, height || 10));
+  const ratio = Math.max(10, width || 10) / Math.max(10, height || 10);
   return (
     <main className="arto-home arto-subpage">
       <section className="arto-container arto-frame-page">
@@ -74,7 +72,6 @@ export default function FramePreview() {
                   id="demo-width"
                   type="number"
                   min="10"
-                  max="300"
                   value={width}
                   onChange={(e) => setWidth(Number(e.target.value))}
                 />
@@ -86,7 +83,6 @@ export default function FramePreview() {
                   id="demo-height"
                   type="number"
                   min="10"
-                  max="300"
                   value={height}
                   onChange={(e) => setHeight(Number(e.target.value))}
                 />

@@ -21,7 +21,7 @@ export default function Footer() {
                 ["油畫", "/styles/oil-painting-portrait"],
                 ["水彩", "/styles/watercolor-portrait"],
                 ["日系插畫", "/styles/anime-portrait"],
-                ["電影感", "/styles/cyberpunk-portrait"],
+                ["賽博龐克", "/styles/cyberpunk-portrait"],
               ],
             },
             {

@@ -125,7 +125,7 @@ export default function StyleDetail({
         <section className="arto-section arto-container">
           <div className="arto-heading">
             <h2>你也可能喜歡</h2>
-            <p>繼續探索相近的艺术風格。</p>
+            <p>繼續探索相近的藝術風格。</p>
           </div>
           <StyleCards styles={related} />
           <div className="arto-center">
