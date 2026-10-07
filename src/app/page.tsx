@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { STYLE_PREVIEWS } from "@/lib/ai/style-previews";
 import { ART_STYLES } from "@/lib/ai/styles";
-
-const styleImages: Record<string, string> = {
-  油畫: "landscape",
-  極簡藝術: "abstract",
-};
 
 const styleMeta = [
   ["油畫", "經典厚塗質感，適合客廳主牆", "style-v0"],
@@ -68,7 +64,7 @@ export default function HomePage() {
             <p className="eyebrow">CHOOSE YOUR STYLE</p>
             <h2>先選風格，免費預覽再決定。</h2>
             <p className="style-reference-note">
-              掛畫圖片為搭配示意，實際作品依你的照片與 AI 生成結果呈現。
+              風格圖片為效果示意，實際作品依你的照片與 AI 生成結果呈現。
             </p>
           </div>
           <Link href="/upload">開始上傳 →</Link>
@@ -83,16 +79,12 @@ export default function HomePage() {
                 key={style?.key ?? name}
               >
                 <div className={"style-visual " + visual}>
-                  {styleImages[name] ? (
-                    <Image
-                      src={"/images/" + styleImages[name] + ".jpg"}
-                      alt={name + "掛畫搭配參考"}
-                      fill
-                      sizes="(max-width: 600px) 50vw, 25vw"
-                    />
-                  ) : (
-                    <span>{name}</span>
-                  )}
+                  <Image
+                    src={STYLE_PREVIEWS[style.key].src}
+                    alt={STYLE_PREVIEWS[style.key].alt}
+                    fill
+                    sizes="(max-width: 600px) 50vw, (max-width: 1000px) 33vw, 25vw"
+                  />
                 </div>
                 <div className="style-card-body">
                   <strong>{name}</strong>
