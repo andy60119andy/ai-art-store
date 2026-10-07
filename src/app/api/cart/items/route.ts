@@ -35,147 +35,89 @@ export async function POST(req: Request) {
   const user = await getCurrentUser();
   if (!user)
     return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
-  const body = await req.json();
-  if (!body.productId || !body.frameId || !body.paperId)
+  let body;
+  try {
+    body = await req.json();
+  } catch {
     return NextResponse.json({ error: "INVALID_ITEM" }, { status: 400 });
-
-  const customWidthMm =
-    body.customWidthMm == null ? null : Math.floor(Number(body.customWidthMm));
-  const customHeightMm =
-    body.customHeightMm == null
-      ? null
-      : Math.floor(Number(body.customHeightMm));
-  const isCustom = customWidthMm !== null || customHeightMm !== null;
-  const widthForValidation = customWidthMm ?? -1;
-  const heightForValidation = customHeightMm ?? -1;
-  if (
-    isCustom &&
-    (!Number.isFinite(widthForValidation) ||
-      !Number.isFinite(heightForValidation) ||
-      widthForValidation < MIN_MM ||
-      widthForValidation > MAX_WIDTH_MM ||
-      heightForValidation < MIN_MM ||
-      heightForValidation > MAX_HEIGHT_MM)
-  ) {
-    return NextResponse.json({ error: "INVALID_CUSTOM_SIZE" }, { status: 400 });
   }
-  if (!isCustom && !body.sizeId)
-    return NextResponse.json({ error: "INVALID_SIZE" }, { status: 400 });
-
-  const supabase = await createClient();
-  const [
-    { data: cart },
-    { data: product },
-    { data: size },
-    { data: frame },
-    { data: paper },
-  ] = await Promise.all([
-    supabase.from("carts").select("id").eq("user_id", user.id).single(),
-    supabase
-      .from("products")
-      .select("id,base_price_twd")
-      .eq("id", body.productId)
-      .eq("active", true)
-      .single(),
-    body.sizeId
-      ? supabase
-          .from("product_sizes")
-          .select("id,product_id,price_delta_twd")
-          .eq("id", body.sizeId)
-          .eq("active", true)
-          .single()
-      : Promise.resolve({ data: null }),
-    supabase
-      .from("frames")
-      .select("id,price_delta_twd")
-      .eq("id", body.frameId)
-      .eq("active", true)
-      .single(),
-    supabase
-      .from("papers")
-      .select("id,price_delta_twd")
-      .eq("id", body.paperId)
-      .eq("active", true)
-      .single(),
-  ]);
+  const quantity = Number(body.quantity ?? 1);
   if (
-    !cart ||
-    !product ||
-    !frame ||
-    !paper ||
-    (!isCustom && (!size || size.product_id !== product.id))
+    !body.productId ||
+    !body.sizeId ||
+    !body.artworkId ||
+    body.frameId ||
+    body.paperId ||
+    body.customWidthMm ||
+    body.customHeightMm ||
+    !Number.isInteger(quantity) ||
+    quantity < 1 ||
+    quantity > 99
   )
+    return NextResponse.json({ error: "INVALID_CANVAS_ITEM" }, { status: 400 });
+  const supabase = await createClient();
+  const [{ data: cart }, { data: product }, { data: size }, { data: art }] =
+    await Promise.all([
+      supabase.from("carts").select("id").eq("user_id", user.id).single(),
+      supabase
+        .from("products")
+        .select("id,base_price_twd")
+        .eq("id", body.productId)
+        .eq("active", true)
+        .single(),
+      supabase
+        .from("product_sizes")
+        .select("id,product_id,price_delta_twd,width_mm,height_mm")
+        .eq("id", body.sizeId)
+        .eq("active", true)
+        .single(),
+      supabase
+        .from("artworks")
+        .select("id")
+        .eq("id", body.artworkId)
+        .eq("user_id", user.id)
+        .single(),
+    ]);
+  if (!cart || !product || !size || size.product_id !== product.id || !art)
     return NextResponse.json(
       { error: "INVALID_CATALOG_SELECTION" },
       { status: 400 },
     );
-
-  const artworkId = body.artworkId || null;
-  const mockupId = body.mockupId || null;
-  if (mockupId) {
-    const { data: mockup } = await supabase
-      .from("mockups")
-      .select(
-        "id,artwork_id,size_id,frame_id,paper_id,custom_width_mm,custom_height_mm",
-      )
-      .eq("id", mockupId)
-      .eq("user_id", user.id)
-      .single();
-    if (
-      !mockup ||
-      !mockupMatchesSelection(mockup, {
-        artworkId,
-        frameId: frame.id,
-        paperId: paper.id,
-        sizeId: isCustom ? null : size!.id,
-        customWidthMm: isCustom ? customWidthMm : null,
-        customHeightMm: isCustom ? customHeightMm : null,
-      })
+  const validSizes = [
+    [203, 254],
+    [406, 508],
+    [610, 762],
+  ];
+  if (
+    !validSizes.some(
+      ([w, h]) =>
+        (size.width_mm === w && size.height_mm === h) ||
+        (size.width_mm === h && size.height_mm === w),
     )
-      return NextResponse.json({ error: "INVALID_MOCKUP" }, { status: 400 });
-  }
-  if (artworkId) {
-    const { data: art } = await supabase
-      .from("artworks")
-      .select("id")
-      .eq("id", artworkId)
-      .eq("user_id", user.id)
-      .single();
-    if (!art)
-      return NextResponse.json({ error: "INVALID_ARTWORK" }, { status: 400 });
-  }
-
-  const safeCustomWidthMm = widthForValidation;
-  const safeCustomHeightMm = heightForValidation;
-  const unitPrice = isCustom
-    ? product.base_price_twd +
-      Math.ceil(((safeCustomWidthMm * safeCustomHeightMm) / 1000000) * 2200) +
-      frame.price_delta_twd +
-      paper.price_delta_twd
-    : product.base_price_twd +
-      size!.price_delta_twd +
-      frame.price_delta_twd +
-      paper.price_delta_twd;
-
+  )
+    return NextResponse.json({ error: "INVALID_CANVAS_SIZE" }, { status: 400 });
+  const unitPrice = product.base_price_twd + size.price_delta_twd;
+  if (!Number.isSafeInteger(unitPrice) || unitPrice <= 0)
+    return NextResponse.json(
+      { error: "PRICE_NOT_CONFIGURED" },
+      { status: 400 },
+    );
   const { data, error } = await supabase
     .from("cart_items")
     .insert({
       cart_id: cart.id,
       product_id: product.id,
-      artwork_id: artworkId,
-      size_id: isCustom ? null : size!.id,
-      frame_id: frame.id,
-      paper_id: paper.id,
-      mockup_id: mockupId,
-      custom_width_mm: isCustom ? customWidthMm : null,
-      custom_height_mm: isCustom ? customHeightMm : null,
-      quantity: Math.max(1, Number(body.quantity) || 1),
+      artwork_id: art.id,
+      size_id: size.id,
+      frame_id: null,
+      paper_id: null,
+      quantity,
       unit_price_twd: unitPrice,
     })
     .select()
     .single();
   if (error)
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: "CART_UPDATE_FAILED" }, { status: 500 });
   return NextResponse.json({ item: data });
 }
 

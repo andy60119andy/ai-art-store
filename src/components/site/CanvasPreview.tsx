@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const sizes = [
   { label: "小尺寸 · 8 × 10 吋（約 20.3 × 25.4 cm）", width: 8, height: 10 },
   { label: "中尺寸 · 16 × 20 吋（約 40.6 × 50.8 cm）", width: 16, height: 20 },
@@ -10,7 +10,67 @@ const sizes = [
 export default function CanvasPreview() {
   const [selected, setSelected] = useState(0);
   const [landscape, setLandscape] = useState(false);
+  const [artworkId, setArtworkId] = useState("");
+  const [catalog, setCatalog] = useState<{
+    products: Array<{ id: string; base_price_twd: number }>;
+    sizes: Array<{
+      id: string;
+      product_id: string;
+      width_mm: number;
+      height_mm: number;
+      price_delta_twd: number;
+    }>;
+  } | null>(null);
+  const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
+  useEffect(() => {
+    setArtworkId(
+      new URLSearchParams(window.location.search).get("artworkId") || "",
+    );
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL)
+      fetch("/api/catalog")
+        .then((r) => (r.ok ? r.json() : null))
+        .then(setCatalog)
+        .catch(() => setMessage("商品資料暫時無法載入"));
+  }, []);
   const size = sizes[selected];
+  const mm = [
+    [203, 254],
+    [406, 508],
+    [610, 762],
+  ][selected];
+  const catalogSize = catalog?.sizes.find(
+    (s) =>
+      (s.width_mm === mm[0] && s.height_mm === mm[1]) ||
+      (s.width_mm === mm[1] && s.height_mm === mm[0]),
+  );
+  const product = catalog?.products.find(
+    (p) => p.id === catalogSize?.product_id,
+  );
+  async function addToCart() {
+    if (!product || !catalogSize || !artworkId) return;
+    setBusy(true);
+    try {
+      const r = await fetch("/api/cart/items", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: product.id,
+          sizeId: catalogSize.id,
+          artworkId,
+          quantity: 1,
+        }),
+      });
+      const data = await r.json();
+      if (!r.ok) throw new Error(data.error || "加入失敗");
+      window.location.assign("/cart");
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "連線失敗");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <main className="arto-home arto-subpage">
       <section className="arto-container arto-frame-page">
@@ -67,6 +127,26 @@ export default function CanvasPreview() {
               <option value="portrait">直式</option>
               <option value="landscape">橫式</option>
             </select>
+            {product && catalogSize && (
+              <p>
+                此尺寸台幣售價：NT$
+                {(
+                  product.base_price_twd + catalogSize.price_delta_twd
+                ).toLocaleString()}
+              </p>
+            )}
+            <button
+              type="button"
+              className="arto-button"
+              disabled={busy || !artworkId || !product || !catalogSize}
+              onClick={addToCart}
+            >
+              {busy ? "加入中…" : "將我的帆布作品加入購物車"}
+            </button>
+            {!artworkId && (
+              <p>請先從「我的作品」選擇完成作品，再選擇帆布尺寸。</p>
+            )}
+            {message && <p role="status">{message}</p>}
             <p>材質：油畫布／帆布</p>
             <p>成品：裸框（無外框）</p>
             <p className="arto-product-notice">

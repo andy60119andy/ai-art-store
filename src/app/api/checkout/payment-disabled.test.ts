@@ -3,13 +3,19 @@ import { POST as checkout } from "./route";
 import { POST as callback } from "../payments/ecpay/return/route";
 describe("payment boundaries", () => {
   it("does not create a checkout transaction", async () => {
-    const r = await checkout();
+    const r = await checkout(
+      new Request("https://example.com/api/checkout", { method: "POST" }),
+    );
     expect(r.status).toBe(503);
-    expect(await r.json()).toEqual({ error: "PAYMENTS_DISABLED" });
+    expect(await r.json()).toMatchObject({ error: "PAYMENTS_DISABLED" });
   });
   it("does not accept callbacks that could mark orders paid", async () => {
-    const r = await callback();
+    const r = await callback(
+      new Request("https://example.com/api/payments/ecpay/return", {
+        method: "POST",
+      }),
+    );
     expect(r.status).toBe(503);
-    expect(await r.json()).toEqual({ error: "PAYMENTS_DISABLED" });
+    expect(await r.json()).toMatchObject({ error: "PAYMENTS_DISABLED" });
   });
 });

@@ -10,6 +10,7 @@ export async function GET() {
 export async function PATCH(request: Request) {
   const body=await request.json(); const {supabase,ok}=await staff(); if(!ok)return NextResponse.json({error:"Forbidden"},{status:403});
   const allowed=["pending","shipped","in_transit","delivered","exception"]; if(!body.id||!allowed.includes(body.status))return NextResponse.json({error:"Invalid request"},{status:400});
+  if (["shipped","in_transit","delivered"].includes(body.status) && (!String(body.carrier??"").trim() || !String(body.trackingNumber??"").trim())) return NextResponse.json({error:"物流商與追蹤單號必填"},{status:400});
   const {data,error}=await supabase.rpc("update_shipment",{p_shipment_id:body.id,p_carrier:body.carrier??"",p_tracking_number:body.trackingNumber??"",p_status:body.status});
   if(error)return NextResponse.json({error:error.message},{status:400}); return NextResponse.json({shipment:data});
 }
