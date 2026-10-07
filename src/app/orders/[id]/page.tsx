@@ -59,7 +59,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
           {item.mockupUrl ? <img src={item.mockupUrl} alt="畫框成品預覽" style={{ width:"100%", borderRadius:10 }} /> : <div style={{ aspectRatio:"1", background:"#f2f2ef", borderRadius:10, display:"grid", placeItems:"center" }}>作品</div>}
           <div>
             <strong>{product?.name ?? "客製藝術掛畫"}</strong>
-            <div style={{marginTop:8}}>尺寸：{size?.name ?? "—"}　畫框：{frame?.name ?? "—"}　紙張：{paper?.name ?? "—"}</div>
+            <div style={{marginTop:8}}>尺寸：{item.custom_width_mm&&item.custom_height_mm?`${item.custom_width_mm} × ${item.custom_height_mm} mm`:(size?.name ?? "—")}　畫框：{frame?.name ?? "—"}　紙張：{paper?.name ?? "—"}</div>
             <div style={{marginTop:8}}>數量：{item.quantity}　單價：NT$ {item.unit_price_twd.toLocaleString()}</div>
           </div>
         </div>;
