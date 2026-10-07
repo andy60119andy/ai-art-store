@@ -464,13 +464,13 @@ export const REFERENCE_GALLERY = [
   {
     key: "couples-portrait",
     name: "Love Portrait",
-    category: "Love Portrait",
+    category: "Couples",
     src: "/images/reference/main_thumbnail.webp",
   },
   {
     key: "gawai-portrait",
     name: "Gawai Dayak Portrait",
-    category: "Gawai Dayak Portrait",
+    category: "Gifts",
     src: "/images/reference/styles/gawai-portrait-thumb.webp",
   },
 ] as const;
