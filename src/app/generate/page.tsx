@@ -20,6 +20,6 @@ export default function GeneratePage() {
     <div className="style-picker">{ART_STYLES.map((s,i)=><button type="button" key={s.key} className={"style-picker-card "+(styleKey===s.key?"selected ":"")+visual[i%visual.length]} onClick={()=>setStyleKey(s.key)}><span>{s.name}</span><small>AI ART</small></button>)}</div>
     <div className="generate-bar"><div><strong>已選：{ART_STYLES.find(s=>s.key===styleKey)?.name}</strong><small>免費預覽 · AI 生成</small></div><button className="button-dark" onClick={generate} disabled={!uploadId||busy}>{busy?"AI 創作中…":"生成我的作品 →"}</button></div>
     <p className="creator-status" role="status">{message}</p>
-    {artworkId&&<div className="result-card"><div><p className="eyebrow">YOUR ARTWORK IS READY</p><h2>作品完成了。</h2><p>下一步可以選擇客製尺寸、材質與畫框，預覽實際成品。</p></div><div className="result-actions"><Link className="button-dark" href={"/artworks/"+artworkId}>查看作品</Link><Link className="button-light" href="/customize">製作成品 →</Link></div></div>}
+    {artworkId&&<div className="result-card"><div><p className="eyebrow">YOUR ARTWORK IS READY</p><h2>作品完成了。</h2><p>下一步可以選擇客製尺寸、材質與畫框，預覽實際成品。</p></div><div className="result-actions"><Link className="button-dark" href={"/artworks/"+artworkId}>查看作品</Link><Link className="button-light" href={"/customize?artworkId="+artworkId}>製作成品 →</Link></div></div>}
   </section></main>;
 }
