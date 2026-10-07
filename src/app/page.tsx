@@ -1,31 +1,41 @@
 import Link from "next/link";
+import { ART_STYLES } from "@/lib/ai/styles";
 
-export default function HomePage() {
-  return (
-    <main className="page">
-      <section className="hero" style={{ width: "min(1180px,100%)", padding: 0, overflow: "hidden" }}>
-        <div style={{display:"grid",gridTemplateColumns:"1.15fr .85fr",minHeight:560}}>
-          <div style={{padding:"72px 48px",display:"flex",flexDirection:"column",justifyContent:"center"}}>
-            <p className="eyebrow">AI CUSTOM ART STORE</p>
-            <h1 style={{margin:"18px 0",maxWidth:700}}>把一張照片，變成值得掛在牆上的藝術作品。</h1>
-            <p>上傳你的照片，選擇藝術風格，AI 生成專屬作品，再挑選尺寸、畫框與紙張，直接完成客製訂購。</p>
-            <div style={{display:"flex",gap:12,flexWrap:"wrap",marginTop:24}}>
-              <Link href="/upload" style={{display:"inline-block",padding:"15px 24px",borderRadius:12,fontWeight:800,textDecoration:"none",background:"#171717",color:"#fff"}}>開始製作作品 →</Link>
-              <Link href="/account" style={{display:"inline-block",padding:"15px 24px",borderRadius:12,fontWeight:800,textDecoration:"none",border:"1px solid #ddd"}}>查看我的作品</Link>
-            </div>
-            <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10,marginTop:38}}>
-              {["AI 真實生圖","真實畫框 Mockup","線上訂購與追蹤"].map((x)=><div key={x} style={{padding:"14px 10px",borderTop:"1px solid #ddd",fontSize:13,fontWeight:700}}>{x}</div>)}
-            </div>
-          </div>
-          <div style={{background:"linear-gradient(145deg,#eeeae2,#d8d1c5)",display:"grid",placeItems:"center",padding:50}}>
-            <div style={{width:"min(330px,90%)",aspectRatio:"4/5",padding:18,background:"#161616",boxShadow:"0 28px 55px rgba(0,0,0,.25)"}}>
-              <div style={{height:"100%",background:"#f8f4eb",display:"grid",placeItems:"center",textAlign:"center",padding:35}}>
-                <div><div style={{fontSize:70}}>✦</div><strong style={{fontSize:24}}>YOUR ART</strong><p style={{fontSize:14,marginTop:10}}>Made with AI</p></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+const categories=[
+  {title:"藝術經典",items:["油畫","水彩","復古海報"]},
+  {title:"現代插畫",items:["日系插畫","極簡藝術","漫畫感"]},
+  {title:"送禮與收藏",items:["寵物肖像","家庭肖像","紀念作品"]},
+];
+
+export default function HomePage(){
+  return <main className="storefront">
+    <section className="store-hero">
+      <div className="store-hero-copy">
+        <p className="eyebrow">AI ART STORE · CUSTOM PRINTING</p>
+        <h1>把一張照片，變成真正可以掛上牆的藝術。</h1>
+        <p className="lead">AI 生成你的專屬作品，再用我們的大圖輸出能力，把它做成你想要的尺寸、材質與畫框。</p>
+        <div className="hero-actions"><Link className="button-dark" href="/upload">免費開始創作 →</Link><Link className="button-light" href="/customize">先看商品規格</Link></div>
+        <div className="trust-row"><span>✓ AI 真實生圖</span><span>✓ 免費先預覽</span><span>✓ 客製尺寸</span><span>✓ 大圖輸出</span></div>
+      </div>
+      <div className="hero-art" aria-label="客製藝術掛畫示意">
+        <div className="wall"><div className="frame-card"><div className="art-placeholder"><span>YOUR PHOTO</span><strong>→ ART</strong><small>AI CUSTOM ART</small></div></div></div>
+      </div>
+    </section>
+
+    <section className="style-section">
+      <div className="section-head"><div><p className="eyebrow">CHOOSE A STYLE</p><h2>先選風格，也可以上傳後再決定。</h2></div><Link href="/generate">全部風格 →</Link></div>
+      <div className="style-grid">{ART_STYLES.map((style,i)=><Link href="/upload" className="style-card" key={style.key}><div className={"style-visual style-v"+i}><span>{style.name}</span></div><div className="style-card-body"><strong>{style.name}</strong><small>免費預覽 · AI 生成</small></div></Link>)}</div>
+    </section>
+
+    <section className="benefit-section">
+      {categories.map(c=><div className="benefit-card" key={c.title}><p className="eyebrow">{c.title}</p><h3>{c.items[0]} / {c.items[1]}</h3><p>{c.items[2]}等客製風格，從照片直接生成專屬作品。</p></div>)}
+    </section>
+
+    <section className="how-section">
+      <p className="eyebrow">HOW IT WORKS</p><h2>從照片到牆上，只要四步。</h2>
+      <div className="steps">{["上傳照片","選擇 AI 風格","免費預覽作品","自訂尺寸、材質與畫框並下單"].map((x,i)=><div key={x}><span>0{i+1}</span><strong>{x}</strong></div>)}</div>
+    </section>
+
+    <section className="final-cta"><div><p className="eyebrow">READY TO CREATE?</p><h2>你的下一幅牆面藝術，從一張照片開始。</h2></div><Link className="button-dark" href="/upload">開始免費預覽 →</Link></section>
+  </main>;
 }
