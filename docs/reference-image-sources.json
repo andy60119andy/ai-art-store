@@ -1,0 +1,420 @@
+{
+  "reference": "https://www.framearto.com/",
+  "images": [
+    {
+      "source": "https://www.framearto.com/images/landing/watercolor-portrait/watercolor-before-after.webp",
+      "local": "/images/reference/landing/watercolor-portrait/watercolor-before-after.webp",
+      "bytes": 114580
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/anime-portrait-thumb.webp",
+      "local": "/images/reference/styles/anime-portrait-thumb.webp",
+      "bytes": 189314
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/oil-painting-portrait-thumb.webp",
+      "local": "/images/reference/styles/oil-painting-portrait-thumb.webp",
+      "bytes": 118708
+    },
+    {
+      "source": "https://www.framearto.com/images/couples_thumb8.webp",
+      "local": "/images/reference/couples_thumb8.webp",
+      "bytes": 114566
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/ghibli-portrait-thumb.webp",
+      "local": "/images/reference/styles/ghibli-portrait-thumb.webp",
+      "bytes": 87588
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/pop-art-portrait-thumb.webp",
+      "local": "/images/reference/styles/pop-art-portrait-thumb.webp",
+      "bytes": 317664
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/watercolor-portrait-thumb.webp",
+      "local": "/images/reference/styles/watercolor-portrait-thumb.webp",
+      "bytes": 146430
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/royal-pet-portrait-thumb.webp",
+      "local": "/images/reference/styles/royal-pet-portrait-thumb.webp",
+      "bytes": 106762
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/comic-book-portrait-thumb.webp",
+      "local": "/images/reference/styles/comic-book-portrait-thumb.webp",
+      "bytes": 313764
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/renaissance-portrait-thumb.webp",
+      "local": "/images/reference/styles/renaissance-portrait-thumb.webp",
+      "bytes": 121510
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/lego-portrait-thumb.webp",
+      "local": "/images/reference/styles/lego-portrait-thumb.webp",
+      "bytes": 88862
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/cyberpunk-portrait-thumb.webp",
+      "local": "/images/reference/styles/cyberpunk-portrait-thumb.webp",
+      "bytes": 127982
+    },
+    {
+      "source": "https://www.framearto.com/images/main_thumb_new.webp",
+      "local": "/images/reference/main_thumb_new.webp",
+      "bytes": 28412
+    },
+    {
+      "source": "https://www.framearto.com/images/how-to-step-1.webp",
+      "local": "/images/reference/how-to-step-1.webp",
+      "bytes": 69988
+    },
+    {
+      "source": "https://www.framearto.com/images/how-to-step-2.webp",
+      "local": "/images/reference/how-to-step-2.webp",
+      "bytes": 71962
+    },
+    {
+      "source": "https://www.framearto.com/images/how-to-step-3.webp",
+      "local": "/images/reference/how-to-step-3.webp",
+      "bytes": 135410
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/simpsons-portrait-thumb.webp",
+      "local": "/images/reference/styles/simpsons-portrait-thumb.webp",
+      "bytes": 55018
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/pet-portrait-thumb.webp",
+      "local": "/images/reference/styles/pet-portrait-thumb.webp",
+      "bytes": 217644
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/cartoon-portrait-thumb.webp",
+      "local": "/images/reference/styles/cartoon-portrait-thumb.webp",
+      "bytes": 115554
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/couple-portrait-thumb.webp",
+      "local": "/images/reference/styles/couple-portrait-thumb.webp",
+      "bytes": 162686
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/custom-portrait-thumb.webp",
+      "local": "/images/reference/styles/custom-portrait-thumb.webp",
+      "bytes": 167158
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/digital-portrait-thumb.webp",
+      "local": "/images/reference/styles/digital-portrait-thumb.webp",
+      "bytes": 88702
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/family-portrait-thumb.webp",
+      "local": "/images/reference/styles/family-portrait-thumb.webp",
+      "bytes": 79588
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/photo-to-art-thumb.webp",
+      "local": "/images/reference/styles/photo-to-art-thumb.webp",
+      "bytes": 162450
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/pixel-art-portrait-thumb.webp",
+      "local": "/images/reference/styles/pixel-art-portrait-thumb.webp",
+      "bytes": 119478
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/portrait-gift-thumb.webp",
+      "local": "/images/reference/styles/portrait-gift-thumb.webp",
+      "bytes": 105380
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/wedding-portrait-thumb.webp",
+      "local": "/images/reference/styles/wedding-portrait-thumb.webp",
+      "bytes": 61016
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/canvas-print-thumb.webp",
+      "local": "/images/reference/styles/canvas-print-thumb.webp",
+      "bytes": 114268
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/dog-portrait-thumb.webp",
+      "local": "/images/reference/styles/dog-portrait-thumb.webp",
+      "bytes": 217644
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/cat-portrait-thumb.webp",
+      "local": "/images/reference/styles/cat-portrait-thumb.webp",
+      "bytes": 114816
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/horse-portrait-thumb.webp",
+      "local": "/images/reference/styles/horse-portrait-thumb.webp",
+      "bytes": 94972
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/pet-memorial-portrait-thumb.webp",
+      "local": "/images/reference/styles/pet-memorial-portrait-thumb.webp",
+      "bytes": 54964
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/family-illustration-thumb.webp",
+      "local": "/images/reference/styles/family-illustration-thumb.webp",
+      "bytes": 90558
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/storybook-family-portrait-thumb.webp",
+      "local": "/images/reference/styles/storybook-family-portrait-thumb.webp",
+      "bytes": 237642
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/couple-line-art-portrait-thumb.webp",
+      "local": "/images/reference/styles/couple-line-art-portrait-thumb.webp",
+      "bytes": 26686
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/wedding-line-art-portrait-thumb.webp",
+      "local": "/images/reference/styles/wedding-line-art-portrait-thumb.webp",
+      "bytes": 58212
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/wedding-venue-portrait-thumb.webp",
+      "local": "/images/reference/styles/wedding-venue-portrait-thumb.webp",
+      "bytes": 213760
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/wedding-bouquet-illustration-thumb.webp",
+      "local": "/images/reference/styles/wedding-bouquet-illustration-thumb.webp",
+      "bytes": 122374
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/save-the-date-illustration-thumb.webp",
+      "local": "/images/reference/styles/save-the-date-illustration-thumb.webp",
+      "bytes": 151402
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/house-portrait-thumb.webp",
+      "local": "/images/reference/styles/house-portrait-thumb.webp",
+      "bytes": 254582
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/first-home-illustration-thumb.webp",
+      "local": "/images/reference/styles/first-home-illustration-thumb.webp",
+      "bytes": 57726
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/watercolor-house-portrait-thumb.webp",
+      "local": "/images/reference/styles/watercolor-house-portrait-thumb.webp",
+      "bytes": 239638
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/memorial-portrait-thumb.webp",
+      "local": "/images/reference/styles/memorial-portrait-thumb.webp",
+      "bytes": 45372
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/baby-portrait-thumb.webp",
+      "local": "/images/reference/styles/baby-portrait-thumb.webp",
+      "bytes": 76172
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/graduation-portrait-thumb.webp",
+      "local": "/images/reference/styles/graduation-portrait-thumb.webp",
+      "bytes": 97980
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/anniversary-portrait-thumb.webp",
+      "local": "/images/reference/styles/anniversary-portrait-thumb.webp",
+      "bytes": 75116
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/baby-birth-stat-poster-thumb.webp",
+      "local": "/images/reference/styles/baby-birth-stat-poster-thumb.webp",
+      "bytes": 131650
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/nursery-name-print-thumb.webp",
+      "local": "/images/reference/styles/nursery-name-print-thumb.webp",
+      "bytes": 87450
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/minimalist-line-art-portrait-thumb.webp",
+      "local": "/images/reference/styles/minimalist-line-art-portrait-thumb.webp",
+      "bytes": 19488
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/pencil-sketch-portrait-thumb.webp",
+      "local": "/images/reference/styles/pencil-sketch-portrait-thumb.webp",
+      "bytes": 228868
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/stained-glass-portrait-thumb.webp",
+      "local": "/images/reference/styles/stained-glass-portrait-thumb.webp",
+      "bytes": 250814
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/boho-line-art-portrait-thumb.webp",
+      "local": "/images/reference/styles/boho-line-art-portrait-thumb.webp",
+      "bytes": 80894
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/pixar-portrait-thumb.webp",
+      "local": "/images/reference/styles/pixar-portrait-thumb.webp",
+      "bytes": 123094
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/superhero-portrait-thumb.webp",
+      "local": "/images/reference/styles/superhero-portrait-thumb.webp",
+      "bytes": 248568
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/caricature-portrait-thumb.webp",
+      "local": "/images/reference/styles/caricature-portrait-thumb.webp",
+      "bytes": 139072
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/faceless-portrait-thumb.webp",
+      "local": "/images/reference/styles/faceless-portrait-thumb.webp",
+      "bytes": 38562
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/gta-style-portrait-thumb.webp",
+      "local": "/images/reference/styles/gta-style-portrait-thumb.webp",
+      "bytes": 113946
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/steampunk-portrait-thumb.webp",
+      "local": "/images/reference/styles/steampunk-portrait-thumb.webp",
+      "bytes": 151168
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/rick-and-morty-portrait-thumb.webp",
+      "local": "/images/reference/styles/rick-and-morty-portrait-thumb.webp",
+      "bytes": 76234
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/south-park-portrait-thumb.webp",
+      "local": "/images/reference/styles/south-park-portrait-thumb.webp",
+      "bytes": 24992
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/family-guy-portrait-thumb.webp",
+      "local": "/images/reference/styles/family-guy-portrait-thumb.webp",
+      "bytes": 51834
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/futurama-portrait-thumb.webp",
+      "local": "/images/reference/styles/futurama-portrait-thumb.webp",
+      "bytes": 122792
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/bobs-burgers-portrait-thumb.webp",
+      "local": "/images/reference/styles/bobs-burgers-portrait-thumb.webp",
+      "bytes": 113368
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/archer-portrait-thumb.webp",
+      "local": "/images/reference/styles/archer-portrait-thumb.webp",
+      "bytes": 58142
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/car-portrait-thumb.webp",
+      "local": "/images/reference/styles/car-portrait-thumb.webp",
+      "bytes": 191664
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/motorcycle-portrait-thumb.webp",
+      "local": "/images/reference/styles/motorcycle-portrait-thumb.webp",
+      "bytes": 204482
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/boat-portrait-thumb.webp",
+      "local": "/images/reference/styles/boat-portrait-thumb.webp",
+      "bytes": 71752
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/victorian-portrait-thumb.webp",
+      "local": "/images/reference/styles/victorian-portrait-thumb.webp",
+      "bytes": 111092
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/medieval-knight-portrait-thumb.webp",
+      "local": "/images/reference/styles/medieval-knight-portrait-thumb.webp",
+      "bytes": 79780
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/watercolor-portrait-2.webp",
+      "local": "/images/reference/styles/watercolor-portrait-2.webp",
+      "bytes": 130770
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/watercolor-portrait-3.webp",
+      "local": "/images/reference/styles/watercolor-portrait-3.webp",
+      "bytes": 136660
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/watercolor-portrait-4.webp",
+      "local": "/images/reference/styles/watercolor-portrait-4.webp",
+      "bytes": 143922
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/watercolor-portrait-5.webp",
+      "local": "/images/reference/styles/watercolor-portrait-5.webp",
+      "bytes": 130806
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/anime-portrait-2.webp",
+      "local": "/images/reference/styles/anime-portrait-2.webp",
+      "bytes": 189556
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/anime-portrait-3.webp",
+      "local": "/images/reference/styles/anime-portrait-3.webp",
+      "bytes": 146812
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/anime-portrait-4.webp",
+      "local": "/images/reference/styles/anime-portrait-4.webp",
+      "bytes": 135762
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/anime-portrait-5.webp",
+      "local": "/images/reference/styles/anime-portrait-5.webp",
+      "bytes": 151050
+    },
+    {
+      "source": "https://www.framearto.com/images/landing/golden-retriever-portrait/golden-retriever-portrait-hero-bg.webp",
+      "local": "/images/reference/landing/golden-retriever-portrait/golden-retriever-portrait-hero-bg.webp",
+      "bytes": 172746
+    },
+    {
+      "source": "https://www.framearto.com/images/landing/french-bulldog-portrait/french-bulldog-portrait-hero-bg.webp",
+      "local": "/images/reference/landing/french-bulldog-portrait/french-bulldog-portrait-hero-bg.webp",
+      "bytes": 89350
+    },
+    {
+      "source": "https://www.framearto.com/images/landing/maine-coon-portrait/maine-coon-portrait-hero-bg.webp",
+      "local": "/images/reference/landing/maine-coon-portrait/maine-coon-portrait-hero-bg.webp",
+      "bytes": 113578
+    },
+    {
+      "source": "https://www.framearto.com/images/landing/persian-cat-portrait/persian-cat-portrait-hero-bg.webp",
+      "local": "/images/reference/landing/persian-cat-portrait/persian-cat-portrait-hero-bg.webp",
+      "bytes": 91584
+    },
+    {
+      "source": "https://www.framearto.com/images/main_thumbnail.webp",
+      "local": "/images/reference/main_thumbnail.webp",
+      "bytes": 104148
+    },
+    {
+      "source": "https://www.framearto.com/images/styles/gawai-portrait-thumb.webp",
+      "local": "/images/reference/styles/gawai-portrait-thumb.webp",
+      "bytes": 218124
+    }
+  ]
+}

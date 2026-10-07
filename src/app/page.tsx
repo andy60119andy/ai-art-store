@@ -2,26 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { ART_STYLES } from "@/lib/ai/styles";
-import { STYLE_PREVIEWS } from "@/lib/ai/style-previews";
+import { useEffect, useRef, useState } from "react";
+import ArtComparison from "@/components/site/ArtComparison";
+import ReferenceGallery from "@/components/site/ReferenceGallery";
 import "./storefront.css";
 
-const groups = ["全部風格", "藝術繪畫", "插畫卡通", "人像紀念", "居家裝飾"];
-const categories = [
-  "藝術繪畫",
-  "藝術繪畫",
-  "插畫卡通",
-  "居家裝飾",
-  "居家裝飾",
-  "人像紀念",
-  "人像紀念",
-  "插畫卡通",
-  "人像紀念",
-  "藝術繪畫",
-  "居家裝飾",
-  "人像紀念",
-];
 const questions = [
   [
     "如何製作我的專屬藝術作品？",
@@ -29,7 +14,7 @@ const questions = [
   ],
   [
     "可以先看看風格再上傳嗎？",
-    "可以。下方提供 12 種風格示意圖，點選喜歡的風格即可前往創作頁面。示意圖用來說明風格，實際作品會依你的照片而不同。",
+    "可以。下方提供 79 種風格參考圖，點選圖片可放大預覽。創作頁目前提供 12 種已設定風格。示意圖用來說明風格，實際作品會依你的照片而不同。",
   ],
   [
     "什麼樣的照片比較適合？",
@@ -50,10 +35,70 @@ const questions = [
 ];
 
 export default function HomePage() {
-  const [category, setCategory] = useState("全部風格");
-  const [split, setSplit] = useState(50);
+  const [paused, setPaused] = useState(false);
+  const mainRef = useRef<HTMLElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncMotion = () => setPaused(media.matches);
+    syncMotion();
+    media.addEventListener("change", syncMotion);
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).dataset.reveal = "visible";
+            observer.unobserve(entry.target);
+          }
+        }),
+      { threshold: 0.08 },
+    );
+    mainRef.current
+      ?.querySelectorAll(".arto-section, .arto-final")
+      .forEach((element) => {
+        if (
+          element.getBoundingClientRect().top > window.innerHeight &&
+          !media.matches
+        )
+          (element as HTMLElement).dataset.reveal = "pending";
+        observer.observe(element);
+      });
+    let frame = 0;
+    const updateProgress = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (progressRef.current)
+          progressRef.current.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+      });
+    };
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+    return () => {
+      observer.disconnect();
+      media.removeEventListener("change", syncMotion);
+      window.removeEventListener("scroll", updateProgress);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
   return (
-    <main className="arto-home">
+    <main
+      ref={mainRef}
+      className={`arto-home ${paused ? "arto-motion-paused" : ""}`}
+    >
+      <div
+        ref={progressRef}
+        className="arto-scroll-progress"
+        aria-hidden="true"
+      />
+      <button
+        type="button"
+        className="arto-motion-control"
+        onClick={() => setPaused(!paused)}
+        aria-pressed={paused}
+      >
+        {paused ? "▶ 播放視覺動畫" : "Ⅱ 暫停視覺動畫"}
+      </button>
       <section className="arto-hero">
         <div className="arto-container arto-hero-grid">
           <div className="arto-hero-copy">
@@ -75,56 +120,69 @@ export default function HomePage() {
               <span>先選風格，再決定配框</span>
             </div>
           </div>
-          <div className="arto-comparison-wrap">
-            <div className="arto-comparison">
-              <Image
-                src={STYLE_PREVIEWS["pencil-sketch"].src}
-                alt="鉛筆素描風格示意"
-                fill
-                priority
-                sizes="(max-width: 800px) 90vw, 45vw"
-              />
-              <div
-                className="arto-comparison-layer"
-                style={{ clipPath: `inset(0 ${100 - split}% 0 0)` }}
-              >
-                <Image
-                  src={STYLE_PREVIEWS.cinematic.src}
-                  alt="電影感風格示意"
-                  fill
-                  priority
-                  sizes="(max-width: 800px) 90vw, 45vw"
-                />
-              </div>
-              <span className="arto-image-label left">電影感</span>
-              <span className="arto-image-label right">鉛筆素描</span>
-              <div className="arto-divider" style={{ left: `${split}%` }}>
-                <span>‹ ›</span>
-              </div>
-              <input
-                type="range"
-                min="5"
-                max="95"
-                value={split}
-                onChange={(e) => setSplit(Number(e.target.value))}
-                aria-label="拖動比較兩種風格示意"
-              />
-            </div>
-            <span className="arto-drag-note">◷ 拖動滑桿，探索不同風格示意</span>
-          </div>
+          <ArtComparison paused={paused} />
         </div>
-        <div className="arto-filmstrip">
-          {ART_STYLES.map((s) => (
-            <Link href={`/#styles`} key={s.key}>
-              <Image
-                src={STYLE_PREVIEWS[s.key].src}
-                alt=""
-                width={100}
-                height={90}
-              />
-              <span>{s.name}</span>
-            </Link>
-          ))}
+        <div className="arto-filmstrip" aria-label="藝術風格輪播">
+          <div className="arto-filmstrip-track">
+            {[0, 1].map((copy) => (
+              <div
+                className="arto-filmstrip-group"
+                key={copy}
+                aria-hidden={copy === 1 ? true : undefined}
+              >
+                {[
+                  [
+                    "Anime",
+                    "/images/reference/styles/anime-portrait-thumb.webp",
+                  ],
+                  [
+                    "Oil Painting",
+                    "/images/reference/styles/oil-painting-portrait-thumb.webp",
+                  ],
+                  ["Couples", "/images/reference/couples_thumb8.webp"],
+                  [
+                    "Ghibli",
+                    "/images/reference/styles/ghibli-portrait-thumb.webp",
+                  ],
+                  [
+                    "Pop Art",
+                    "/images/reference/styles/pop-art-portrait-thumb.webp",
+                  ],
+                  [
+                    "Watercolor",
+                    "/images/reference/styles/watercolor-portrait-thumb.webp",
+                  ],
+                  [
+                    "Royal Pet",
+                    "/images/reference/styles/royal-pet-portrait-thumb.webp",
+                  ],
+                  [
+                    "Comic Book",
+                    "/images/reference/styles/comic-book-portrait-thumb.webp",
+                  ],
+                  [
+                    "Renaissance",
+                    "/images/reference/styles/renaissance-portrait-thumb.webp",
+                  ],
+                  ["Lego", "/images/reference/styles/lego-portrait-thumb.webp"],
+                  [
+                    "Cyberpunk",
+                    "/images/reference/styles/cyberpunk-portrait-thumb.webp",
+                  ],
+                  ["Simpsons", "/images/reference/main_thumb_new.webp"],
+                ].map(([name, src]) => (
+                  <Link
+                    href="/#styles"
+                    key={name}
+                    tabIndex={copy === 1 ? -1 : undefined}
+                  >
+                    <Image src={src} alt="" width={128} height={110} />
+                    <span>{name}</span>
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
       <div className="arto-trust">
@@ -145,31 +203,28 @@ export default function HomePage() {
               n: "01",
               title: "上傳你喜歡的照片",
               text: "選一張清晰的照片，留下人物、旅行或生活裡值得珍藏的瞬間。",
-              image: "vintage-film",
+              image: "/images/reference/how-to-step-1.webp",
               tag: "你的照片 · 你的故事",
             },
             {
               n: "02",
               title: "選擇 AI 藝術風格",
               text: "探索 12 種風格，讓照片化作油畫、水彩、插畫或電影感作品。",
-              image: "watercolor",
+              image: "/images/reference/how-to-step-2.webp",
               tag: "12 種風格自由探索",
             },
             {
               n: "03",
               title: "搭配尺寸與畫框",
               text: "選擇成品大小、畫框與卡紙，預覽作品在畫框中的完整樣貌。",
-              image: "minimalist",
+              image: "/images/reference/how-to-step-3.webp",
               tag: "自訂尺寸 · 配框預覽",
             },
           ].map((step) => (
             <article className="arto-step" key={step.n}>
               <div className="arto-step-image">
                 <Image
-                  src={
-                    STYLE_PREVIEWS[step.image as keyof typeof STYLE_PREVIEWS]
-                      .src
-                  }
+                  src={step.image}
                   alt={step.title}
                   fill
                   sizes="(max-width: 700px) 90vw, 30vw"
@@ -192,52 +247,10 @@ export default function HomePage() {
         <div className="arto-container">
           <div className="arto-heading">
             <span className="arto-eyebrow">FIND YOUR STYLE</span>
-            <h2>探索全部 12 種藝術風格</h2>
+            <h2>探索全部 79 種風格參考</h2>
             <p>每一種風格，都是另一種看見回憶的方式。</p>
           </div>
-          <div className="arto-filters" aria-label="風格分類">
-            {groups.map((g) => (
-              <button
-                key={g}
-                aria-pressed={category === g}
-                onClick={() => setCategory(g)}
-              >
-                {g}
-              </button>
-            ))}
-          </div>
-          <div className="arto-style-grid">
-            {ART_STYLES.map((s, i) => ({ s, i }))
-              .filter(
-                ({ i }) =>
-                  category === "全部風格" || categories[i] === category,
-              )
-              .map(({ s, i }) => (
-                <Link
-                  className="arto-style-card"
-                  href={`/generate?style=${s.key}`}
-                  key={s.key}
-                >
-                  <div className="arto-style-image">
-                    <Image
-                      src={STYLE_PREVIEWS[s.key].src}
-                      alt={STYLE_PREVIEWS[s.key].alt}
-                      fill
-                      sizes="(max-width: 650px) 45vw, (max-width: 1000px) 30vw, 23vw"
-                    />
-                    <span>探索風格 ↗</span>
-                  </div>
-                  <div className="arto-style-caption">
-                    <small>{categories[i]}</small>
-                    <h3>{s.name}</h3>
-                    <span>製作我的作品 →</span>
-                  </div>
-                </Link>
-              ))}
-          </div>
-          <p className="arto-disclaimer">
-            圖片為藝術風格示意，實際生成結果依上傳照片而異。
-          </p>
+          <ReferenceGallery />
           <div className="arto-center">
             <Link className="arto-outline" href="/generate">
               前往風格創作頁 →
@@ -345,28 +358,26 @@ export default function HomePage() {
             {
               title: "探索藝術風格",
               text: "找到符合你個性的筆觸與色彩。",
-              image: "oil-painting",
+              image: "/images/reference/styles/ghibli-portrait-thumb.webp",
               href: "/#styles",
             },
             {
               title: "珍藏重要回憶",
               text: "將人像與生活照片變成專屬作品。",
-              image: "storybook",
+              image: "/images/reference/styles/royal-pet-portrait-thumb.webp",
               href: "/upload",
             },
             {
               title: "為居家挑選配框",
               text: "尺寸、畫框與卡紙，搭出理想比例。",
-              image: "minimalist",
+              image: "/images/reference/how-to-step-3.webp",
               href: "/customize",
             },
           ].map((d) => (
             <Link key={d.title} href={d.href}>
               <div>
                 <Image
-                  src={
-                    STYLE_PREVIEWS[d.image as keyof typeof STYLE_PREVIEWS].src
-                  }
+                  src={d.image}
                   alt=""
                   fill
                   sizes="(max-width: 700px) 90vw, 30vw"

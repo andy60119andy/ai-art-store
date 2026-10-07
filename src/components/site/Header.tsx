@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { ART_STYLES } from "@/lib/ai/styles";
+import { REFERENCE_GALLERY } from "@/lib/ai/reference-gallery";
 import "@/app/storefront.css";
 
 export default function Header() {
@@ -37,7 +37,7 @@ export default function Header() {
             <div className="arto-mega">
               <h3>找到你喜歡的藝術風格</h3>
               <div>
-                {ART_STYLES.map((s) => (
+                {REFERENCE_GALLERY.slice(0, 12).map((s) => (
                   <Link
                     key={s.key}
                     href={`/#styles`}
@@ -48,7 +48,7 @@ export default function Header() {
                 ))}
               </div>
               <Link href="/#styles" onClick={() => setOpen(false)}>
-                探索全部 12 種風格 →
+                探索全部 79 種風格參考 →
               </Link>
             </div>
           </details>
