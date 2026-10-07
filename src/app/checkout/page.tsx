@@ -1,3 +1,101 @@
 "use client";
-import {useState} from "react";
-export default function CheckoutPage(){const [form,setForm]=useState({recipient_name:"",phone:"",postal_code:"",city:"",district:"",address_line:""});const [message,setMessage]=useState("");const [order,setOrder]=useState<any>(null);const [payment,setPayment]=useState<any>(null);const submit=async(e:React.FormEvent)=>{e.preventDefault();setMessage("建立訂單中…");const r=await fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({shippingAddress:form})});const d=await r.json();if(!r.ok){setMessage(d.error||"建立訂單失敗");return}setOrder(d.order);setPayment(d.payment);setMessage("")};if(order&&payment)return <main className="page"><section className="hero"><p className="eyebrow">PAYMENT</p><h1>前往付款</h1><p>訂單：<strong>{order.order_number}</strong></p><h2>{"NT$"+order.total_twd.toLocaleString()}</h2><p>即將導向綠界付款頁面。</p><form method="POST" action={payment.action}>{Object.entries(payment.fields).map(([k,v])=><input key={k} type="hidden" name={k} value={String(v)}/>)}<button type="submit" style={{padding:"15px 28px",border:0,borderRadius:12,fontWeight:800}}>立即付款</button></form></section></main>;return <main className="page"><section className="hero" style={{maxWidth:700}}><p className="eyebrow">CHECKOUT</p><h1>確認訂單</h1>{message&&<p>{message}</p>}<form onSubmit={submit}>{[["recipient_name","收件人",true],["phone","手機",true],["postal_code","郵遞區號",false],["city","城市",true],["district","區",false],["address_line","地址",true]].map(([key,label,required])=><label key={String(key)} style={{display:"block"}}>{String(label)}<input required={Boolean(required)} value={String(form[key as keyof typeof form])} onChange={e=>setForm({...form,[key]:e.target.value})} style={{display:"block",width:"100%",padding:14,margin:"8px 0 16px"}}/></label>)}<button type="submit" style={{padding:"15px 28px",border:0,borderRadius:12,fontWeight:800}}>確認並前往付款</button></form></section></main>;}
+
+import { useState } from "react";
+
+type ShippingForm = {
+  recipient_name: string;
+  phone: string;
+  postal_code: string;
+  city: string;
+  district: string;
+  address_line: string;
+};
+
+const fields: Array<[keyof ShippingForm, string, boolean]> = [
+  ["recipient_name", "收件人", true],
+  ["phone", "手機", true],
+  ["postal_code", "郵遞區號", false],
+  ["city", "城市", true],
+  ["district", "區", false],
+  ["address_line", "地址", true],
+];
+
+export default function CheckoutPage() {
+  const [form, setForm] = useState<ShippingForm>({
+    recipient_name: "",
+    phone: "",
+    postal_code: "",
+    city: "",
+    district: "",
+    address_line: "",
+  });
+  const [message, setMessage] = useState("");
+  const [order, setOrder] = useState<any>(null);
+  const [payment, setPayment] = useState<any>(null);
+
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessage("建立訂單中…");
+    const r = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ shippingAddress: form }),
+    });
+    const d = await r.json();
+    if (!r.ok) {
+      setMessage(d.error || "建立訂單失敗");
+      return;
+    }
+    setOrder(d.order);
+    setPayment(d.payment);
+    setMessage("");
+  };
+
+  if (order && payment) {
+    return (
+      <main className="page">
+        <section className="hero">
+          <p className="eyebrow">PAYMENT</p>
+          <h1>前往付款</h1>
+          <p>訂單：<strong>{order.order_number}</strong></p>
+          <h2>{"NT$" + order.total_twd.toLocaleString()}</h2>
+          <p>即將導向綠界付款頁面。</p>
+          <form method="POST" action={payment.action}>
+            {Object.entries(payment.fields).map(([k, v]) => (
+              <input key={k} type="hidden" name={k} value={String(v)} />
+            ))}
+            <button type="submit" style={{ padding: "15px 28px", border: 0, borderRadius: 12, fontWeight: 800 }}>
+              立即付款
+            </button>
+          </form>
+        </section>
+      </main>
+    );
+  }
+
+  return (
+    <main className="page">
+      <section className="hero" style={{ maxWidth: 700 }}>
+        <p className="eyebrow">CHECKOUT</p>
+        <h1>確認訂單</h1>
+        {message && <p>{message}</p>}
+        <form onSubmit={submit}>
+          {fields.map(([key, label, required]) => (
+            <label key={key} style={{ display: "block" }}>
+              {label}
+              <input
+                required={required}
+                value={form[key]}
+                onChange={(e) => setForm((current) => ({ ...current, [key]: e.target.value }))}
+                style={{ display: "block", width: "100%", padding: 14, margin: "8px 0 16px" }}
+              />
+            </label>
+          ))}
+          <button type="submit" style={{ padding: "15px 28px", border: 0, borderRadius: 12, fontWeight: 800 }}>
+            確認並前往付款
+          </button>
+        </form>
+      </section>
+    </main>
+  );
+}
