@@ -40,14 +40,14 @@ export default function Header() {
                 {REFERENCE_GALLERY.slice(0, 12).map((s) => (
                   <Link
                     key={s.key}
-                    href={`/#styles`}
+                    href={`/styles/${s.key}`}
                     onClick={() => setOpen(false)}
                   >
                     {s.name} ↗
                   </Link>
                 ))}
               </div>
-              <Link href="/#styles" onClick={() => setOpen(false)}>
+              <Link href="/styles" onClick={() => setOpen(false)}>
                 探索全部 79 種風格參考 →
               </Link>
             </div>
@@ -62,11 +62,14 @@ export default function Header() {
               <Link href="/account">我的作品收藏 →</Link>
             </div>
           </details>
-          <Link href="/#discover" onClick={() => setOpen(false)}>
-            靈感探索
+          <Link href="/gift-ideas" onClick={() => setOpen(false)}>
+            送禮靈感
           </Link>
           <Link href="/#how-it-works" onClick={() => setOpen(false)}>
             創作流程
+          </Link>
+          <Link href="/occasions" onClick={() => setOpen(false)}>
+            場合挑選
           </Link>
         </nav>
         <div className="arto-header-actions">

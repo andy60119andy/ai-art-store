@@ -415,6 +415,16 @@
       "source": "https://www.framearto.com/images/styles/gawai-portrait-thumb.webp",
       "local": "/images/reference/styles/gawai-portrait-thumb.webp",
       "bytes": 218124
+    },
+    {
+      "source": "https://www.framearto.com/images/landing/portrait-gift/portrait-gift-hero-bg.webp",
+      "local": "/images/reference/landing/portrait-gift/portrait-gift-hero-bg.webp",
+      "bytes": 86634
+    },
+    {
+      "source": "https://www.framearto.com/images/landing/anniversary-portrait/anniversary-portrait-hero-bg.webp",
+      "local": "/images/reference/landing/anniversary-portrait/anniversary-portrait-hero-bg.webp",
+      "bytes": 73634
     }
   ]
 }

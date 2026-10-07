@@ -1,0 +1,964 @@
+body {
+  background: #faf9f6;
+}
+.arto-subpage {
+  background: #faf9f6;
+  min-height: 70vh;
+}
+.arto-breadcrumb {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding-top: 26px;
+  padding-bottom: 20px;
+  font-size: 12px;
+  color: #81878e;
+}
+.arto-breadcrumb a {
+  color: #ea6a50;
+  text-decoration: none;
+}
+.arto-subpage h1 {
+  font-family: Georgia, "Noto Serif TC", serif;
+  font-size: 42px;
+  line-height: 1.35;
+  letter-spacing: -1px;
+  color: #1b2533;
+  margin: 18px 0;
+}
+.arto-subpage h1 em {
+  font-style: normal;
+  color: #ff684b;
+}
+.arto-index-hero {
+  padding-top: 56px;
+  padding-bottom: 58px;
+  text-align: center;
+  max-width: 900px;
+}
+.arto-index-hero h1 {
+  font-size: 54px;
+}
+.arto-index-hero > p {
+  max-width: 760px;
+  margin: 24px auto;
+  color: #7b838c;
+  line-height: 1.9;
+  font-size: 17px;
+}
+.arto-index-hero > div,
+.arto-inline-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.arto-category-jumps {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-bottom: 35px;
+}
+.arto-category-jumps a {
+  font-size: 12px;
+  color: #586472;
+  border: 1px solid #e5e3df;
+  border-radius: 24px;
+  padding: 10px 16px;
+  text-decoration: none;
+  background: #fff;
+}
+.arto-category-jumps a:hover {
+  color: #ff684b;
+  border-color: #ff684b;
+}
+.arto-category-section {
+  padding-top: 44px;
+  padding-bottom: 44px;
+}
+.arto-category-section h2 {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  margin: 0 0 12px;
+}
+.arto-category-section > p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #868d96;
+  margin-bottom: 28px;
+}
+.arto-collection-hero {
+  position: relative;
+  min-height: 530px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+.arto-collection-hero > img {
+  object-fit: cover;
+}
+.arto-collection-hero:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #162131bd;
+}
+.arto-collection-hero > div {
+  position: relative;
+  z-index: 1;
+  max-width: 950px;
+  padding: 64px 30px;
+  color: white;
+  animation: arto-enter 0.6s ease both;
+}
+.arto-collection-hero h1 {
+  color: white;
+  font-size: 48px;
+  margin: 24px 0;
+}
+.arto-collection-hero p {
+  color: #d4d7de;
+  line-height: 1.9;
+  font-size: 18px;
+  max-width: 790px;
+  margin: 0 auto 30px;
+}
+.arto-collection-hero > div > div {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.arto-collection-hero .arto-outline {
+  background: #ffffff05;
+  border-color: #ffffff70;
+  color: white;
+}
+.arto-editorial {
+  max-width: 840px;
+  padding-top: 64px;
+  padding-bottom: 20px;
+}
+.arto-editorial h2 {
+  font-family: Georgia, serif;
+  font-size: 29px;
+  line-height: 1.5;
+}
+.arto-editorial p {
+  color: #7b838d;
+  line-height: 2;
+  font-size: 16px;
+}
+.arto-collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+.arto-collection-card {
+  display: block;
+  color: #283341;
+  background: white;
+  border: 1px solid #e8e5e0;
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.arto-collection-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px #1b253314;
+}
+.arto-collection-card > div {
+  position: relative;
+  height: 280px;
+}
+.arto-collection-card img {
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.arto-collection-card:hover img {
+  transform: scale(1.04);
+}
+.arto-collection-card > section {
+  padding: 22px;
+}
+.arto-collection-card h3 {
+  font-size: 22px;
+  margin: 0 0 12px;
+  display: flex;
+  justify-content: space-between;
+}
+.arto-collection-card h3 span,
+.arto-collection-card > section > span {
+  color: #ee6a50;
+}
+.arto-collection-card p {
+  color: #8c929a;
+  line-height: 1.8;
+  font-size: 14px;
+  min-height: 50px;
+}
+.arto-collection-card > section > span {
+  font-size: 12px;
+}
+.arto-product {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 70px;
+  padding-top: 4px;
+}
+.arto-product-image {
+  position: relative;
+  height: 500px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #ebe8e2;
+}
+.arto-product-image > img {
+  object-fit: cover;
+}
+.arto-product-image > span {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #fff;
+  border-radius: 25px;
+  padding: 10px 15px;
+  font-size: 11px;
+  color: #455160;
+}
+.arto-product-trust {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  background: white;
+  border-radius: 14px;
+  padding: 18px 12px;
+  margin-top: 14px;
+  font-size: 11px;
+  color: #737f8c;
+}
+.arto-product-info h1 {
+  font-size: 38px;
+  margin: 14px 0 8px;
+}
+.arto-product-info > p {
+  font-size: 15px;
+  color: #8c929b;
+  margin: 0 0 22px;
+  line-height: 1.8;
+}
+.arto-green-tag {
+  background: #e7f2e8;
+  color: #45945d;
+  padding: 6px 10px;
+  border-radius: 18px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.arto-product-price {
+  color: #ff684b;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.arto-product-notice {
+  background: #edf5ef;
+  color: #508768;
+  border: 1px solid #d5e6d9;
+  border-radius: 16px;
+  line-height: 1.9;
+  padding: 15px 18px;
+  font-size: 12px;
+  margin: 14px 0;
+}
+.arto-photo-starter {
+  background: #fff8f5;
+  border: 1px solid #f2e1d9;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 3px 18px #ff684b08;
+}
+.arto-photo-starter h3 {
+  font-size: 15px;
+  margin: 0 0 18px;
+}
+.arto-photo-drop {
+  min-height: 150px;
+  border: 2px dashed #efcbbf;
+  border-radius: 18px;
+  background: #fff2ed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 8px;
+  transition: background 0.2s;
+}
+.arto-photo-drop.dragging {
+  background: #ffe2d5;
+  border-color: #ff684b;
+}
+.arto-photo-drop strong {
+  font-size: 13px;
+  word-break: break-all;
+  max-width: 100%;
+}
+.arto-photo-drop small {
+  font-size: 10px;
+  color: #8e979e;
+}
+.arto-upload-symbol {
+  color: #ff684b;
+  font-size: 32px;
+}
+.arto-text-button {
+  border: 0;
+  background: transparent;
+  color: #ed694e;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px;
+}
+.arto-photo-starter > .arto-button {
+  display: flex;
+  margin-top: 16px;
+}
+.arto-photo-note {
+  font-size: 11px !important;
+  line-height: 1.7;
+  color: #969da5;
+  text-align: center;
+  margin: 12px 0 0 !important;
+}
+.arto-local-photo {
+  width: 150px;
+  height: 130px;
+  position: relative;
+}
+.arto-local-photo img {
+  object-fit: contain;
+}
+.arto-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.arto-mini-process {
+  background: white;
+  border: 1px solid #e9e6e2;
+  border-radius: 20px;
+  padding: 22px;
+  margin-top: 20px;
+}
+.arto-mini-process h3 {
+  font-size: 15px;
+  margin-top: 0;
+}
+.arto-mini-process > div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #85909b;
+  gap: 10px;
+}
+.arto-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.arto-feature-grid article {
+  background: white;
+  border: 1px solid #e9e7e3;
+  border-radius: 22px;
+  padding: 30px;
+}
+.arto-feature-grid article > span {
+  font-size: 26px;
+  color: #ff684b;
+  display: inline-block;
+  background: #fff1eb;
+  border-radius: 16px;
+  padding: 14px;
+}
+.arto-feature-grid h3 {
+  font-size: 21px;
+  margin: 24px 0 14px;
+}
+.arto-feature-grid p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #8a929c;
+}
+.arto-upload-page {
+  padding-top: 60px;
+  align-items: start;
+}
+.arto-upload-page > div > p {
+  color: #89929d;
+  line-height: 1.8;
+}
+.arto-upload-page .arto-product-image {
+  margin-top: 28px;
+  height: 360px;
+}
+.arto-upload-page > div:nth-child(2) {
+  margin-top: 65px;
+}
+.arto-login,
+.arto-service-state {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  padding-top: 65px;
+  padding-bottom: 65px;
+  align-items: center;
+  min-height: 650px;
+}
+.arto-login-art,
+.arto-state-art {
+  position: relative;
+  min-height: 530px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #e7e4df;
+}
+.arto-login-art img,
+.arto-state-art img {
+  object-fit: cover;
+}
+.arto-login-art:after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 0;
+  background: linear-gradient(transparent, #172638bb);
+}
+.arto-login-art > div {
+  position: absolute;
+  left: 35px;
+  bottom: 35px;
+  z-index: 1;
+  color: white;
+}
+.arto-login-art span {
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+.arto-login-art h2 {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+.arto-login-form {
+  padding: 25px;
+}
+.arto-login-form > p,
+.arto-service-state > div > p {
+  color: #8b939e;
+  line-height: 1.9;
+  font-size: 15px;
+}
+.arto-login-form form {
+  display: grid;
+  gap: 13px;
+  margin: 28px 0 22px;
+}
+.arto-login-form label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #5c6977;
+}
+.arto-login-form input {
+  border: 1px solid #dadfe5;
+  border-radius: 14px;
+  padding: 17px;
+  font-size: 15px;
+  background: white;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.arto-login-form input:focus {
+  outline: 2px solid #ffad98;
+  outline-offset: 2px;
+}
+.arto-login-form button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+.arto-service-state .arto-inline-actions {
+  justify-content: flex-start;
+  margin-top: 28px;
+}
+.arto-heading h1 {
+  margin-top: 15px;
+}
+.page,
+.creator-page,
+.artwork-page {
+  background: #faf9f6;
+  color: #243141;
+  font-family: Arial, sans-serif;
+  max-width: 1240px;
+  margin: auto;
+  padding: 48px 32px;
+  min-height: 70vh;
+}
+.page > .hero {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 40px;
+  border: 1px solid #e7e4de;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 8px 35px #17263806;
+  margin: 0 auto 30px;
+  min-height: 0;
+}
+.page h1,
+.creator-page h1,
+.artwork-page h1 {
+  font-family: Georgia, "Noto Serif TC", serif;
+  font-size: 38px;
+  line-height: 1.4;
+  color: #1b2533;
+  letter-spacing: -1px;
+}
+.page .eyebrow,
+.creator-page .eyebrow {
+  color: #ec6b51;
+  letter-spacing: 1.5px;
+  font-size: 11px;
+}
+.page button,
+.creator-page button {
+  background: #ff684b;
+  color: white;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.page button:disabled,
+.arto-home button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.page input:not([type="checkbox"]),
+.page select,
+.creator-page input {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #dbe0e5;
+  background: white;
+  color: #293746;
+  font: inherit;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.page a:not(.arto-button):not(.arto-outline) {
+  color: #ef6b50;
+}
+.creator-hero {
+  background: white;
+  border: 1px solid #e8e5df;
+  border-radius: 24px;
+  padding: 45px;
+  gap: 50px;
+}
+.creator-hero p {
+  color: #84909a;
+}
+.upload-panel {
+  background: #fff6f1;
+  border: 2px dashed #eacbbb;
+  border-radius: 22px;
+}
+.upload-icon {
+  color: #ff684b;
+}
+.style-tile {
+  border-radius: 18px !important;
+}
+.style-tile.selected {
+  outline: 3px solid #ff684b !important;
+  border-color: #ff684b !important;
+}
+.artwork-page .button-dark,
+.creator-page .button-dark {
+  background: #ff684b;
+  color: white;
+}
+.arto-subpage a:focus-visible,
+.arto-subpage button:focus-visible,
+.page button:focus-visible {
+  outline: 3px solid #ff9e87;
+  outline-offset: 4px;
+}
+.arto-subpage .arto-style-card {
+  animation: arto-card-enter 0.4s ease both;
+}
+@media (max-width: 1000px) {
+  .arto-product {
+    gap: 30px;
+  }
+  .arto-product-image {
+    height: 450px;
+  }
+  .arto-product-trust {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .arto-login,
+  .arto-service-state {
+    gap: 35px;
+  }
+  .arto-collection-card > div {
+    height: 240px;
+  }
+}
+@media (max-width: 800px) {
+  .arto-product,
+  .arto-login,
+  .arto-service-state {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .arto-product-image {
+    height: 500px;
+    max-width: 560px;
+    margin: auto;
+  }
+  .arto-product-info {
+    max-width: 560px;
+    width: 100%;
+    margin: auto;
+  }
+  .arto-subpage h1 {
+    font-size: 34px;
+  }
+  .arto-index-hero h1 {
+    font-size: 44px;
+  }
+  .arto-collection-hero h1 {
+    font-size: 38px;
+  }
+  .arto-collection-hero p {
+    font-size: 16px;
+  }
+  .arto-collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .arto-feature-grid {
+    grid-template-columns: 1fr;
+  }
+  .arto-upload-page > div:nth-child(2) {
+    margin-top: 0;
+  }
+  .arto-login,
+  .arto-service-state {
+    padding-top: 36px;
+    min-height: 0;
+  }
+  .arto-login-art,
+  .arto-state-art {
+    min-height: 360px;
+  }
+  .arto-login-form {
+    padding: 10px;
+  }
+  .arto-login-art h2 {
+    font-size: 25px;
+  }
+  .arto-breadcrumb {
+    flex-wrap: wrap;
+    line-height: 1.6;
+  }
+  .page > .hero {
+    padding: 28px;
+  }
+  .creator-hero {
+    padding: 28px;
+  }
+  .arto-index-hero {
+    padding-top: 36px;
+  }
+  .arto-category-section {
+    padding-top: 35px;
+    padding-bottom: 35px;
+  }
+}
+@media (max-width: 550px) {
+  .arto-collection-grid {
+    grid-template-columns: 1fr;
+  }
+  .arto-collection-hero {
+    min-height: 440px;
+  }
+  .arto-collection-hero > div {
+    padding: 45px 20px;
+  }
+  .arto-collection-hero h1 {
+    font-size: 30px;
+  }
+  .arto-collection-hero p {
+    font-size: 14px;
+  }
+  .arto-product-image {
+    height: 380px;
+  }
+  .arto-product-info h1 {
+    font-size: 30px;
+  }
+  .arto-product-price {
+    font-size: 24px;
+  }
+  .arto-product {
+    padding-bottom: 40px;
+  }
+  .arto-product-trust {
+    font-size: 10px;
+  }
+  .arto-index-hero h1 {
+    font-size: 36px;
+  }
+  .arto-index-hero > p {
+    font-size: 15px;
+  }
+  .arto-editorial {
+    padding-top: 40px;
+  }
+  .arto-editorial h2 {
+    font-size: 25px;
+  }
+  .arto-editorial p {
+    font-size: 14px;
+  }
+  .arto-login-art,
+  .arto-state-art {
+    min-height: 300px;
+  }
+  .arto-login-art > div {
+    left: 24px;
+    bottom: 25px;
+  }
+  .page,
+  .creator-page,
+  .artwork-page {
+    padding: 30px 18px;
+  }
+  .page h1,
+  .creator-page h1 {
+    font-size: 29px;
+  }
+  .page > .hero {
+    padding: 24px;
+  }
+  .creator-hero {
+    padding: 24px;
+  }
+  .arto-category-section h2 {
+    font-size: 26px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arto-subpage * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.arto-frame-page {
+  padding-top: 48px;
+  padding-bottom: 70px;
+}
+.arto-frame-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 38px;
+}
+.arto-room-preview {
+  position: relative;
+  min-height: 620px;
+  background: linear-gradient(165deg, #ebe5d9, #d6d1c8);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+  overflow: hidden;
+}
+.arto-room-preview:after {
+  content: "";
+  position: absolute;
+  height: 60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(#b9a88b, #958165);
+  border-top: 1px solid #c1b39b;
+}
+.arto-demo-frame {
+  position: relative;
+  border: 14px solid;
+  box-shadow:
+    8px 12px 22px #0003,
+    inset 0 0 3px #0003;
+  background: #faf9f3;
+  max-height: 490px;
+  box-sizing: border-box;
+  transition:
+    border-color 0.25s,
+    padding 0.25s,
+    aspect-ratio 0.25s;
+}
+.arto-demo-frame > div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 10px;
+}
+.arto-demo-frame img {
+  object-fit: cover;
+}
+.arto-room-caption {
+  position: absolute;
+  bottom: 78px;
+  color: #7c7568;
+  font-size: 11px;
+  text-align: center;
+}
+.arto-frame-controls {
+  background: white;
+  border: 1px solid #e6e3de;
+  border-radius: 24px;
+  padding: 30px;
+}
+.arto-frame-controls h2 {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  margin: 20px 0 25px;
+}
+.arto-frame-controls > label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6c7887;
+  margin: 22px 0 12px;
+}
+.arto-frame-controls select,
+.arto-size-inputs input {
+  width: 100%;
+  border: 1px solid #dadee4;
+  border-radius: 12px;
+  background: #fff;
+  padding: 13px;
+  font: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  color: #283745;
+}
+.arto-size-inputs {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.arto-size-inputs label {
+  flex: 1;
+  font-size: 11px;
+  color: #8b94a0;
+}
+.arto-size-inputs input {
+  margin-top: 8px;
+  min-width: 0;
+}
+.arto-frame-swatches {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.arto-frame-swatches button {
+  background: white;
+  border: 1px solid #dde1e4;
+  border-radius: 12px;
+  padding: 12px;
+  font: inherit;
+  font-size: 11px;
+  color: #6e7986;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.arto-frame-swatches button[aria-pressed="true"] {
+  border-color: #ff684b;
+  background: #fff4ee;
+  color: #db674f;
+}
+.arto-frame-swatches span {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  border: 1px solid #aaa5;
+}
+.arto-mat-checkbox {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+}
+.arto-frame-controls > .arto-button {
+  display: flex;
+  padding: 16px 18px;
+  font-size: 13px;
+}
+.arto-frame-controls input:focus-visible,
+.arto-frame-controls select:focus-visible {
+  outline: 2px solid #ff9e87;
+  outline-offset: 3px;
+}
+@media (max-width: 850px) {
+  .arto-frame-grid {
+    grid-template-columns: 1fr;
+  }
+  .arto-room-preview {
+    min-height: 530px;
+  }
+  .arto-frame-controls {
+    padding: 25px;
+  }
+}
+@media (max-width: 550px) {
+  .arto-room-preview {
+    min-height: 430px;
+    padding: 20px;
+  }
+  .arto-demo-frame {
+    max-height: 340px;
+    border-width: 10px;
+  }
+  .arto-room-caption {
+    bottom: 70px;
+  }
+  .arto-frame-page {
+    padding-top: 30px;
+  }
+}

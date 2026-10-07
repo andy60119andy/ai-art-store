@@ -1,6 +1,15 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
+import FramePreview from "@/components/site/FramePreview";
 export default function CustomizePage() {
+  return process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? (
+    <LiveCustomizePage />
+  ) : (
+    <FramePreview />
+  );
+}
+function LiveCustomizePage() {
   const [catalog, setCatalog] = useState<any>(null),
     [artworks, setArtworks] = useState<any[]>([]),
     [artworkId, setArtworkId] = useState(""),

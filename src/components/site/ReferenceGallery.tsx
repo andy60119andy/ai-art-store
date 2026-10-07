@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { REFERENCE_GALLERY } from "@/lib/ai/reference-gallery";
 
 const categories = {
@@ -18,9 +19,16 @@ const categories = {
   Portrait: "人像",
 };
 type Reference = (typeof REFERENCE_GALLERY)[number];
-export default function ReferenceGallery() {
+export default function ReferenceGallery({
+  linkToDetails = false,
+  initialExpanded = false,
+}: {
+  linkToDetails?: boolean;
+  initialExpanded?: boolean;
+}) {
+  const router = useRouter();
   const [category, setCategory] = useState("All");
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(initialExpanded);
   const [selected, setSelected] = useState<Reference | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -54,7 +62,11 @@ export default function ReferenceGallery() {
             className="arto-style-card"
             key={style.key}
             style={{ animationDelay: `${Math.min(i % 12, 8) * 35}ms` }}
-            onClick={() => setSelected(style)}
+            onClick={() =>
+              linkToDetails
+                ? router.push(`/styles/${style.key}`)
+                : setSelected(style)
+            }
             aria-label={`放大預覽 ${style.name}`}
           >
             <div className="arto-style-image">
@@ -129,10 +141,10 @@ export default function ReferenceGallery() {
               </p>
               <Link
                 className="arto-button"
-                href="/generate"
+                href={`/styles/${selected.key}`}
                 onClick={() => dialog.current?.close()}
               >
-                探索創作風格 →
+                查看風格詳情 →
               </Link>
             </div>
           </>

@@ -359,7 +359,7 @@ export default function HomePage() {
               title: "探索藝術風格",
               text: "找到符合你個性的筆觸與色彩。",
               image: "/images/reference/styles/ghibli-portrait-thumb.webp",
-              href: "/#styles",
+              href: "/styles",
             },
             {
               title: "珍藏重要回憶",
@@ -406,73 +406,6 @@ export default function HomePage() {
         <span>▧ 尺寸與畫框搭配</span>
         <span>♡ 為回憶找到位置</span>
       </div>
-      <footer className="arto-footer">
-        <div className="arto-container">
-          <div className="arto-footer-grid">
-            <div className="arto-footer-brand">
-              <Link href="/">
-                AI ART <em>STORE</em>
-              </Link>
-              <p>
-                把喜歡的照片，
-                <br />
-                變成值得珍藏的藝術。
-              </p>
-            </div>
-            {[
-              {
-                title: "熱門風格",
-                links: [
-                  ["油畫", "/#styles"],
-                  ["水彩", "/#styles"],
-                  ["日系插畫", "/#styles"],
-                  ["電影感", "/#styles"],
-                ],
-              },
-              {
-                title: "創作與配框",
-                links: [
-                  ["上傳照片", "/upload"],
-                  ["選擇風格", "/generate"],
-                  ["尺寸與畫框", "/customize"],
-                  ["創作流程", "/#how-it-works"],
-                ],
-              },
-              {
-                title: "我的帳戶",
-                links: [
-                  ["我的作品", "/account"],
-                  ["我的訂單", "/orders"],
-                  ["購物車", "/cart"],
-                ],
-              },
-              {
-                title: "探索更多",
-                links: [
-                  ["全部風格", "/#styles"],
-                  ["創作方案", "/#options"],
-                  ["常見問題", "/#faq"],
-                  ["靈感探索", "/#discover"],
-                ],
-              },
-            ].map((col) => (
-              <div key={col.title}>
-                <h3>{col.title}</h3>
-                {col.links.map(([label, href]) => (
-                  <Link href={href} key={label}>
-                    {label}
-                  </Link>
-                ))}
-              </div>
-            ))}
-          </div>
-          <div className="arto-footer-bottom">
-            <span>© {new Date().getFullYear()} AI ART STORE</span>
-            <span>照片的故事，由你決定。</span>
-            <a href="#">回到頂部 ↑</a>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }
