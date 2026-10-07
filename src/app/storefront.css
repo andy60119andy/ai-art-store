@@ -1552,3 +1552,8 @@
     transform: none;
   }
 }
+.arto-motion-paused .arto-preview-dialog[open] {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
