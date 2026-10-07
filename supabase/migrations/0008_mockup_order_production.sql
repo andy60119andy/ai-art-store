@@ -2,10 +2,17 @@
 alter table public.cart_items add column if not exists mockup_id uuid references public.mockups(id) on delete set null;
 alter table public.order_items add column if not exists mockup_id uuid references public.mockups(id) on delete set null;
 alter table public.production_files add column if not exists mockup_id uuid references public.mockups(id) on delete set null;
+alter table public.cart_items add column if not exists custom_width_mm integer;
+alter table public.cart_items add column if not exists custom_height_mm integer;
+alter table public.order_items add column if not exists custom_width_mm integer;
+alter table public.order_items add column if not exists custom_height_mm integer;
 
 create index if not exists cart_items_mockup_id_idx on public.cart_items(mockup_id);
 create index if not exists order_items_mockup_id_idx on public.order_items(mockup_id);
 create index if not exists production_files_mockup_id_idx on public.production_files(mockup_id);
+create index if not exists cart_items_custom_dimensions_idx on public.cart_items(custom_width_mm, custom_height_mm);
+create index if not exists order_items_custom_dimensions_idx on public.order_items(custom_width_mm, custom_height_mm);
+create unique index if not exists production_files_order_item_unique_idx on public.production_files(order_item_id);
 
 create policy mockups_staff_select on public.mockups
 for select using (
