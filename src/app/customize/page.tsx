@@ -1,7 +1,7 @@
 "use client";
-import { useEffect,useMemo,useState } from "react";\nimport { useSearchParams } from "next/navigation";
+import { useEffect,useMemo,useState } from "react";
 export default function CustomizePage(){
-const searchParams=useSearchParams();
+
 const [catalog,setCatalog]=useState<any>(null),[artworks,setArtworks]=useState<any[]>([]),[artworkId,setArtworkId]=useState(""),[sizeId,setSizeId]=useState(""),[frameId,setFrameId]=useState(""),[paperId,setPaperId]=useState(""),[custom,setCustom]=useState(false),[widthMm,setWidthMm]=useState(600),[heightMm,setHeightMm]=useState(900),[message,setMessage]=useState("載入商品資料…"),[adding,setAdding]=useState(false),[mockupId,setMockupId]=useState(""),[mockupUrl,setMockupUrl]=useState(""),[mockupLoading,setMockupLoading]=useState(false);
 useEffect(()=>{const requestedArtworkId=searchParams.get("artworkId"); Promise.all([fetch("/api/catalog").then(r=>r.json()),fetch("/api/artworks").then(r=>r.json())]).then(([c,a])=>{setCatalog(c);const list=(a.artworks||[]).map((x:any)=>({...x,imageUrl:x.artwork_versions?.sort((u:any,v:any)=>v.version_no-u.version_no)[0]?.signedUrl||null})); setArtworks(list); if(requestedArtworkId && list.some((x:any)=>x.id===requestedArtworkId)) setArtworkId(requestedArtworkId);const ss=(c.sizes||[]).filter((s:any)=>s.product_id===c.products?.[0]?.id);setSizeId(ss[0]?.id||"");setFrameId(c.frames?.[0]?.id||"");setPaperId(c.papers?.[0]?.id||"");setMessage(c.error?"商品資料載入失敗":"")}).catch(()=>setMessage("載入失敗，請重新整理"))},[searchParams]);
 const product=catalog?.products?.[0],size=catalog?.sizes?.find((x:any)=>x.id===sizeId),frame=catalog?.frames?.find((x:any)=>x.id===frameId),paper=catalog?.papers?.find((x:any)=>x.id===paperId),artwork=artworks.find(x=>x.id===artworkId);
