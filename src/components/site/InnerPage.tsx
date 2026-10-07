@@ -27,7 +27,7 @@ export function InnerCTA() {
     <section className="arto-final">
       <span className="arto-eyebrow">YOUR PHOTO. YOUR STORY.</span>
       <h2>讓一張照片，變成一份心意</h2>
-      <p>挑選你喜歡的風格，再搭配適合生活空間的尺寸與畫框。</p>
+      <p>挑選你喜歡的風格，再搭配適合生活空間的帆布尺寸。</p>
       <Link href="/upload" className="arto-button">
         開始我的創作 →
       </Link>

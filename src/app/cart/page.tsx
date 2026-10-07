@@ -10,7 +10,7 @@ export default function CartPage() {
     <ServiceState
       title="購物車"
       eyebrow="YOUR ART COLLECTION"
-      description="先選擇一件專屬藝術作品，再搭配尺寸與畫框。"
+      description="先選擇一件專屬藝術作品，再搭配帆布尺寸。"
     />
   );
 }
@@ -40,7 +40,7 @@ function LiveCartPage() {
         {!message && !items.length && (
           <div style={{ padding: "40px 0", textAlign: "center" }}>
             <h2>購物車是空的</h2>
-            <p>先製作一件 AI 藝術作品，再選擇尺寸與畫框。</p>
+            <p>先製作一件 AI 藝術作品，再選擇帆布尺寸。</p>
             <Link href="/upload">開始創作 →</Link>
           </div>
         )}

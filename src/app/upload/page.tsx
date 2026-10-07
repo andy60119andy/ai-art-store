@@ -73,7 +73,7 @@ export default async function UploadPage() {
       </section>
       <section className="creator-note">
         <strong>下一步</strong>
-        <span>上傳 → 選擇 AI 風格 → 免費生成 → 選尺寸與畫框</span>
+        <span>上傳 → 選擇 AI 風格 → 免費生成 → 選帆布尺寸</span>
       </section>
     </main>
   );

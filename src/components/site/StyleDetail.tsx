@@ -31,8 +31,8 @@ export default function StyleDetail({
           </div>
           <div className="arto-product-trust">
             <span>✧ 專屬照片</span>
-            <span>▧ 畫框搭配</span>
-            <span>◇ 自訂尺寸</span>
+            <span>▧ 帆布裸框</span>
+            <span>◇ 標準尺寸</span>
             <span>♡ 珍藏回憶</span>
           </div>
         </div>
@@ -40,11 +40,11 @@ export default function StyleDetail({
           <span className="arto-green-tag">YOUR PHOTO, REIMAGINED</span>
           <h1>{style.name}</h1>
           <p>將喜歡的照片，化成 {style.name} 的藝術靈感。</p>
-          <div className="arto-product-price">先預覽，再選成品</div>
-          <p className="clone-product-sub">數位作品 · 藝術印刷 · 客製配框</p>
+          <div className="arto-product-price">帆布裸框 US$80 起</div>
+          <p className="clone-product-sub">數位作品 US$9.95 · 油畫布／帆布裸框 US$80 起</p>
           <div className="arto-product-notice">
             ✓ 先探索風格，再決定作品的呈現方式
-            <br />✓ 成品價格依尺寸、材質與畫框計算
+            <br />✓ 展示價格以美元（USD）標示，依尺寸而異；正式結帳尚未啟用
           </div>
           <PreviewCreator styleKey={style.key} styleName={style.name} />
           <div className="arto-mini-process">
@@ -52,7 +52,7 @@ export default function StyleDetail({
             <div>
               <span>① 上傳照片</span>
               <span>② 選擇風格</span>
-              <span>③ 配框預覽</span>
+              <span>③ 帆布預覽</span>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function StyleDetail({
             {
               icon: "▧",
               name: "配出完整的畫面",
-              text: "依照空間挑選尺寸、畫框與卡紙，查看整體搭配。",
+              text: "依照空間挑選尺寸與帆布裸框，查看整體搭配。",
             },
             {
               icon: "♡",
@@ -107,8 +107,8 @@ export default function StyleDetail({
                 "選擇清晰、主體完整、光線充足的照片。人像請盡量避免臉部被遮住。",
               ],
               [
-                "如何搭配尺寸與畫框？",
-                "作品完成後，可前往配框頁選擇尺寸、畫框與卡紙，再查看搭配效果。",
+                "如何搭配帆布尺寸？",
+                "作品完成後，可前往帆布尺寸頁選擇尺寸與帆布裸框，再查看搭配效果。",
               ],
             ].map(([q, a]) => (
               <details key={q}>

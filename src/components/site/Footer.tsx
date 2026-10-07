@@ -38,7 +38,7 @@ const columns = [
       ["全部商品", "/shop"],
       ["瀏覽風格", "/#styles"],
       ["製作流程", "/#how-it-works"],
-      ["大尺寸客製", "/large-format"],
+      ["帆布裸框", "/large-format"],
       ["合作提案", "/affiliate-program"],
     ],
   },
@@ -68,11 +68,11 @@ export default function Footer() {
           <Link href="/">
             AI ART <em>STORE</em>
           </Link>
-          <p>探索照片的藝術可能，從風格預覽到數位作品、印刷與配框規劃。</p>
+          <p>探索照片的藝術可能，從風格預覽到數位作品、印刷與帆布輸出規劃。</p>
           <div>
             <span>私有作品</span>
-            <span>120 cm 幅寬</span>
-            <span>長幅客製</span>
+            <span>油畫布／帆布</span>
+            <span>裸框成品</span>
           </div>
         </div>
         <div className="clone-footer-columns">

@@ -14,7 +14,7 @@ export default function Page() {
           <aside>
             <h2>開始之前</h2>
             <p>想做大尺寸作品？可先測量牆面與家具位置，記下成品寬高與用途。</p>
-            <Link href="/large-format">查看 120 cm 大圖輸出規劃 →</Link>
+            <Link href="/large-format">查看帆布裸框作品 →</Link>
             <h3>常用入口</h3>
             <Link href="/my-orders">找回我的作品 →</Link>
             <Link href="/tools/portrait-style-finder">比較藝術風格 →</Link>

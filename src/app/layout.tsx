@@ -6,9 +6,9 @@ import "./reference-flow.css";
 import Footer from "@/components/site/Footer";
 import "./subpages.css";
 export const metadata: Metadata = {
-  title: "AI ART STORE｜大尺寸藝術・120 cm 幅寬客製",
+  title: "AI ART STORE｜油畫布／帆布裸框",
   description:
-    "結合 AI 照片藝術與大圖輸出工藝，提供 120 cm 可印幅寬、長幅客製及尺寸配框規劃，為居家與商業空間打造專屬作品。",
+    "將照片化為專屬藝術作品，提供油畫布／帆布裸框輸出與方便物流寄送的標準尺寸。",
 };
 export default function RootLayout({
   children,

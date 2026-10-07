@@ -10,7 +10,7 @@ import "./storefront.css";
 const questions = [
   [
     "如何製作我的專屬藝術作品？",
-    "上傳照片，選擇喜歡的藝術風格，再預覽 AI 生成的作品。選好作品後，可以挑選尺寸與畫框，確認配框效果。",
+    "上傳照片，選擇喜歡的藝術風格，再預覽 AI 生成的作品。選好作品後，可以挑選帆布尺寸，確認帆布效果。",
   ],
   [
     "可以先看看風格再上傳嗎？",
@@ -21,12 +21,12 @@ const questions = [
     "建議使用清晰、光線充足、主體完整的照片。人像請避免臉部被遮住，並盡量使用原始照片。",
   ],
   [
-    "可以選擇自己的尺寸與畫框嗎？",
-    "可以。在配框頁面選擇成品尺寸、畫框與卡紙，也可以使用自訂尺寸查看搭配效果。",
+    "可以選擇自己的帆布尺寸嗎？",
+    "可以。在帆布尺寸頁面選擇成品尺寸與帆布裸框，也可以使用標準尺寸查看搭配效果。",
   ],
   [
     "風格不符合期待怎麼辦？",
-    "可以回到風格選擇頁，改選另一種風格後重新創作。確認作品後，再進行配框。",
+    "可以回到風格選擇頁，改選另一種風格後重新創作。確認作品後，再選擇帆布尺寸。",
   ],
   [
     "如何查看作品與訂單？",
@@ -110,14 +110,14 @@ export default function HomePage() {
             </h1>
             <p>
               用 AI 重新詮釋你珍愛的照片。從溫柔水彩到經典油畫，探索 79
-              種風格參考，再搭配專屬尺寸與畫框。
+              種風格參考，再搭配專屬帆布尺寸。
             </p>
-            <strong>挑選風格 · 預覽作品 · 找到你的理想畫框</strong>
+            <strong>挑選風格 · 預覽作品 · 找到你的帆布作品</strong>
             <div className="arto-hero-actions">
               <Link className="arto-button" href="/shop">
                 挑選我的藝術風格 <span>→</span>
               </Link>
-              <span>先選風格，再決定配框</span>
+              <span>先選風格，再選擇帆布尺寸</span>
             </div>
           </div>
           <ArtComparison paused={paused} />
@@ -188,7 +188,7 @@ export default function HomePage() {
       <div className="arto-trust">
         <span>◇ 79 種風格參考</span>
         <span>✧ 專屬照片創作</span>
-        <span>▧ 自訂尺寸配框</span>
+        <span>▧ 帆布裸框輸出</span>
         <span>♡ 珍藏生活回憶</span>
       </div>
       <section id="how-it-works" className="arto-section arto-container">
@@ -215,10 +215,10 @@ export default function HomePage() {
             },
             {
               n: "03",
-              title: "搭配尺寸與畫框",
-              text: "選擇成品大小、畫框與卡紙，預覽作品在畫框中的完整樣貌。",
+              title: "搭配帆布尺寸",
+              text: "選擇標準尺寸，以油畫布／帆布裸框呈現你的專屬藝術作品。",
               image: "/images/reference/how-to-step-3.webp",
-              tag: "自訂尺寸 · 配框預覽",
+              tag: "標準尺寸 · 帆布預覽",
             },
           ].map((step) => (
             <article className="arto-step" key={step.n}>
@@ -261,7 +261,7 @@ export default function HomePage() {
       <section id="options" className="arto-section arto-container">
         <div className="arto-heading">
           <span className="arto-eyebrow">MADE FOR YOU</span>
-          <h2>從藝術創作，到你的理想配框</h2>
+          <h2>先預覽，再選擇你的藝術作品</h2>
           <p>依照作品與空間，選擇適合你的呈現方式。</p>
         </div>
         <div className="arto-plans">
@@ -269,7 +269,7 @@ export default function HomePage() {
             {
               n: "01",
               name: "作品預覽",
-              price: "從照片開始",
+              price: "免費預覽",
               sub: "選一種喜歡的藝術風格",
               items: ["79 種風格參考", "個人照片創作", "作品預覽與挑選"],
               cta: "開始創作",
@@ -278,7 +278,7 @@ export default function HomePage() {
             {
               n: "02",
               name: "數位作品",
-              price: "保留你的藝術",
+              price: "US$9.95",
               sub: "作品完成後查看原始圖檔",
               items: ["個人作品庫", "實際解析度資訊", "私有作品預覽"],
               cta: "查看我的作品",
@@ -286,16 +286,16 @@ export default function HomePage() {
             },
             {
               n: "03",
-              name: "藝術印刷成品",
-              price: "依尺寸規劃",
+              name: "油畫布／帆布裸框",
+              price: "US$80 起",
               sub: "把喜歡的作品帶進生活空間",
               items: [
-                "120 cm 可印幅寬",
-                "長幅與自訂尺寸",
-                "紙材、框色與卡紙搭配",
+                "油畫布／帆布輸出",
+                "裸框成品",
+                "方便寄送的標準尺寸",
               ],
               cta: "規劃印刷成品",
-              href: "/large-format",
+              href: "/customize",
             },
           ].map((p, i) => (
             <article
@@ -323,6 +323,7 @@ export default function HomePage() {
             </article>
           ))}
         </div>
+        <p className="arto-center">展示價格參考 FrameArto，幣別為美元（USD）；帆布價格依尺寸而異。正式 AI 服務與結帳尚未啟用。</p>
       </section>
       <section id="faq" className="arto-section arto-faq-section">
         <div className="arto-container arto-faq">
@@ -330,7 +331,7 @@ export default function HomePage() {
             <span className="arto-eyebrow">A LITTLE HELP</span>
             <h2>想多了解一點？</h2>
             <p>
-              從照片選擇到配框，
+              從照片選擇到帆布輸出，
               <br />
               這裡整理了創作前常見的問題。
             </p>
@@ -372,8 +373,8 @@ export default function HomePage() {
               href: "/upload",
             },
             {
-              title: "為居家挑選配框",
-              text: "尺寸、畫框與卡紙，搭出理想比例。",
+              title: "為居家挑選帆布作品",
+              text: "尺寸與帆布裸框，搭出理想比例。",
               image: "/images/reference/how-to-step-3.webp",
               href: "/customize",
             },
@@ -402,12 +403,12 @@ export default function HomePage() {
         <Link href="/upload" className="arto-button">
           創作我的專屬作品 →
         </Link>
-        <small>79 種風格參考 · 自訂尺寸 · 配框預覽</small>
+        <small>79 種風格參考 · 標準尺寸 · 帆布預覽</small>
       </section>
       <div className="arto-trust">
         <span>◇ 藝術風格選擇</span>
         <span>✧ 照片專屬創作</span>
-        <span>▧ 尺寸與畫框搭配</span>
+        <span>▧ 帆布尺寸搭配</span>
         <span>♡ 為回憶找到位置</span>
       </div>
     </main>

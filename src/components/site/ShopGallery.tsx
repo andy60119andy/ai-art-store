@@ -49,7 +49,7 @@ export default function ShopGallery() {
               <ul>
                 <li>依個人照片創作</li>
                 <li>查看作品後再選呈現方式</li>
-                <li>數位作品與印刷配框規劃</li>
+                <li>數位作品與印刷帆布輸出規劃</li>
               </ul>
               <p className="clone-shop-format">
                 作品預覽 <small>· 成品依尺寸規劃</small>

@@ -157,8 +157,8 @@ export default function Header() {
                   <h4>作品與印刷</h4>
                   <Link href="/shop">全部商品風格</Link>
                   <Link href="/styles">全部風格</Link>
-                  <Link href="/large-format">120 cm 大尺寸客製</Link>
-                  <Link href="/customize">尺寸與畫框</Link>
+                  <Link href="/large-format">帆布裸框作品</Link>
+                  <Link href="/customize">帆布尺寸</Link>
                 </section>
                 <section>
                   <h4>送禮對象</h4>
@@ -200,8 +200,8 @@ export default function Header() {
           <Link href="/my-orders" className="arto-my-art">
             ▧ 我的作品
           </Link>
-          <span className="clone-currency" aria-label="幣別：新台幣">
-            TWD
+          <span className="clone-currency" aria-label="展示幣別：美元">
+            USD
           </span>
           <Link href="/login" className="arto-cart" aria-label="登入我的帳戶">
             ♙

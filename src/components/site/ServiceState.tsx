@@ -25,14 +25,14 @@ export default function ServiceState({
           <h1>{title}</h1>
           <p>{description}</p>
           <div className="arto-product-notice">
-            帳戶與作品服務尚未啟用。你可以先探索風格與配框頁面。
+            帳戶與作品服務尚未啟用。你可以先探索風格與帆布尺寸頁面。
           </div>
           <div className="arto-inline-actions">
             <Link className="arto-button" href="/styles">
               探索藝術風格 →
             </Link>
             <Link className="arto-outline" href="/customize">
-              查看配框頁
+              查看帆布尺寸頁
             </Link>
           </div>
         </div>

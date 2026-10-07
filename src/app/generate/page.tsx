@@ -184,7 +184,7 @@ export default function GeneratePage() {
               className="arto-outline"
               href={`/customize?artworkId=${artworkId}`}
             >
-              規劃印刷與配框 →
+              規劃帆布輸出 →
             </Link>
           </div>
         )}
