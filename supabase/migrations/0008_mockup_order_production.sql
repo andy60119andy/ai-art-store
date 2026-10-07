@@ -7,6 +7,10 @@ alter table public.cart_items add column if not exists custom_height_mm integer;
 alter table public.order_items add column if not exists custom_width_mm integer;
 alter table public.order_items add column if not exists custom_height_mm integer;
 
+alter table public.mockups alter column size_id drop not null;
+alter table public.mockups add column if not exists custom_width_mm integer;
+alter table public.mockups add column if not exists custom_height_mm integer;
+
 create index if not exists cart_items_mockup_id_idx on public.cart_items(mockup_id);
 create index if not exists order_items_mockup_id_idx on public.order_items(mockup_id);
 create index if not exists production_files_mockup_id_idx on public.production_files(mockup_id);
