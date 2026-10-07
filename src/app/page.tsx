@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import ArtComparison from "@/components/site/ArtComparison";
+import LargeFormatScene from "@/components/site/LargeFormatScene";
+import "./large-format.css";
 import ReferenceGallery from "@/components/site/ReferenceGallery";
 import "./storefront.css";
 
@@ -21,8 +22,8 @@ const questions = [
     "建議使用清晰、光線充足、主體完整的照片。人像請避免臉部被遮住，並盡量使用原始照片。",
   ],
   [
-    "可以選擇自己的尺寸與畫框嗎？",
-    "可以。在配框頁面選擇成品尺寸、畫框與卡紙，也可以使用自訂尺寸查看搭配效果。",
+    "最大可以印多大？",
+    "機台可印幅寬為 120 cm，長幅可依需求客製。大尺寸作品可旋轉安排進料方向；實際長度依原檔解析度、材質、加工與運送確認。裱框尺寸另依框材與結構評估。",
   ],
   [
     "風格不符合期待怎麼辦？",
@@ -102,25 +103,28 @@ export default function HomePage() {
       <section className="arto-hero">
         <div className="arto-container arto-hero-grid">
           <div className="arto-hero-copy">
-            <span className="arto-pill">✧ 專屬藝術，從一張照片開始</span>
+            <span className="arto-pill">✧ AI 藝術 × 大圖輸出工藝</span>
             <h1>
-              把你的日常照片
+              把你的故事，放大成
               <br />
-              <em>變成藝術作品</em>
+              <em>空間的主角</em>
             </h1>
             <p>
-              用 AI 重新詮釋你珍愛的照片。從溫柔水彩到經典油畫，探索 12
-              種藝術風格，再搭配專屬尺寸與畫框。
+              從一張照片，到客廳主牆的一幅畫。結合 AI
+              藝術創作與家族大圖輸出經驗，以 120 cm
+              可印幅寬與長幅客製，為你的空間找到剛好的作品。
             </p>
-            <strong>挑選風格 · 預覽作品 · 找到你的理想畫框</strong>
+            <strong>120 cm 可印幅寬 · 長幅客製 · 尺寸與配框規劃</strong>
             <div className="arto-hero-actions">
-              <Link className="arto-button" href="/upload">
-                開始創作我的作品 <span>→</span>
+              <Link className="arto-button" href="/large-format">
+                預覽我的大尺寸作品 <span>→</span>
               </Link>
-              <span>先選風格，再決定配框</span>
+              <Link href="/upload" className="lf-secondary-link">
+                從照片開始創作 ↗
+              </Link>
             </div>
           </div>
-          <ArtComparison paused={paused} />
+          <LargeFormatScene />
         </div>
         <div className="arto-filmstrip" aria-label="藝術風格輪播">
           <div className="arto-filmstrip-track">
@@ -186,15 +190,70 @@ export default function HomePage() {
         </div>
       </section>
       <div className="arto-trust">
-        <span>◇ 12 種藝術風格</span>
-        <span>✧ 專屬照片創作</span>
+        <span>◇ 120 cm 可印幅寬</span>
+        <span>✧ 長幅尺寸客製</span>
         <span>▧ 自訂尺寸配框</span>
-        <span>♡ 珍藏生活回憶</span>
+        <span>♡ 居家與商業空間</span>
       </div>
+      <section
+        className="arto-section arto-container lf-intro"
+        id="large-print"
+      >
+        <div className="arto-heading">
+          <span className="arto-eyebrow">THINK BIG · 為空間而創作</span>
+          <h2>小小的回憶，也值得一整面牆</h2>
+          <p>
+            依照牆面比例規劃作品，從一幅主畫到連續長幅，把藝術融入每天生活的空間。
+          </p>
+        </div>
+        <div className="lf-use-cards">
+          {[
+            {
+              n: "01",
+              title: "客廳主牆",
+              text: "以大尺寸主畫聚焦視線，讓家庭回憶成為家的風景。",
+              size: "90 × 120 cm",
+              image: "/images/abstract.jpg",
+            },
+            {
+              n: "02",
+              title: "走廊與長牆",
+              text: "橫向長幅、旅行全景，沿著空間延伸你的故事。",
+              size: "120 × 240 cm",
+              image: "/images/botanical.jpg",
+            },
+            {
+              n: "03",
+              title: "店面與商業空間",
+              text: "品牌色彩、迎賓主牆與系列作品，先規劃整體呈現。",
+              size: "依場地規劃",
+              image: "/images/styles/ink-wash.jpg",
+            },
+          ].map((item) => (
+            <Link href="/large-format" className="lf-use-card" key={item.n}>
+              <div className="lf-use-image">
+                <Image
+                  src={item.image}
+                  alt={`${item.title}藝術搭配示意`}
+                  fill
+                  sizes="(max-width:700px) 90vw, 30vw"
+                />
+                <span>{item.size}</span>
+              </div>
+              <small>SPACE / {item.n}</small>
+              <h3>{item.title} ↗</h3>
+              <p>{item.text}</p>
+            </Link>
+          ))}
+        </div>
+        <p className="lf-disclaimer">
+          情境與比例為視覺示意；長幅圖像需依原檔構圖、解析度與材質確認，配框另行評估。
+        </p>
+      </section>
       <section id="how-it-works" className="arto-section arto-container">
         <div className="arto-heading">
           <span className="arto-eyebrow">SIMPLE PROCESS · 簡單三步</span>
-          <h2>你的藝術作品，這樣誕生</h2>
+          <h2>從照片，到牆上的主角</h2>
           <p>從一張喜歡的照片，到一幅屬於你的畫。</p>
         </div>
         <div className="arto-steps">
@@ -215,10 +274,10 @@ export default function HomePage() {
             },
             {
               n: "03",
-              title: "搭配尺寸與畫框",
-              text: "選擇成品大小、畫框與卡紙，預覽作品在畫框中的完整樣貌。",
+              title: "規劃牆面尺寸與畫框",
+              text: "從牆面比例決定作品大小，再確認圖像解析度、紙材與畫框。",
               image: "/images/reference/how-to-step-3.webp",
-              tag: "自訂尺寸 · 配框預覽",
+              tag: "120 cm 幅寬 · 長幅規劃",
             },
           ].map((step) => (
             <article className="arto-step" key={step.n}>
@@ -261,7 +320,7 @@ export default function HomePage() {
       <section id="options" className="arto-section arto-container">
         <div className="arto-heading">
           <span className="arto-eyebrow">MADE FOR YOU</span>
-          <h2>從藝術創作，到你的理想配框</h2>
+          <h2>依照空間，選擇你的作品方案</h2>
           <p>依照作品與空間，選擇適合你的呈現方式。</p>
         </div>
         <div className="arto-plans">
@@ -277,21 +336,29 @@ export default function HomePage() {
             },
             {
               n: "02",
-              name: "專屬尺寸配框",
+              name: "大尺寸主牆作品",
               price: "依尺寸估價",
-              sub: "替作品找到合適的畫框",
-              items: ["成品尺寸選擇", "畫框與卡紙搭配", "完整配框效果預覽"],
-              cta: "前往配框",
-              href: "/customize",
+              sub: "為客廳與長牆規劃一幅主畫",
+              items: [
+                "120 cm 可印幅寬",
+                "橫幅與直幅尺寸預覽",
+                "原檔品質與配框確認",
+              ],
+              cta: "預覽大尺寸",
+              href: "/large-format",
             },
             {
               n: "03",
-              name: "我的作品收藏",
-              price: "留下美好回憶",
-              sub: "讓喜歡的作品隨時找得到",
-              items: ["個人作品管理", "查看作品細節", "繼續配框與訂單流程"],
-              cta: "查看我的作品",
-              href: "/account",
+              name: "商業空間客製",
+              price: "依需求規劃",
+              sub: "讓品牌故事延伸到整個空間",
+              items: [
+                "店面與接待區主牆",
+                "系列作品與長幅搭配",
+                "整理尺寸與材質需求",
+              ],
+              cta: "規劃空間作品",
+              href: "/large-format#planner",
             },
           ].map((p, i) => (
             <article
@@ -299,7 +366,7 @@ export default function HomePage() {
               key={p.n}
             >
               {i === 1 && (
-                <div className="arto-plan-ribbon">把藝術帶進生活</div>
+                <div className="arto-plan-ribbon">讓藝術成為空間主角</div>
               )}
               <span className="arto-plan-number">{p.n}</span>
               <h3>{p.name}</h3>
@@ -393,12 +460,12 @@ export default function HomePage() {
       </section>
       <section className="arto-final">
         <span className="arto-eyebrow">YOUR PHOTO. YOUR ART. YOUR STORY.</span>
-        <h2>準備好看見照片的另一種可能？</h2>
+        <h2>讓你喜歡的故事，佔據更好的位置。</h2>
         <p>選一張你喜歡的照片，開始打造專屬藝術作品。</p>
         <Link href="/upload" className="arto-button">
           創作我的專屬作品 →
         </Link>
-        <small>12 種藝術風格 · 自訂尺寸 · 配框預覽</small>
+        <small>12 種藝術風格 · 120 cm 幅寬 · 長幅規劃</small>
       </section>
       <div className="arto-trust">
         <span>◇ 藝術風格選擇</span>

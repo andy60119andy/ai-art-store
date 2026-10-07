@@ -16,12 +16,12 @@ export default function Header() {
   return (
     <header className="arto-header">
       <div className="arto-announcement">
-        ✓ 專屬藝術創作，從你喜歡的照片開始
+        120 cm 可印幅寬 · 長幅客製 · 從照片到空間藝術
       </div>
       <div className="arto-header-inner">
         <Link href="/" className="arto-brand">
           ▧ AI ART <em>STORE</em>
-          <small>Transform your photos into art</small>
+          <small>Art made for your space</small>
         </Link>
         <button
           className="arto-menu-toggle"
@@ -69,6 +69,7 @@ export default function Header() {
             </summary>
             <div className="arto-mega arto-mega-small">
               <Link href="/upload">照片藝術創作 →</Link>
+              <Link href="/large-format">大尺寸與長幅客製 →</Link>
               <Link href="/customize">選擇尺寸與畫框 →</Link>
               <Link href="/account">我的作品收藏 →</Link>
             </div>
@@ -79,8 +80,8 @@ export default function Header() {
           <Link href="/#how-it-works" onClick={closeMenu}>
             創作流程
           </Link>
-          <Link href="/occasions" onClick={closeMenu}>
-            場合挑選
+          <Link href="/large-format" onClick={closeMenu}>
+            大尺寸客製
           </Link>
         </nav>
         <div className="arto-header-actions">

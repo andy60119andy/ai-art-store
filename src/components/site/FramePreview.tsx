@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import "@/app/large-format.css";
+import { useEffect, useState } from "react";
 const frames = [
   { name: "自然原木", color: "#b18b60" },
   { name: "霧面黑框", color: "#232628" },
@@ -14,6 +15,23 @@ export default function FramePreview() {
     [width, setWidth] = useState(60),
     [height, setHeight] = useState(90),
     [image, setImage] = useState("watercolor-portrait");
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const w = Number(params.get("width")),
+      h = Number(params.get("height"));
+    if (
+      Number.isFinite(w) &&
+      Number.isFinite(h) &&
+      w >= 10 &&
+      h >= 10 &&
+      Math.min(w, h) <= 120
+    ) {
+      setWidth(w);
+      setHeight(h);
+    }
+  }, []);
+  const fitsPrintWidth =
+    width >= 10 && height >= 10 && Math.min(width, height) <= 120;
   const ratio = Math.max(10, width || 10) / Math.max(10, height || 10);
   return (
     <main className="arto-home arto-subpage">
@@ -21,7 +39,10 @@ export default function FramePreview() {
         <div className="arto-heading">
           <span className="arto-eyebrow">03 · MAKE IT YOURS</span>
           <h1>為作品找到理想的畫框</h1>
-          <p>探索尺寸、框色與留白，預覽作品在空間中的搭配。</p>
+          <p>
+            探索尺寸、框色與留白。120 cm
+            可印幅寬，長幅可依空間規劃；實際配框另行確認。
+          </p>
         </div>
         <div className="arto-frame-grid">
           <div className="arto-room-preview">
@@ -88,6 +109,17 @@ export default function FramePreview() {
                 />
               </label>
             </div>
+            <p
+              className={`lf-print-note ${fitsPrintWidth ? "" : "is-error"}`}
+              role="status"
+            >
+              {fitsPrintWidth
+                ? "尺寸短邊在 120 cm 可印幅寬內；長度、材質與裱框結構需確認。"
+                : "短邊超過 120 cm 或尺寸不完整，需調整尺寸或另行規劃分幅。"}
+            </p>
+            <Link href="/large-format" className="lf-room-link">
+              查看大尺寸與長幅空間示意 →
+            </Link>
             <label>選擇畫框</label>
             <div className="arto-frame-swatches">
               {frames.map((f, i) => (

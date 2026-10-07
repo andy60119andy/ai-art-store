@@ -9,9 +9,9 @@ export default function Footer() {
               AI ART <em>STORE</em>
             </Link>
             <p>
-              把喜歡的照片，
+              把喜歡的故事，
               <br />
-              變成值得珍藏的藝術。
+              變成空間的主角。
             </p>
           </div>
           {[
@@ -29,6 +29,7 @@ export default function Footer() {
               links: [
                 ["上傳照片", "/upload"],
                 ["選擇風格", "/generate"],
+                ["大尺寸與長幅", "/large-format"],
                 ["尺寸與畫框", "/customize"],
                 ["創作流程", "/#how-it-works"],
               ],
