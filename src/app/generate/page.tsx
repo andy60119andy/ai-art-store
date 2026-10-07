@@ -7,7 +7,7 @@ import { ART_STYLES } from "@/lib/ai/styles";
 const visual = ["style-v0","style-v1","style-v2","style-v3","style-v4","style-v5","style-v6","style-v7","style-v8","style-v9","style-v10","style-v11"];
 
 export default function GeneratePage() {
-  const [uploadId,setUploadId]=useState(""); const [styleKey,setStyleKey]=useState(ART_STYLES[0]?.key ?? ""); const [message,setMessage]=useState(""); const [artworkId,setArtworkId]=useState(""); const [busy,setBusy]=useState(false);
+  const [uploadId,setUploadId]=useState(""); const [styleKey,setStyleKey]=useState<string>(ART_STYLES[0]?.key ?? ""); const [message,setMessage]=useState(""); const [artworkId,setArtworkId]=useState(""); const [busy,setBusy]=useState(false);
   useEffect(()=>{const id=new URLSearchParams(window.location.search).get("uploadId");if(id)setUploadId(id)},[]);
   async function generate(){
     if(!uploadId||busy)return; setBusy(true); setMessage("正在生成你的 AI 藝術作品…"); setArtworkId("");
