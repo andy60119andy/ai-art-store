@@ -18,7 +18,7 @@ export default async function ArtworkDetailPage({ params }: { params: Promise<{ 
         <p className="eyebrow">YOUR AI ARTWORK</p><h1>{artwork.title??"AI 作品"}</h1>
         <div className="artwork-meta"><span>✓ AI 生成完成</span><span>Version {latest?.version_no??0}</span></div>
         <p>你的作品已準備好。接下來可以選擇實際尺寸、材質與畫框，預覽它掛在牆上的樣子。</p>
-        <div className="artwork-actions"><Link className="button-dark" href="/customize">把它做成掛畫 →</Link>{latest?.signedUrl&&<a className="button-light" href={latest.signedUrl} target="_blank" rel="noreferrer">開啟原圖</a>}</div>
+        <div className="artwork-actions"><Link className="button-dark" href={`/customize?artworkId=${artwork.id}`}>把它做成掛畫 →</Link>{latest?.signedUrl&&<a className="button-light" href={latest.signedUrl} target="_blank" rel="noreferrer">開啟原圖</a>}</div>
         <small>預覽使用限時私有連結，作品不會公開。</small>
       </aside>
     </section>
