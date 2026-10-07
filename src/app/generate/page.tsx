@@ -28,7 +28,12 @@ export default function GeneratePage() {
   const [artworkId, setArtworkId] = useState("");
   const [busy, setBusy] = useState(false);
   useEffect(() => {
-    const id = new URLSearchParams(window.location.search).get("uploadId");
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("uploadId");
+    const initialStyle = params.get("style");
+    if (ART_STYLES.some((style) => style.key === initialStyle)) {
+      setStyleKey(initialStyle!);
+    }
     if (id) setUploadId(id);
   }, []);
   async function generate() {
