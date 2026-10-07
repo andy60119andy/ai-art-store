@@ -6,7 +6,7 @@ import { ART_STYLES } from "@/lib/ai/styles";
 
 export default function GeneratePage() {
   const [uploadId, setUploadId] = useState("");
-  const [styleKey, setStyleKey] = useState(ART_STYLES[0].key);
+  const [styleKey, setStyleKey] = useState<string>(ART_STYLES[0].key);
   const [message, setMessage] = useState("");
   const [artworkId, setArtworkId] = useState("");
 
