@@ -28,7 +28,7 @@ export default async function ProductionPage() {
       {x.mockupUrl ? <img src={x.mockupUrl} alt="生產用畫框 Mockup" style={{width:"100%",borderRadius:10}}/> : <div style={{aspectRatio:"1",background:"#f2f2ef",borderRadius:10,display:"grid",placeItems:"center"}}>無 Mockup</div>}
       <div>
         <strong>訂單：{x.order_items?.orders?.order_number ?? "—"}</strong>
-        <p>數量：{x.order_items?.quantity ?? 1}　訂單金額：NT$ {(x.order_items?.orders?.total_twd ?? 0).toLocaleString()}</p>
+        <p>數量：{x.order_items?.quantity ?? 1}　單件：NT$ {(x.order_items?.unit_price_twd ?? 0).toLocaleString()}　訂單：NT$ {(x.order_items?.orders?.total_twd ?? 0).toLocaleString()}</p><p>尺寸：{x.order_items?.custom_width_mm&&x.order_items?.custom_height_mm?`${x.order_items.custom_width_mm} × ${x.order_items.custom_height_mm} mm`:(x.order_items?.product_sizes?.name ?? "—")}　畫框：{x.order_items?.frames?.name ?? "—"}　紙張：{x.order_items?.papers?.name ?? "—"}</p>
         <p>生產狀態：{x.production_status}</p>
         <ProductionStatusForm id={x.id} current={x.production_status}/>
       </div>
