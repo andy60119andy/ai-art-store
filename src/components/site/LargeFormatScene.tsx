@@ -2,14 +2,14 @@ import Image from "next/image";
 export default function LargeFormatScene({
   width = 120,
   height = 90,
-  image = "/images/abstract.jpg",
+  image = "/images/large-format/abstract-landscape.svg",
 }: {
   width?: number;
   height?: number;
   image?: string;
 }) {
   const ratio = width / height;
-  const artWidth = Math.min(76, (58 / 1.18) * ratio);
+  const artWidth = Math.min(76, (52 / 1.18) * ratio);
   return (
     <div
       className="lf-scene"

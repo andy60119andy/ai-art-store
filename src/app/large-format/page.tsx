@@ -31,7 +31,7 @@ export default function Page() {
         <LargeFormatScene
           width={240}
           height={120}
-          image="/images/botanical.jpg"
+          image="/images/large-format/botanical.svg"
         />
       </section>
       <div className="arto-container lf-specs">

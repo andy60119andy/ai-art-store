@@ -508,3 +508,7 @@
     transition: none;
   }
 }
+
+.arto-hero .lf-secondary-link {
+  color: #d1ddce;
+}

@@ -9,9 +9,9 @@ const presets = [
   { name: "空間長卷", width: 360, height: 120 },
 ];
 const artworks = [
-  { name: "暖色抽象", src: "/images/abstract.jpg" },
-  { name: "植物藝術", src: "/images/botanical.jpg" },
-  { name: "水墨意境", src: "/images/styles/ink-wash.jpg" },
+  { name: "暖色山景", src: "/images/large-format/abstract-landscape.svg" },
+  { name: "植物藝術", src: "/images/large-format/botanical.svg" },
+  { name: "水墨意境", src: "/images/large-format/ink-mountains.svg" },
 ];
 export default function LargeFormatPlanner() {
   const [width, setWidth] = useState(120),
