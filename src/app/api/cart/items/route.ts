@@ -45,15 +45,17 @@ export async function POST(req:Request) {
   const mockupId=body.mockupId||null;
   if(mockupId){
     const {data:mockup}=await supabase.from("mockups").select("id,artwork_id,size_id,frame_id,paper_id").eq("id",mockupId).eq("user_id",user.id).single();
-    if(!mockup||mockup.artwork_id!==artworkId||mockup.frame_id!==frame.id||mockup.paper_id!==paper.id||(!isCustom&&mockup.size_id!==size.id)) return NextResponse.json({error:"INVALID_MOCKUP"},{status:400});
+    if(!mockup||mockup.artwork_id!==artworkId||mockup.frame_id!==frame.id||mockup.paper_id!==paper.id||(!isCustom&&mockup.size_id!==size!.id)) return NextResponse.json({error:"INVALID_MOCKUP"},{status:400});
   }
   if(artworkId){
     const {data:art}=await supabase.from("artworks").select("id").eq("id",artworkId).eq("user_id",user.id).single();
     if(!art) return NextResponse.json({error:"INVALID_ARTWORK"},{status:400});
   }
 
+  const safeCustomWidthMm=customWidthMm ?? 0;
+  const safeCustomHeightMm=customHeightMm ?? 0;
   const unitPrice=isCustom
-    ? product.base_price_twd+Math.ceil((customWidthMm!*customHeightMm!)/1000000*2200)+frame.price_delta_twd+paper.price_delta_twd
+    ? product.base_price_twd+Math.ceil((safeCustomWidthMm*safeCustomHeightMm)/1000000*2200)+frame.price_delta_twd+paper.price_delta_twd
     : product.base_price_twd+size!.price_delta_twd+frame.price_delta_twd+paper.price_delta_twd;
 
   const {data,error}=await supabase.from("cart_items").insert({
