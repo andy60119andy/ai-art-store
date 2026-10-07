@@ -4,6 +4,9 @@ import { getCurrentUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 
 const BUCKET = "artwork-uploads";
+const MIN_MM = 100;
+const MAX_WIDTH_MM = 3000;
+const MAX_HEIGHT_MM = 6000;
 
 function frameColor(frame: { color: string | null; material: string | null }) {
   if (frame.color?.includes("黑")) return { outer: "#171717", inner: "#303030" };
@@ -17,25 +20,47 @@ export async function POST(request: Request) {
 
   const body = await request.json().catch(() => null);
   const artworkId = body?.artworkId;
-  const sizeId = body?.sizeId;
+  const sizeId = typeof body?.sizeId === "string" && body.sizeId.length > 0 ? body.sizeId : null;
   const frameId = body?.frameId;
   const paperId = body?.paperId;
-  if (![artworkId, sizeId, frameId, paperId].every((v) => typeof v === "string" && v.length > 0)) {
+  const customWidthMm = body?.customWidthMm == null ? null : Math.floor(Number(body.customWidthMm));
+  const customHeightMm = body?.customHeightMm == null ? null : Math.floor(Number(body.customHeightMm));
+  const isCustom = customWidthMm !== null || customHeightMm !== null;
+  const widthForValidation = customWidthMm ?? -1;
+  const heightForValidation = customHeightMm ?? -1;
+
+  if (![artworkId, frameId, paperId].every((v) => typeof v === "string" && v.length > 0)) {
     return NextResponse.json({ error: "INVALID_SELECTION" }, { status: 400 });
+  }
+  if (isCustom) {
+    if (!Number.isFinite(widthForValidation) || !Number.isFinite(heightForValidation) ||
+      widthForValidation < MIN_MM || widthForValidation > MAX_WIDTH_MM ||
+      heightForValidation < MIN_MM || heightForValidation > MAX_HEIGHT_MM) {
+      return NextResponse.json({ error: "INVALID_CUSTOM_SIZE" }, { status: 400 });
+    }
+  } else if (!sizeId) {
+    return NextResponse.json({ error: "INVALID_SIZE" }, { status: 400 });
   }
 
   const supabase = await createClient();
   const [{ data: artwork }, { data: size }, { data: frame }, { data: paper }, { data: template }] = await Promise.all([
     supabase.from("artworks").select("id").eq("id", artworkId).eq("user_id", user.id).maybeSingle(),
-    supabase.from("product_sizes").select("id,width_mm,height_mm").eq("id", sizeId).eq("active", true).maybeSingle(),
+    sizeId ? supabase.from("product_sizes").select("id,width_mm,height_mm").eq("id", sizeId).eq("active", true).maybeSingle() : Promise.resolve({ data: null }),
     supabase.from("frames").select("id,name,material,color").eq("id", frameId).eq("active", true).maybeSingle(),
     supabase.from("papers").select("id,name").eq("id", paperId).eq("active", true).maybeSingle(),
     supabase.from("frame_templates").select("border_px,mat_px,shadow_px").eq("frame_id", frameId).eq("active", true).maybeSingle()
   ]);
 
-  if (!artwork || !size || !frame || !paper) return NextResponse.json({ error: "INVALID_SELECTION" }, { status: 400 });
+  if (!artwork || !frame || !paper || (!isCustom && !size)) {
+    return NextResponse.json({ error: "INVALID_SELECTION" }, { status: 400 });
+  }
 
-  const { data: version } = await supabase.from("artwork_versions").select("storage_path,width_px,height_px").eq("artwork_id", artworkId).order("version_no", { ascending: false }).limit(1).maybeSingle();
+  const { data: version } = await supabase.from("artwork_versions")
+    .select("storage_path,width_px,height_px")
+    .eq("artwork_id", artworkId)
+    .order("version_no", { ascending: false })
+    .limit(1)
+    .maybeSingle();
   if (!version) return NextResponse.json({ error: "ARTWORK_VERSION_NOT_FOUND" }, { status: 404 });
 
   const { data: signed } = await supabase.storage.from(BUCKET).createSignedUrl(version.storage_path, 300);
@@ -49,8 +74,10 @@ export async function POST(request: Request) {
   const framePx = Math.max(32, Math.min(96, templateValues.border_px));
   const matPx = Math.max(12, Math.min(64, templateValues.mat_px));
   const shadowPx = Math.max(12, Math.min(48, templateValues.shadow_px));
+  const targetWidthMm = isCustom ? widthForValidation : size!.width_mm;
+  const targetHeightMm = isCustom ? heightForValidation : size!.height_mm;
   const artW = 720;
-  const artH = Math.max(480, Math.round(artW * (size.height_mm / size.width_mm)));
+  const artH = Math.max(240, Math.round(artW * (targetHeightMm / targetWidthMm)));
   const innerW = artW + matPx * 2;
   const innerH = artH + matPx * 2;
   const canvasW = innerW + framePx * 2 + shadowPx * 2;
@@ -79,8 +106,16 @@ export async function POST(request: Request) {
   if (upload.error) return NextResponse.json({ error: "MOCKUP_UPLOAD_FAILED" }, { status: 500 });
 
   const { data: mockup, error } = await supabase.from("mockups").insert({
-    user_id: user.id, artwork_id: artworkId, size_id: sizeId, frame_id: frameId, paper_id: paperId,
-    storage_path: path, width_px: canvasW, height_px: canvasH
+    user_id: user.id,
+    artwork_id: artworkId,
+    size_id: sizeId,
+    frame_id: frameId,
+    paper_id: paperId,
+    custom_width_mm: isCustom ? widthForValidation : null,
+    custom_height_mm: isCustom ? heightForValidation : null,
+    storage_path: path,
+    width_px: canvasW,
+    height_px: canvasH
   }).select("id,storage_path,width_px,height_px,created_at").single();
 
   if (error || !mockup) {
