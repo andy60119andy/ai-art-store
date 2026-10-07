@@ -3,6 +3,10 @@
 import { FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
+function safeNext(value: string | null) {
+  return value && value.startsWith("/") && !value.startsWith("//") ? value : "/";
+}
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -12,18 +16,24 @@ export default function LoginPage() {
     event.preventDefault();
     setBusy(true);
     setMessage("");
+
     const supabase = createClient();
+    const next = safeNext(new URLSearchParams(window.location.search).get("next"));
+    const redirectTo = new URL("/auth/callback", window.location.origin);
+    redirectTo.searchParams.set("next", next);
+
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: window.location.origin + "/auth/callback" },
+      options: { emailRedirectTo: redirectTo.toString() },
     });
-    setMessage(error ? error.message : "登入連結已寄到你的 Email。");
+
+    setMessage(error ? error.message : "登入連結已寄到你的 Email。請開啟信件完成登入。");
     setBusy(false);
   }
 
   return <main className="page"><section className="hero">
     <p className="eyebrow">ACCOUNT</p><h1>登入 AI 客製藝術商店</h1>
-    <p>輸入 Email，我們會寄送一次性登入連結。</p>
+    <p>登入後即可上傳照片、生成 AI 藝術作品並保存你的作品。</p>
     <form onSubmit={submit}><label htmlFor="email">Email</label>
       <input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
       <button type="submit" disabled={busy}>{busy ? "寄送中…" : "寄送登入連結"}</button>
