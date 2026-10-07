@@ -1228,3 +1228,16 @@
     margin-bottom: 26px;
   }
 }
+.arto-header nav > a,
+.arto-my-art,
+.arto-cart,
+.arto-mega a {
+  color: #263341;
+}
+.arto-header nav > a:hover,
+.arto-mega a:hover {
+  color: #f16a50;
+}
+.arto-header-cta {
+  color: #fff;
+}
