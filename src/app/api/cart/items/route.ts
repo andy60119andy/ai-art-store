@@ -26,7 +26,9 @@ export async function POST(req:Request) {
   const customWidthMm=body.customWidthMm==null?null:Math.floor(Number(body.customWidthMm));
   const customHeightMm=body.customHeightMm==null?null:Math.floor(Number(body.customHeightMm));
   const isCustom=customWidthMm!==null||customHeightMm!==null;
-  if(isCustom && (!Number.isFinite(customWidthMm)||!Number.isFinite(customHeightMm)||customWidthMm<MIN_MM||customWidthMm>MAX_WIDTH_MM||customHeightMm<MIN_MM||customHeightMm>MAX_HEIGHT_MM)){
+  const widthForValidation=customWidthMm ?? -1;
+  const heightForValidation=customHeightMm ?? -1;
+  if(isCustom && (!Number.isFinite(widthForValidation)||!Number.isFinite(heightForValidation)||widthForValidation<MIN_MM||widthForValidation>MAX_WIDTH_MM||heightForValidation<MIN_MM||heightForValidation>MAX_HEIGHT_MM)){
     return NextResponse.json({error:"INVALID_CUSTOM_SIZE"},{status:400});
   }
   if(!isCustom && !body.sizeId) return NextResponse.json({error:"INVALID_SIZE"},{status:400});
@@ -52,8 +54,8 @@ export async function POST(req:Request) {
     if(!art) return NextResponse.json({error:"INVALID_ARTWORK"},{status:400});
   }
 
-  const safeCustomWidthMm=customWidthMm ?? 0;
-  const safeCustomHeightMm=customHeightMm ?? 0;
+  const safeCustomWidthMm=widthForValidation;
+  const safeCustomHeightMm=heightForValidation;
   const unitPrice=isCustom
     ? product.base_price_twd+Math.ceil((safeCustomWidthMm*safeCustomHeightMm)/1000000*2200)+frame.price_delta_twd+paper.price_delta_twd
     : product.base_price_twd+size!.price_delta_twd+frame.price_delta_twd+paper.price_delta_twd;
