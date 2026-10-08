@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ArtComparison from "@/components/site/ArtComparison";
 import ReferenceGallery from "@/components/site/ReferenceGallery";
+import CanvasShowcase from "@/components/site/CanvasShowcase";
 import "./storefront.css";
 
 const questions = [
@@ -110,22 +111,28 @@ export default function HomePage() {
               <em>掛成日常。</em>
             </h1>
             <p>
-              用 AI 重新詮釋你珍愛的照片。從溫柔水彩到經典油畫，探索 79
-              種風格參考，再搭配專屬帆布尺寸。
+              讓珍愛的人、毛孩與生活片刻，成為一幅有溫度的畫。
+              挑選藝術風格，以油畫布／帆布裸框，留下屬於你的故事。
             </p>
-            <strong>挑選風格 · 預覽作品 · 找到你的帆布作品</strong>
+            <strong>油畫布／帆布裸框 · 標準尺寸 · 台灣本島配送</strong>
             <div className="arto-hero-actions">
               <Link className="arto-button" href="/shop">
-                探索我的藝術風格 <span>→</span>
+                挑選我的作品風格 <span>→</span>
               </Link>
-              <span>先選風格，再選擇帆布尺寸</span>
+              <Link href="/#canvas-details" className="atelier-secondary">
+                先看看帆布成品 ↗
+              </Link>
             </div>
             <div className="studio-edition">
               <b>01 /</b>
               <span>你的照片 · 藝術風格 · 帆布裸框</span>
             </div>
           </div>
-          <ArtComparison paused={paused} />
+          <CanvasShowcase paused={paused} />
+        </div>
+        <div className="atelier-test-note arto-container">
+          <span>內部體驗版</span>可瀏覽風格與預覽尺寸。正式 AI
+          創作、付款與出貨尚未開放。
         </div>
         <div className="arto-filmstrip" aria-label="藝術風格輪播">
           <div className="arto-filmstrip-track">
@@ -196,6 +203,49 @@ export default function HomePage() {
         <span>▧ 帆布裸框輸出</span>
         <span>♡ 珍藏生活回憶</span>
       </div>
+      <section
+        id="canvas-details"
+        className="arto-section arto-container atelier-materials"
+      >
+        <div className="arto-heading">
+          <span className="arto-eyebrow">MADE TO LIVE WITH YOU</span>
+          <h2>
+            一幅畫，
+            <br />
+            也是家的溫度。
+          </h2>
+          <p>
+            從照片的藝術方向，到牆面上的比例。
+            <br />
+            先了解你會選擇的成品，再開始創作。
+          </p>
+          <Link className="arto-outline" href="/customize">
+            體驗尺寸與橫直向預覽 ↗
+          </Link>
+        </div>
+        <div className="atelier-detail-grid">
+          <article>
+            <span>01 / THE MATERIAL</span>
+            <h3>油畫布／帆布</h3>
+            <p>以布面呈現作品。紙張、外框與卡紙不列入目前的成品選項。</p>
+          </article>
+          <article>
+            <span>02 / THE FINISH</span>
+            <h3>裸框呈現</h3>
+            <p>帆布繃在內部木框，呈現簡潔邊緣；不加外部裝飾框。</p>
+          </article>
+          <article>
+            <span>03 / THE SIZE</span>
+            <h3>三種標準比例</h3>
+            <p>約 20.3 × 25.4、40.6 × 50.8、61 × 76.2 cm，可切換橫直向預覽。</p>
+          </article>
+          <article>
+            <span>04 / THE DELIVERY</span>
+            <h3>台灣本島宅配</h3>
+            <p>離島與海外暫不配送。正式尺寸售價與運費確認後，才開放訂購。</p>
+          </article>
+        </div>
+      </section>
       <section id="styles" className="arto-section arto-styles-section">
         <div className="arto-container">
           <div className="arto-heading">
@@ -205,10 +255,27 @@ export default function HomePage() {
           </div>
           <ReferenceGallery linkToDetails />
           <div className="arto-center">
-            <Link className="arto-outline" href="/generate">
-              前往風格創作頁 →
+            <Link className="arto-outline" href="/shop">
+              挑選風格並查看照片預覽 →
             </Link>
           </div>
+        </div>
+      </section>
+      <section className="arto-section arto-container atelier-comparison-section">
+        <ArtComparison paused={paused} />
+        <div className="arto-heading">
+          <span className="arto-eyebrow">A NEW WAY TO SEE</span>
+          <h2>
+            同一張照片，
+            <br />
+            另一種想像。
+          </h2>
+          <p>
+            拖動滑桿，比較原始照片與藝術風格參考。這是展示範例，並非即時生成的作品。
+          </p>
+          <Link className="arto-outline" href="/shop">
+            找到我喜歡的藝術方向 →
+          </Link>
         </div>
       </section>
       <section id="how-it-works" className="arto-section arto-container">
@@ -258,8 +325,8 @@ export default function HomePage() {
           ))}
         </div>
         <div className="arto-center">
-          <Link className="arto-button" href="/upload">
-            開始我的藝術創作 →
+          <Link className="arto-button" href="/shop">
+            挑選我的作品風格 →
           </Link>
         </div>
       </section>
@@ -273,12 +340,12 @@ export default function HomePage() {
           {[
             {
               n: "01",
-              name: "作品預覽",
-              price: "免費預覽",
+              name: "照片與尺寸體驗",
+              price: "免費瀏覽",
               sub: "選一種喜歡的藝術風格",
-              items: ["79 種風格參考", "個人照片創作", "作品預覽與挑選"],
-              cta: "開始創作",
-              href: "/upload",
+              items: ["79 種風格參考", "原始照片本機預覽", "帆布尺寸示意"],
+              cta: "挑選作品風格",
+              href: "/shop",
             },
             {
               n: "02",
@@ -300,11 +367,11 @@ export default function HomePage() {
             },
           ].map((p, i) => (
             <article
-              className={`arto-plan ${i === 1 ? "featured" : ""}`}
+              className={`arto-plan ${i === 2 ? "featured" : ""}`}
               key={p.n}
             >
-              {i === 1 && (
-                <div className="arto-plan-ribbon">把藝術帶進生活</div>
+              {i === 2 && (
+                <div className="arto-plan-ribbon">帆布成品 · 主要服務</div>
               )}
               <span className="arto-plan-number">{p.n}</span>
               <h3>{p.name}</h3>
@@ -317,7 +384,7 @@ export default function HomePage() {
               </ul>
               <Link
                 href={p.href}
-                className={i === 1 ? "arto-button" : "arto-outline"}
+                className={i === 2 ? "arto-button" : "arto-outline"}
               >
                 {p.cta} →
               </Link>
@@ -374,7 +441,7 @@ export default function HomePage() {
               title: "珍藏重要回憶",
               text: "將人像與生活照片變成專屬作品。",
               image: "/images/reference/styles/royal-pet-portrait-thumb.webp",
-              href: "/upload",
+              href: "/shop",
             },
             {
               title: "為居家挑選帆布作品",
@@ -404,8 +471,8 @@ export default function HomePage() {
         <span className="arto-eyebrow">YOUR PHOTO. YOUR ART. YOUR STORY.</span>
         <h2>準備好看見照片的另一種可能？</h2>
         <p>選一張你喜歡的照片，開始打造專屬藝術作品。</p>
-        <Link href="/upload" className="arto-button">
-          創作我的專屬作品 →
+        <Link href="/shop" className="arto-button">
+          挑選我的作品風格 →
         </Link>
         <small>79 種風格參考 · 標準尺寸 · 帆布預覽</small>
       </section>

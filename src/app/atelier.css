@@ -1,0 +1,397 @@
+/* Product-focused motion inspired by public studio and commerce previews. */
+body.studio-theme .arto-header-inner {
+  padding-top: 14px;
+  gap: 10px;
+}
+body.studio-theme .arto-header-cta {
+  padding: 11px 20px;
+}
+body.studio-theme .arto-section {
+  scroll-margin-top: 190px;
+}
+body.studio-theme .arto-hero {
+  padding-top: 48px;
+}
+body.studio-theme .arto-hero-grid {
+  gap: 56px;
+  padding-bottom: 32px;
+}
+body.studio-theme .arto-hero-copy h1 {
+  font-size: clamp(48px, 5.2vw, 76px);
+}
+body.studio-theme .arto-hero-copy > strong {
+  color: var(--studio-muted);
+  font-size: 12px;
+}
+body.studio-theme .atelier-secondary {
+  color: var(--studio-ink);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  font-size: 12px;
+}
+.atelier-showcase {
+  min-width: 0;
+}
+.atelier-wall {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 440px;
+  overflow: hidden;
+  perspective: 1100px;
+  background:
+    radial-gradient(ellipse at 20% 0%, #fcf9ee 0%, transparent 65%),
+    linear-gradient(120deg, #e0d9c9, #cec7b5);
+  border-radius: 160px 2px 2px 2px;
+  isolation: isolate;
+}
+.atelier-wall:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    #ffffff50 20.5%,
+    #ffffff50 23%,
+    transparent 23.5%,
+    transparent 30%,
+    #ffffff40 30.5%,
+    #ffffff40 33%,
+    transparent 33.5%
+  );
+  pointer-events: none;
+}
+.atelier-wall-label {
+  position: absolute;
+  left: 44px;
+  right: 24px;
+  top: 26px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: #455047;
+  z-index: 2;
+}
+.atelier-wall-label i {
+  font-style: normal;
+}
+.atelier-canvas {
+  position: relative;
+  width: min(58%, 300px);
+  aspect-ratio: 4/5;
+  box-shadow:
+    8px 8px 0 #9b8870,
+    14px 20px 24px #3a352c45;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))
+    scale(var(--canvas-scale, 1));
+  transform-style: preserve-3d;
+  transition:
+    transform 0.45s ease,
+    box-shadow 0.45s ease;
+}
+.atelier-canvas img {
+  object-fit: cover;
+  animation: atelier-work-in 0.5s ease both;
+}
+.atelier-weave {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      #ffffff0d 0px,
+      #ffffff0d 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #ffffff0b 0px,
+      #ffffff0b 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  pointer-events: none;
+}
+.atelier-shelf {
+  position: absolute;
+  bottom: 35px;
+  height: 10px;
+  width: 76%;
+  background: #b8a892;
+  box-shadow: 0 12px 22px #473f3135;
+  transform: skewX(-25deg);
+  z-index: -1;
+}
+.atelier-wall-caption {
+  position: absolute;
+  bottom: 15px;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: #465248;
+}
+.atelier-showcase-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0 12px;
+  align-items: center;
+}
+.atelier-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.17em;
+  color: var(--studio-muted);
+}
+body.studio-theme .atelier-showcase-info p {
+  font-family: var(--studio-display);
+  font-size: 21px;
+  margin: 8px 0 0;
+  color: var(--studio-ink);
+}
+.atelier-counter {
+  font-family: Georgia, serif;
+  color: var(--studio-accent);
+  font-size: 18px;
+  white-space: nowrap;
+}
+.atelier-switches {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.atelier-switches button {
+  padding: 10px 14px;
+  border: 1px solid var(--studio-line);
+  color: var(--studio-ink);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.atelier-switches button[aria-pressed="true"] {
+  background: var(--studio-ink);
+  color: #fffaf0;
+  border-color: var(--studio-ink);
+}
+.atelier-sizes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--studio-line);
+}
+.atelier-sizes span {
+  color: var(--studio-muted);
+  font-size: 10px;
+}
+.atelier-sizes button {
+  padding: 6px 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  font-size: 10px;
+  color: var(--studio-muted);
+  cursor: pointer;
+}
+.atelier-sizes button[aria-pressed="true"] {
+  border-color: var(--studio-accent);
+  color: var(--studio-accent);
+}
+.atelier-showcase-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding-top: 12px;
+}
+.atelier-showcase-foot small {
+  font-size: 9px;
+  color: var(--studio-muted);
+  line-height: 1.7;
+}
+.atelier-showcase-foot a {
+  color: var(--studio-ink);
+  font-size: 11px;
+  white-space: nowrap;
+  text-underline-offset: 4px;
+}
+.atelier-test-note {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+  color: var(--studio-muted);
+  padding: 18px 0 28px;
+  line-height: 1.8;
+}
+.atelier-test-note span {
+  flex-shrink: 0;
+  font-size: 10px;
+  border: 1px solid var(--studio-line);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+body.studio-theme .atelier-materials {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 72px;
+  padding-block: 90px;
+}
+.atelier-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+.atelier-detail-grid article {
+  padding-top: 20px;
+  border-top: 1px solid var(--studio-line);
+}
+.atelier-detail-grid article > span {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--studio-accent);
+}
+body.studio-theme .atelier-detail-grid h3 {
+  font-family: var(--studio-display);
+  font-size: 24px;
+  font-weight: 500;
+  margin: 14px 0;
+}
+.atelier-detail-grid p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--studio-muted);
+  margin: 0;
+}
+body.studio-theme .atelier-comparison-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 90px;
+  align-items: center;
+}
+body.studio-theme .atelier-comparison-section .arto-comparison-wrap {
+  padding: 12px;
+  border-radius: 2px;
+  transform: none;
+}
+body.studio-theme .atelier-comparison-section .arto-comparison {
+  height: 440px;
+  border-radius: 2px;
+}
+.atelier-preview-state {
+  padding: 12px 14px;
+  background: #e8eadf;
+  color: var(--studio-ink);
+  border-left: 2px solid var(--studio-ink);
+  font-size: 12px;
+  line-height: 1.8;
+}
+body.studio-theme .clone-preview-form .arto-outline {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+}
+body.studio-theme .arto-button:disabled {
+  background: #e2e3d9;
+  border-color: #d2d6c9;
+  color: #59665d;
+  cursor: not-allowed;
+  transform: none;
+}
+@keyframes atelier-work-in {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 1050px) {
+  body.studio-theme .arto-hero-grid {
+    gap: 32px;
+  }
+  .atelier-wall {
+    height: 390px;
+  }
+  body.studio-theme .atelier-materials {
+    gap: 36px;
+  }
+  body.studio-theme .atelier-comparison-section {
+    gap: 40px;
+  }
+}
+@media (max-width: 800px) {
+  body.studio-theme .arto-section {
+    scroll-margin-top: 140px;
+  }
+  body.studio-theme .arto-hero {
+    padding-top: 32px;
+  }
+  body.studio-theme .arto-hero-copy h1 {
+    font-size: 56px;
+  }
+  body.studio-theme .atelier-materials,
+  body.studio-theme .atelier-comparison-section {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .atelier-wall {
+    height: 420px;
+  }
+  .atelier-detail-grid {
+    gap: 26px;
+  }
+  .atelier-test-note {
+    align-items: flex-start;
+  }
+}
+@media (max-width: 600px) {
+  body.studio-theme .arto-hero-copy h1 {
+    font-size: 48px;
+  }
+  .atelier-wall {
+    height: 350px;
+    border-top-left-radius: 100px;
+  }
+  .atelier-wall-label {
+    left: 30px;
+    top: 22px;
+  }
+  .atelier-canvas {
+    width: 62%;
+    max-width: 230px;
+  }
+  .atelier-switches button {
+    flex: 1;
+    padding: 10px 7px;
+  }
+  .atelier-showcase-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  body.studio-theme .atelier-materials {
+    padding-block: 56px;
+  }
+  body.studio-theme .atelier-comparison-section .arto-comparison {
+    height: 350px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atelier-canvas,
+  .atelier-canvas img,
+  .atelier-switches button {
+    animation: none;
+    transition: none;
+  }
+}
+.arto-motion-paused .atelier-canvas,
+.arto-motion-paused .atelier-canvas img {
+  animation: none;
+  transition: none;
+}

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { REFERENCE_GALLERY } from "@/lib/ai/reference-gallery";
 import PreviewCreator from "./PreviewCreator";
+import { generationConfigured } from "@/lib/ai/generation-request";
 import { Breadcrumb, InnerCTA, StyleCards } from "./InnerPage";
 export default function StyleDetail({
   style,
@@ -41,12 +42,18 @@ export default function StyleDetail({
           <h1>{style.name}</h1>
           <p>將喜歡的照片，化成 {style.name} 的藝術靈感。</p>
           <div className="arto-product-price">帆布裸框 US$80 起</div>
-          <p className="clone-product-sub">數位作品 US$9.95 · 油畫布／帆布裸框 US$80 起</p>
+          <p className="clone-product-sub">
+            數位作品 US$9.95 · 油畫布／帆布裸框 US$80 起
+          </p>
           <div className="arto-product-notice">
             ✓ 先探索風格，再決定作品的呈現方式
             <br />✓ 展示價格以美元（USD）標示，依尺寸而異；正式結帳尚未啟用
           </div>
-          <PreviewCreator styleKey={style.key} styleName={style.name} />
+          <PreviewCreator
+            styleKey={style.key}
+            styleName={style.name}
+            serviceReady={generationConfigured()}
+          />
           <div className="arto-mini-process">
             <h3>從照片到藝術，簡單三步</h3>
             <div>

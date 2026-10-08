@@ -6,9 +6,11 @@ import { useCreationDraft } from "./CreationDraft";
 export default function PreviewCreator({
   styleKey,
   styleName,
+  serviceReady = false,
 }: {
   styleKey: string;
   styleName: string;
+  serviceReady?: boolean;
 }) {
   const { file, setFile, email, setEmail } = useCreationDraft();
   const input = useRef<HTMLInputElement>(null),
@@ -95,7 +97,7 @@ export default function PreviewCreator({
   }
   async function create(e: React.FormEvent) {
     e.preventDefault();
-    if (!file || busy) return;
+    if (!serviceReady || !file || busy) return;
     setBusy(true);
     setMessage("正在驗證照片並建立創作任務…");
     setLogin(false);
@@ -175,6 +177,11 @@ export default function PreviewCreator({
   return (
     <form className="arto-photo-starter clone-preview-form" onSubmit={create}>
       <h3>✧ 開始你的 {styleName}</h3>
+      {!serviceReady && (
+        <p className="atelier-preview-state">
+          目前可在本機預覽原始照片。AI 創作尚未開放，不需填寫 Email。
+        </p>
+      )}
       <div
         className={`arto-photo-drop ${drag ? "dragging" : ""}`}
         onDragOver={(e) => {
@@ -221,28 +228,39 @@ export default function PreviewCreator({
           aria-label="選擇創作照片"
         />
       </div>
-      <label htmlFor={`preview-email-${styleKey}`}>Email</label>
-      <input
-        id={`preview-email-${styleKey}`}
-        type="email"
-        autoComplete="email"
-        placeholder="your@email.com"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        disabled={busy || !!jobId}
-      />
+      {serviceReady && (
+        <>
+          <label htmlFor={`preview-email-${styleKey}`}>Email</label>
+          <input
+            id={`preview-email-${styleKey}`}
+            type="email"
+            autoComplete="email"
+            placeholder="your@email.com"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={busy || !!jobId}
+          />
+        </>
+      )}
       <button
         type="submit"
         className="arto-button"
-        disabled={!file || !email || busy || !!jobId}
+        disabled={!serviceReady || !file || !email || busy || !!jobId}
       >
-        {busy
-          ? "正在建立任務…"
-          : jobId
-            ? "已建立創作任務"
-            : "生成我的作品預覽 →"}
+        {!serviceReady
+          ? "AI 創作尚未開放"
+          : busy
+            ? "正在建立任務…"
+            : jobId
+              ? "已建立創作任務"
+              : "生成我的作品預覽 →"}
       </button>
+      {!serviceReady && (
+        <Link className="arto-outline" href="/customize">
+          先體驗帆布尺寸示意 →
+        </Link>
+      )}
       <p className="arto-photo-note">
         照片只在此分頁預覽；按下生成後才會送至本站。生成需登入並接通 AI 服務。
       </p>

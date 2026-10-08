@@ -6,6 +6,7 @@ import "./reference-flow.css";
 import Footer from "@/components/site/Footer";
 import "./subpages.css";
 import "./studio.css";
+import "./atelier.css";
 export const metadata: Metadata = {
   title: "AI ART STORE｜油畫布／帆布裸框",
   description:

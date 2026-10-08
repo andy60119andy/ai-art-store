@@ -76,7 +76,7 @@ export default function ReferenceGallery({
                 fill
                 sizes="(max-width: 650px) 45vw, (max-width: 1000px) 30vw, 23vw"
               />
-              <span>放大預覽 ↗</span>
+              <span>{linkToDetails ? "查看風格 ↗" : "放大預覽 ↗"}</span>
             </div>
             <div className="arto-style-caption">
               <small>

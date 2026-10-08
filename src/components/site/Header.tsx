@@ -202,7 +202,7 @@ export default function Header() {
           <Link href="/#how-it-works">製作流程</Link>
         </nav>
         <div className="arto-header-actions">
-          <Link href="/my-orders" className="arto-my-art">
+          <Link href="/account" className="arto-my-art">
             ▧ 我的作品
           </Link>
           <span className="clone-currency" aria-label="展示幣別：美元">
