@@ -1,11 +1,6 @@
-import { mockupMatchesSelection } from "@/lib/cart/mockup";
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-
-const MIN_MM = 100;
-const MAX_WIDTH_MM = 3000;
-const MAX_HEIGHT_MM = 6000;
 
 export async function GET() {
   const user = await getCurrentUser();
@@ -22,7 +17,7 @@ export async function GET() {
   const { data, error } = await supabase
     .from("cart_items")
     .select(
-      "id,product_id,artwork_id,size_id,frame_id,paper_id,custom_width_mm,custom_height_mm,mockup_id,custom_width_mm,custom_height_mm,quantity,unit_price_twd,created_at",
+      "id,product_id,artwork_id,size_id,frame_id,paper_id,custom_width_mm,custom_height_mm,mockup_id,print_orientation,quantity,unit_price_twd,created_at",
     )
     .eq("cart_id", cart.id)
     .order("created_at", { ascending: false });
@@ -46,6 +41,7 @@ export async function POST(req: Request) {
     !body.productId ||
     !body.sizeId ||
     !body.artworkId ||
+    !["portrait", "landscape"].includes(body.orientation ?? "portrait") ||
     body.frameId ||
     body.paperId ||
     body.customWidthMm ||
@@ -61,7 +57,7 @@ export async function POST(req: Request) {
       supabase.from("carts").select("id").eq("user_id", user.id).single(),
       supabase
         .from("products")
-        .select("id,base_price_twd")
+        .select("id,base_price_twd,material,price_confirmed")
         .eq("id", body.productId)
         .eq("active", true)
         .single(),
@@ -73,7 +69,7 @@ export async function POST(req: Request) {
         .single(),
       supabase
         .from("artworks")
-        .select("id")
+        .select("id,status")
         .eq("id", body.artworkId)
         .eq("user_id", user.id)
         .single(),
@@ -81,6 +77,15 @@ export async function POST(req: Request) {
   if (!cart || !product || !size || size.product_id !== product.id || !art)
     return NextResponse.json(
       { error: "INVALID_CATALOG_SELECTION" },
+      { status: 400 },
+    );
+  if (
+    product.material !== "canvas" ||
+    !product.price_confirmed ||
+    art.status !== "ready"
+  )
+    return NextResponse.json(
+      { error: "PRODUCT_OR_ARTWORK_NOT_READY" },
       { status: 400 },
     );
   const validSizes = [
@@ -112,6 +117,7 @@ export async function POST(req: Request) {
       frame_id: null,
       paper_id: null,
       quantity,
+      print_orientation: body.orientation ?? "portrait",
       unit_price_twd: unitPrice,
     })
     .select()

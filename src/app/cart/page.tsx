@@ -62,7 +62,8 @@ function LiveCartPage() {
                 {i.custom_width_mm && i.custom_height_mm
                   ? `${i.custom_width_mm} × ${i.custom_height_mm} mm · 客製尺寸`
                   : "標準尺寸"}{" "}
-                · 畫框 / 紙張已保留
+                · 油畫布／帆布裸框 ·{" "}
+                {i.print_orientation === "landscape" ? "橫式" : "直式"}
               </div>
               <div
                 style={{
@@ -110,7 +111,7 @@ function LiveCartPage() {
                 </button>
               </div>
               <p style={{ margin: 0, fontSize: 13, color: "#888" }}>
-                Mockup 與作品規格會一起帶入訂單與生產單
+                作品與帆布尺寸會保留於訂單；僅配送台灣本島
               </p>
             </div>
             <div style={{ textAlign: "right" }}>

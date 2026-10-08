@@ -129,7 +129,7 @@ export default async function OrderDetailPage({
                 {item.mockupUrl ? (
                   <img
                     src={item.mockupUrl}
-                    alt="畫框成品預覽"
+                    alt="作品成品預覽"
                     style={{ width: "100%", borderRadius: 10 }}
                   />
                 ) : (
@@ -152,7 +152,7 @@ export default async function OrderDetailPage({
                     {item.custom_width_mm && item.custom_height_mm
                       ? `${item.custom_width_mm} × ${item.custom_height_mm} mm`
                       : (size?.name ?? "—")}
-                    　畫框：{frame?.name ?? "—"}　紙張：{paper?.name ?? "—"}
+                    　材質：油畫布／帆布裸框
                   </div>
                   <div style={{ marginTop: 8 }}>
                     數量：{item.quantity}　單價：NT${" "}

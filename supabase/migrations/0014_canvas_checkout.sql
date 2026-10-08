@@ -12,10 +12,11 @@ returns table(order_id uuid,order_number text,total_twd integer)
 language plpgsql security definer set search_path=public as $$
 declare v public.orders; r record; fee integer; begin
  if auth.uid() is null then raise exception 'UNAUTHORIZED'; end if;
- if p_mode not in ('test','production') then raise exception 'INVALID_MODE'; end if;
+ if p_mode is null or p_mode not in ('test','production') then raise exception 'INVALID_MODE'; end if;
  perform pg_advisory_xact_lock(hashtextextended(auth.uid()::text,0));
  select * into v from public.orders where user_id=auth.uid() and checkout_request_id=p_request_id;
  if found then
+  if v.shipping_address is distinct from p_shipping_address then raise exception 'CHECKOUT_REQUEST_CONFLICT'; end if;
   if v.status<>'pending_payment' or v.payment_mode<>p_mode then raise exception 'ORDER_ALREADY_PROCESSED'; end if;
   return query select v.id,v.order_number,v.total_twd; return;
  end if;
@@ -28,7 +29,7 @@ declare v public.orders; r record; fee integer; begin
  if v.total_twd<=0 then raise exception 'INVALID_TOTAL'; end if;
  insert into public.payments(order_id,provider,amount_twd) values(v.id,'ecpay',v.total_twd);
  return query select v.id,v.order_number,v.total_twd;
-end $$;
+end; $$;
 revoke all on function public.checkout_canvas_order(uuid,jsonb,text) from public;
 grant execute on function public.checkout_canvas_order(uuid,jsonb,text) to authenticated;
 create or replace function public.confirm_ecpay_payment(p_order_number text,p_trade_no text,p_amount integer,p_success boolean,p_mode text)
@@ -49,6 +50,6 @@ declare v public.orders; pay public.payments; begin
   -- Test payments never enter real dispatch.
   if p_mode='production' then insert into public.shipments(order_id) values(v.id) on conflict(order_id) do nothing; end if;
  end if;
-end $$;
+end; $$;
 revoke all on function public.confirm_ecpay_payment(text,text,integer,boolean,text) from public,authenticated,anon;
 grant execute on function public.confirm_ecpay_payment(text,text,integer,boolean,text) to service_role;

@@ -4,16 +4,10 @@ import { getCurrentUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { buildEcpayPayment } from "@/lib/payments/ecpay";
 import { checkoutConfiguration } from "@/lib/checkout/config";
+import { shippingAddressSchema } from "@/lib/shipping/taiwan";
 const schema = z.object({
   requestId: z.uuid(),
-  shippingAddress: z.object({
-    recipient_name: z.string().trim().min(2).max(50),
-    phone: z.string().regex(/^09\d{8}$/),
-    postal_code: z.string().regex(/^\d{3}(\d{2,3})?$/),
-    city: z.string().trim().min(2).max(20),
-    district: z.string().trim().min(1).max(20),
-    address_line: z.string().trim().min(3).max(200),
-  }),
+  shippingAddress: shippingAddressSchema,
 });
 export async function POST(request: Request) {
   const config = checkoutConfiguration();

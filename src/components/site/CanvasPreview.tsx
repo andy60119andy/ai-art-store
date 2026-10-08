@@ -12,7 +12,11 @@ export default function CanvasPreview() {
   const [landscape, setLandscape] = useState(false);
   const [artworkId, setArtworkId] = useState("");
   const [catalog, setCatalog] = useState<{
-    products: Array<{ id: string; base_price_twd: number }>;
+    products: Array<{
+      id: string;
+      base_price_twd: number;
+      price_confirmed: boolean;
+    }>;
     sizes: Array<{
       id: string;
       product_id: string;
@@ -48,7 +52,8 @@ export default function CanvasPreview() {
     (p) => p.id === catalogSize?.product_id,
   );
   async function addToCart() {
-    if (!product || !catalogSize || !artworkId) return;
+    if (!product || !catalogSize || !artworkId || !product.price_confirmed)
+      return;
     setBusy(true);
     try {
       const r = await fetch("/api/cart/items", {
@@ -59,6 +64,7 @@ export default function CanvasPreview() {
           sizeId: catalogSize.id,
           artworkId,
           quantity: 1,
+          orientation: landscape ? "landscape" : "portrait",
         }),
       });
       const data = await r.json();
@@ -77,7 +83,7 @@ export default function CanvasPreview() {
         <div className="arto-heading">
           <span className="arto-eyebrow">YOUR ART ON CANVAS</span>
           <h1>你的藝術，印在帆布上</h1>
-          <p>油畫布／帆布輸出，裸框成品。選擇適合居家與寄送的標準尺寸。</p>
+          <p>油畫布／帆布輸出，裸框成品。標準尺寸僅配送台灣本島。</p>
         </div>
         <div className="arto-frame-grid">
           <div className="arto-room-preview">
@@ -127,7 +133,7 @@ export default function CanvasPreview() {
               <option value="portrait">直式</option>
               <option value="landscape">橫式</option>
             </select>
-            {product && catalogSize && (
+            {product?.price_confirmed && catalogSize && (
               <p>
                 此尺寸台幣售價：NT$
                 {(
@@ -138,7 +144,13 @@ export default function CanvasPreview() {
             <button
               type="button"
               className="arto-button"
-              disabled={busy || !artworkId || !product || !catalogSize}
+              disabled={
+                busy ||
+                !artworkId ||
+                !product ||
+                !catalogSize ||
+                !product?.price_confirmed
+              }
               onClick={addToCart}
             >
               {busy ? "加入中…" : "將我的帆布作品加入購物車"}
