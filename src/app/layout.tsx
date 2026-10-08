@@ -5,6 +5,7 @@ import { CreationDraftProvider } from "@/components/site/CreationDraft";
 import "./reference-flow.css";
 import Footer from "@/components/site/Footer";
 import "./subpages.css";
+import "./studio.css";
 export const metadata: Metadata = {
   title: "AI ART STORE｜油畫布／帆布裸框",
   description:
@@ -17,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-Hant">
-      <body>
+      <body className="studio-theme">
         <CreationDraftProvider>
           <Header />
           {children}

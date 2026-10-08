@@ -79,12 +79,17 @@ export default function Header() {
   return (
     <header className="arto-header clone-header">
       <div className="arto-announcement">
-        ✓ 從喜歡的照片開始，先找到你的藝術風格
+        PHOTO TO CANVAS · 你的故事，我們用藝術珍藏
       </div>
       <div className="arto-header-inner">
         <Link href="/" className="arto-brand">
-          ▧ AI ART <em>STORE</em>
-          <small>Transform your photos into art</small>
+          <span className="studio-monogram" aria-hidden="true">
+            A
+          </span>
+          <span>
+            AI ART <em>STORE</em>
+          </span>
+          <small>PERSONAL ART STUDIO</small>
         </Link>
         <button
           className="arto-menu-toggle"

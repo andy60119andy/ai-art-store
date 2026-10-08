@@ -102,11 +102,12 @@ export default function HomePage() {
       <section className="arto-hero">
         <div className="arto-container arto-hero-grid">
           <div className="arto-hero-copy">
-            <span className="arto-pill">✧ 先看風格，再創作你的作品</span>
+            <span className="studio-kicker">THE EVERYDAY ART COLLECTION</span>
+            <span className="arto-pill">從一張照片，開始一件專屬作品</span>
             <h1>
-              把你的日常照片
+              把回憶，
               <br />
-              <em>變成藝術作品</em>
+              <em>掛成日常。</em>
             </h1>
             <p>
               用 AI 重新詮釋你珍愛的照片。從溫柔水彩到經典油畫，探索 79
@@ -115,9 +116,13 @@ export default function HomePage() {
             <strong>挑選風格 · 預覽作品 · 找到你的帆布作品</strong>
             <div className="arto-hero-actions">
               <Link className="arto-button" href="/shop">
-                挑選我的藝術風格 <span>→</span>
+                探索我的藝術風格 <span>→</span>
               </Link>
               <span>先選風格，再選擇帆布尺寸</span>
+            </div>
+            <div className="studio-edition">
+              <b>01 /</b>
+              <span>你的照片 · 藝術風格 · 帆布裸框</span>
             </div>
           </div>
           <ArtComparison paused={paused} />
@@ -191,6 +196,21 @@ export default function HomePage() {
         <span>▧ 帆布裸框輸出</span>
         <span>♡ 珍藏生活回憶</span>
       </div>
+      <section id="styles" className="arto-section arto-styles-section">
+        <div className="arto-container">
+          <div className="arto-heading">
+            <span className="arto-eyebrow">FIND YOUR STYLE</span>
+            <h2>探索全部 79 種風格參考</h2>
+            <p>每一種風格，都是另一種看見回憶的方式。</p>
+          </div>
+          <ReferenceGallery linkToDetails />
+          <div className="arto-center">
+            <Link className="arto-outline" href="/generate">
+              前往風格創作頁 →
+            </Link>
+          </div>
+        </div>
+      </section>
       <section id="how-it-works" className="arto-section arto-container">
         <div className="arto-heading">
           <span className="arto-eyebrow">SIMPLE PROCESS · 簡單三步</span>
@@ -243,21 +263,6 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-      <section id="styles" className="arto-section arto-styles-section">
-        <div className="arto-container">
-          <div className="arto-heading">
-            <span className="arto-eyebrow">FIND YOUR STYLE</span>
-            <h2>探索全部 79 種風格參考</h2>
-            <p>每一種風格，都是另一種看見回憶的方式。</p>
-          </div>
-          <ReferenceGallery linkToDetails />
-          <div className="arto-center">
-            <Link className="arto-outline" href="/generate">
-              前往風格創作頁 →
-            </Link>
-          </div>
-        </div>
-      </section>
       <section id="options" className="arto-section arto-container">
         <div className="arto-heading">
           <span className="arto-eyebrow">MADE FOR YOU</span>
@@ -289,11 +294,7 @@ export default function HomePage() {
               name: "油畫布／帆布裸框",
               price: "US$80 起",
               sub: "把喜歡的作品帶進生活空間",
-              items: [
-                "油畫布／帆布輸出",
-                "裸框成品",
-                "方便寄送的標準尺寸",
-              ],
+              items: ["油畫布／帆布輸出", "裸框成品", "方便寄送的標準尺寸"],
               cta: "規劃印刷成品",
               href: "/customize",
             },
@@ -323,7 +324,10 @@ export default function HomePage() {
             </article>
           ))}
         </div>
-        <p className="arto-center">展示價格參考 FrameArto，幣別為美元（USD）；帆布價格依尺寸而異。正式 AI 服務與結帳尚未啟用。</p>
+        <p className="arto-center">
+          展示價格參考 FrameArto，幣別為美元（USD）；帆布價格依尺寸而異。正式 AI
+          服務與結帳尚未啟用。
+        </p>
       </section>
       <section id="faq" className="arto-section arto-faq-section">
         <div className="arto-container arto-faq">
