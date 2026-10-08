@@ -94,6 +94,8 @@ body.studio-theme .arto-header nav {
   min-height: 34px;
 }
 body.studio-theme .arto-header-actions {
+  grid-column: 2;
+  grid-row: 1;
   justify-content: flex-end;
   gap: 20px;
 }
@@ -134,7 +136,7 @@ body.studio-theme :is(a, button, input, select, summary):focus-visible {
 body.studio-theme .arto-hero {
   padding: 64px 0 0;
   background: var(--studio-paper);
-  overflow: visible;
+  overflow: clip;
 }
 body.studio-theme .arto-hero-grid {
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
