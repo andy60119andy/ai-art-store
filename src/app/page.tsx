@@ -11,7 +11,7 @@ import "./storefront.css";
 const questions = [
   [
     "如何製作我的專屬藝術作品？",
-    "上傳照片，選擇喜歡的藝術風格，再預覽 AI 生成的作品。選好作品後，可以挑選帆布尺寸，確認帆布效果。",
+    "先選擇喜歡的藝術風格，再在風格頁預覽你的照片。AI 服務接通後可建立專屬作品，選好作品後再搭配帆布尺寸。目前可體驗風格與尺寸示意，尚未開放正式生成與訂購。",
   ],
   [
     "可以先看看風格再上傳嗎？",
@@ -282,23 +282,23 @@ export default function HomePage() {
         <div className="arto-heading">
           <span className="arto-eyebrow">SIMPLE PROCESS · 簡單三步</span>
           <h2>你的藝術作品，這樣誕生</h2>
-          <p>從一張喜歡的照片，到一幅屬於你的畫。</p>
+          <p>先找到藝術方向，再讓照片成為作品。正式創作服務接通後適用。</p>
         </div>
         <div className="arto-steps">
           {[
             {
               n: "01",
-              title: "上傳你喜歡的照片",
-              text: "選一張清晰的照片，留下人物、旅行或生活裡值得珍藏的瞬間。",
-              image: "/images/reference/how-to-step-1.webp",
-              tag: "你的照片 · 你的故事",
+              title: "挑選你的藝術風格",
+              text: "從水彩、油畫或寵物肖像開始，找到喜歡的藝術方向，再前往風格詳情。",
+              image: "/images/reference/how-to-step-2.webp",
+              tag: "風格選擇 · 藝術方向",
             },
             {
               n: "02",
-              title: "選擇 AI 藝術風格",
-              text: "選擇你的藝術方向，查看照片與作品，再決定喜歡的呈現方式。",
-              image: "/images/reference/how-to-step-2.webp",
-              tag: "風格選擇 · 作品預覽",
+              title: "從你的照片開始",
+              text: "選擇清晰的照片並預覽原圖。服務開通後，登入並建立 AI 作品，再確認喜歡的結果。",
+              image: "/images/reference/how-to-step-1.webp",
+              tag: "照片預覽 · 專屬創作",
             },
             {
               n: "03",

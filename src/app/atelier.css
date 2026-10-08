@@ -64,7 +64,7 @@ body.studio-theme .atelier-secondary {
 }
 .atelier-wall-label {
   position: absolute;
-  left: 44px;
+  left: 110px;
   right: 24px;
   top: 26px;
   display: flex;
@@ -359,7 +359,7 @@ body.studio-theme .arto-button:disabled {
     border-top-left-radius: 100px;
   }
   .atelier-wall-label {
-    left: 30px;
+    left: 74px;
     top: 22px;
   }
   .atelier-canvas {
