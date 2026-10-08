@@ -390,7 +390,15 @@ body.studio-theme .arto-steps {
   flex-direction: column;
   gap: 32px;
 }
-body.studio-theme .arto-step {
+body.studio-theme .arto-step,
+body.studio-theme .arto-step:first-child {
+  background: transparent;
+  color: var(--studio-ink);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  min-height: 0;
+  grid-row: auto;
   display: grid;
   grid-template-columns: 140px 1fr;
   column-gap: 26px;
@@ -399,12 +407,17 @@ body.studio-theme .arto-step {
   border-bottom: 1px solid var(--studio-line);
   padding-bottom: 32px;
 }
-body.studio-theme .arto-step-image {
+body.studio-theme .arto-step-image,
+body.studio-theme .arto-step:first-child .arto-step-image {
+  height: auto;
   grid-row: span 3;
   aspect-ratio: 1;
   min-height: 0;
   border-radius: 0;
   margin: 0;
+}
+body.studio-theme .arto-step:first-child .arto-step-image:after {
+  display: none;
 }
 body.studio-theme .arto-step-image > span {
   border-radius: 0;
@@ -413,18 +426,24 @@ body.studio-theme .arto-step-image > span {
   box-shadow: none;
   font-family: Georgia, serif;
 }
-body.studio-theme .arto-step h3 {
+body.studio-theme .arto-step h3,
+body.studio-theme .arto-step:first-child h3 {
   font-family: var(--studio-display);
   font-size: 22px;
   margin: 0 0 10px;
 }
-body.studio-theme .arto-step p {
+body.studio-theme .arto-step p,
+body.studio-theme .arto-step:first-child p {
   font-size: 13px;
   line-height: 1.9;
   margin: 0 0 10px;
   color: var(--studio-muted);
 }
-body.studio-theme .arto-step small {
+body.studio-theme .arto-step small,
+body.studio-theme .arto-step:first-child small {
+  margin: 0;
+  padding: 0;
+  background: transparent;
   color: var(--studio-accent);
   font-size: 10px;
 }
