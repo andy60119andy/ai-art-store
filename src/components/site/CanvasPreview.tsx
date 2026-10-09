@@ -11,6 +11,13 @@ export default function CanvasPreview() {
   const [selected, setSelected] = useState(0);
   const [landscape, setLandscape] = useState(false);
   const [artworkId, setArtworkId] = useState("");
+  const [artwork, setArtwork] = useState<{
+    title: string;
+    status: string;
+    url: string | null;
+    version: number;
+  } | null>(null);
+  const [artworkMessage, setArtworkMessage] = useState("");
   const [catalog, setCatalog] = useState<{
     products: Array<{
       id: string;
@@ -28,14 +35,57 @@ export default function CanvasPreview() {
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
   useEffect(() => {
-    setArtworkId(
-      new URLSearchParams(window.location.search).get("artworkId") || "",
-    );
+    const controller = new AbortController();
+    const id =
+      new URLSearchParams(window.location.search).get("artworkId") || "";
+    setArtworkId(id);
+    if (id) {
+      setArtworkMessage("正在載入你的私有作品…");
+      fetch(`/api/artworks/${encodeURIComponent(id)}`, {
+        cache: "no-store",
+        signal: controller.signal,
+      })
+        .then(async (r) => {
+          if (!r.ok)
+            throw new Error(
+              r.status === 401
+                ? "請登入後再選擇你的作品。"
+                : "無法載入這件作品，請回作品庫重新選擇。",
+            );
+          return r.json();
+        })
+        .then((data) => {
+          const versions = [...(data.artwork.artwork_versions ?? [])].sort(
+            (a, b) => b.version_no - a.version_no,
+          );
+          const latest = versions[0];
+          setArtwork({
+            title: data.artwork.title || "我的藝術作品",
+            status: data.artwork.status,
+            url: latest?.signedUrl || null,
+            version: latest?.version_no || 0,
+          });
+          setArtworkMessage(
+            data.artwork.status === "ready" && latest?.signedUrl
+              ? ""
+              : "作品尚未完成或預覽不可用，請回作品庫確認。",
+          );
+        })
+        .catch((error) => {
+          if (!controller.signal.aborted)
+            setArtworkMessage(
+              error instanceof Error ? error.message : "作品載入失敗",
+            );
+        });
+    }
     if (process.env.NEXT_PUBLIC_SUPABASE_URL)
-      fetch("/api/catalog")
+      fetch("/api/catalog", { signal: controller.signal })
         .then((r) => (r.ok ? r.json() : null))
         .then(setCatalog)
-        .catch(() => setMessage("商品資料暫時無法載入"));
+        .catch(() => {
+          if (!controller.signal.aborted) setMessage("商品資料暫時無法載入");
+        });
+    return () => controller.abort();
   }, []);
   const size = sizes[selected];
   const mm = [
@@ -52,7 +102,14 @@ export default function CanvasPreview() {
     (p) => p.id === catalogSize?.product_id,
   );
   async function addToCart() {
-    if (!product || !catalogSize || !artworkId || !product.price_confirmed)
+    if (
+      !product ||
+      !catalogSize ||
+      !artworkId ||
+      !product.price_confirmed ||
+      artwork?.status !== "ready" ||
+      !artwork.url
+    )
       return;
     setBusy(true);
     try {
@@ -90,22 +147,41 @@ export default function CanvasPreview() {
             <div
               style={{
                 position: "relative",
-                width: "min(80%, 400px)",
+                width: `min(80%, ${(360 * (landscape ? size.height : size.width)) / 24}px)`,
                 aspectRatio: landscape
                   ? size.height / size.width
                   : size.width / size.height,
                 boxShadow: "8px 12px 28px rgba(0,0,0,.18)",
               }}
             >
-              <Image
-                src="/images/reference/styles/oil-painting-portrait-thumb.webp"
-                alt="油畫布裸框風格示意"
-                fill
-                sizes="(max-width: 800px) 80vw, 400px"
-                style={{ objectFit: "cover" }}
-              />
+              {!artworkId || artwork?.url ? (
+                <Image
+                  src={
+                    artworkId
+                      ? artwork!.url!
+                      : "/images/reference/styles/oil-painting-portrait-thumb.webp"
+                  }
+                  alt={
+                    artworkId
+                      ? artwork?.title || "我的藝術作品"
+                      : "油畫布裸框風格示意"
+                  }
+                  fill
+                  unoptimized={!!artworkId}
+                  sizes="(max-width: 800px) 80vw, 400px"
+                  style={{ objectFit: "cover" }}
+                />
+              ) : (
+                <div className="journey-artwork-placeholder">
+                  {artworkMessage || "正在載入作品…"}
+                </div>
+              )}
             </div>
-            <p>風格與尺寸示意；實際作品依照片與裁切確認。</p>
+            <p>
+              {artworkId
+                ? "你的作品預覽；成品比例與裁切需確認。"
+                : "示意圖非你的作品；相對尺寸示意，非實際牆面量測。"}
+            </p>
           </div>
           <div className="arto-frame-controls">
             <h2>油畫布／帆布裸框</h2>
@@ -123,6 +199,33 @@ export default function CanvasPreview() {
                 </option>
               ))}
             </select>
+            <div className="journey-specs">
+              <h3>這次選擇的成品</h3>
+              <dl>
+                <dt>作品</dt>
+                <dd>
+                  {artwork?.title ??
+                    (artworkId ? "載入中／不可用" : "風格示意圖")}
+                  {artwork?.version ? ` · 版本 ${artwork.version}` : ""}
+                </dd>
+                <dt>尺寸</dt>
+                <dd>
+                  {landscape
+                    ? `${mm[1] / 10} × ${mm[0] / 10}`
+                    : `${mm[0] / 10} × ${mm[1] / 10}`}{" "}
+                  cm · {landscape ? "橫式" : "直式"}
+                </dd>
+                <dt>成品</dt>
+                <dd>油畫布／帆布繃於內部木框，無外部裝飾框</dd>
+                <dt>配送</dt>
+                <dd>僅台灣本島宅配 · 運費另行確認</dd>
+              </dl>
+            </div>
+            {artworkMessage && (
+              <p role="status" className="arto-product-notice">
+                {artworkMessage} <Link href="/account">前往我的作品 →</Link>
+              </p>
+            )}
             <label htmlFor="canvas-orientation">作品方向</label>
             <select
               id="canvas-orientation"
@@ -147,6 +250,8 @@ export default function CanvasPreview() {
               disabled={
                 busy ||
                 !artworkId ||
+                artwork?.status !== "ready" ||
+                !artwork?.url ||
                 !product ||
                 !catalogSize ||
                 !product?.price_confirmed
@@ -156,7 +261,15 @@ export default function CanvasPreview() {
               {busy ? "加入中…" : "將我的帆布作品加入購物車"}
             </button>
             {!artworkId && (
-              <p>請先從「我的作品」選擇完成作品，再選擇帆布尺寸。</p>
+              <p>
+                目前為尺寸體驗。
+                <Link href="/account">從我的作品選擇完成作品 →</Link>
+              </p>
+            )}
+            {(!product?.price_confirmed || !catalogSize) && (
+              <p className="arto-product-notice">
+                此尺寸的正式台幣售價尚未確認，暫時無法加入購物車。
+              </p>
             )}
             {message && <p role="status">{message}</p>}
             <p>材質：油畫布／帆布</p>
